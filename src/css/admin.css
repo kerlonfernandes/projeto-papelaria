@@ -1,0 +1,224 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+* {
+    font-family: "Poppins", sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box; /* Adicionado */
+}
+
+.sidebar a {
+    padding: 10px 15px;
+    text-decoration: none;
+    font-size: 18px;
+    color: white;
+    display: block;
+    transition: 0.3s;
+}
+
+.sidebar a:hover {
+    background-color: #555;
+}
+
+.sidebar .close-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+}
+
+.content {
+    margin-left: 220px; /* Ajustado */
+    padding: 20px;
+}
+
+.menu-icon {
+    position: fixed;
+    top: 10px;
+    left: 10px;
+    cursor: pointer;
+    display: none;
+}
+
+.logout-btn {
+    bottom: 10px;
+    left: 10px;
+    color: white;
+    text-decoration: none;
+    padding: 10px 15px;
+    font-size: 18px;
+    transition: 0.3s;
+    cursor: pointer;
+}
+
+.logout-btn:hover {
+    background-color: #555;
+}
+
+.confirmation-box {
+    background-color: #fff;
+    border-radius: 5px;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    text-align: center;
+}
+
+.confirmation-box p {
+    margin-bottom: 20px;
+}
+
+.cancel-button,
+.delete-button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.cancel-button {
+    background-color: #ccc;
+}
+
+.delete-button {
+    background-color: #ff0000;
+    color: #fff;
+}
+
+.cancel-button:hover,
+.delete-button:hover {
+    background-color: #999;
+}
+
+.sys-btn {
+    border-radius: 2px !important;
+}
+
+@media (max-width: 900px) {
+
+    .box-text {
+        font-size: 10px;
+        overflow-wrap: break-word;
+
+    }
+}
+
+@media (max-width: 767px) {
+    .sidebar {
+        width: 100%;
+        left: -100%;
+        z-index: 1000;
+        padding-top: 20px;
+        transition: left 0.3s ease; 
+    }
+    .box-text {
+        font-size: 12px;
+    }
+
+    .menu-icon {
+        display: block;
+    }
+
+    .content {
+        padding: 20px;
+    }
+
+    .open-sidebar .sidebar {
+        left: 0;
+    }
+}
+
+#sidebar-container {
+    position: relative;
+}
+
+.sidebar {
+    height: 100%;
+    width: 220px;
+    position: absolute;
+    top: 0;
+    background-color: #333;
+    transition: 0.3s;
+    overflow-x: hidden;
+    padding-top: 60px;
+}
+
+.menu-icon {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    z-index: 1000;
+    display: block;
+}
+
+.close-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    z-index: 1001;
+}
+
+.panel {
+    margin-bottom: 20px;
+}
+
+.panel-header {
+    background-color: #333;
+    color: white;
+    font-size: 20px;
+    padding: 10px;
+}
+
+.panel-content {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.box {
+    position: relative;
+    width: calc(50% - 20px);
+    margin: 10px;
+    padding: 20px;
+    background-color: #f0f0f0;
+    border-radius: 5px;
+    text-align: center;
+    font-weight: 600;
+    font-size: 22px;
+    border-radius: 2px !important;
+}
+
+.badge {
+    position: absolute; 
+    top: 5px; 
+    right: 5px; 
+    background-color: #007bff;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 50%;
+    width: 50px;
+    font-size: 28px;
+}
+
+
+.btn-da-box {
+    width: 100%;
+    height:24px;
+    font-size: 2px;
+    border-radius: 0px;
+    text-align: center;
+    filter: brightness(70%);
+}
+
+.box-text {
+    padding: 1.5em;
+    overflow-wrap: break-word; 
+
+}
+
+/* .box .btn-primary {
+    margin-top: 30px;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+} */

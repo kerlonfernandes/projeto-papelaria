@@ -46,7 +46,7 @@
                   echo "Olá, {$_SESSION['user']}!";
                 }
                 else {
-                  echo "Entrar";
+                  echo "";
                 }
               ?></a>
             </li>

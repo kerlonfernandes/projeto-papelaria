@@ -6,5 +6,5 @@
     <a href="?route=painel&sys=templates-settings">Configurações Gerais</a>
     <a href="?route=painel&sys=payments">Pagamentos</a>
     <a class="logout-btn">Logout</a>
-    <span class="close-btn" onclick="closeSidebar()" style="color: white;">&#10005;</span>
+    <span class="close-btn" style="color: white;">&#10005;</span>
 </div>

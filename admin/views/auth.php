@@ -72,24 +72,24 @@
         <div class="text-center mb-4">
         <img src="<?= SITE ?>/src/images/logo.png" style="width: 256px;" class="rounded" alt="Imagem do usuário">
     </div>
-        <form class="login-form">
+        <form id="login_admin" class="login-form">
             <div class="mb-3">
-                <input type="text" class="form-control" id="user" placeholder="Username" required>
+                <input type="text" class="form-control" id="user" name="email" placeholder="Username" required>
             </div>
             <div class="mb-3">
-                <input type="password" class="form-control" id="password" placeholder="Password" required>
+                <input type="password" class="form-control" name="password" id="password" placeholder="Password" required>
             </div>
             <button type="submit" class="btn btn-primary">Login</button>
         </form>
         <p class="text-center mt-3">
-            <a href="#">Esqueceu a senha?</a> | <a href="#">Criar conta</a>
+            <a href="#">Esqueceu a senha?</a></a>
         </p>
         <div class="text-center mt-3" id="loading" style="display:none;">
             <div class="spinner-border" role="status">
                 <span class="visually-hidden">Loading...</span>
             </div>
         </div>
-        <p id="error-message" class="error-message"></p>
+      
         <div id="success-message" style="display: none;" class="alert alert-success" role="alert">
             Autenticado com Sucesso!
         </div>

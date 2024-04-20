@@ -1,10 +1,9 @@
 <?php
 
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
+
 session_start();
-$_SESSION['admin'] = "Master";
-$_SESSION['logged_admin'] = true;
+// $_SESSION['admin'] = "Master";
+// $_SESSION['logged_admin'] = true;
 
 require_once  "../core/Core.php";
 

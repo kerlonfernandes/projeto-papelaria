@@ -94,12 +94,9 @@
     border-radius: 2px !important;
 }
 
-@media (max-width: 900px) {
-
-    .box-text {
-        font-size: 10px;
-        overflow-wrap: break-word;
-
+@media (max-width: 992px) {
+    .content {
+        margin-left: 0;
     }
 }
 
@@ -109,10 +106,10 @@
         left: -100%;
         z-index: 1000;
         padding-top: 20px;
-        transition: left 0.3s ease; 
+        transition: left 0.3s ease; /* Adicionado */
     }
     .box-text {
-        font-size: 12px;
+        font-size: 10px;
     }
 
     .menu-icon {
@@ -211,8 +208,12 @@
 
 .box-text {
     padding: 1.5em;
-    overflow-wrap: break-word; 
+    overflow-wrap: break-word; /* Quebra a palavra se não couber na caixa */
 
+}
+
+.panel-btn {
+    width: 100px;
 }
 
 /* .box .btn-primary {

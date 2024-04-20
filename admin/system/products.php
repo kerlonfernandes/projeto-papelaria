@@ -23,6 +23,7 @@
                 <input type="radio" class="btn-check" name="filtro" id="data-de-cadastro" autocomplete="off" value="data-cadastro">
                 <label class="btn btn-outline-primary" for="data-de-cadastro">Data de Cadastro</label>
             </div>
+            
         </form>
         <button class="btn btn-secondary sys-btn mt-3" type="button" id="button-clear">Limpar Filtro</button>
     </div>
@@ -43,9 +44,9 @@
                 <tbody>
                     <tr>
                         <td>
-                            <button class="btn btn-success sys-btn">Acessar</button>
-                            <button class="btn btn-primary sys-btn">Editar</button>
-                            <button class="btn btn-danger sys-btn">Deletar</button>
+                            <button class="btn btn-success sys-btn panel-btn">Acessar</button>
+                            <button class="btn btn-primary sys-btn panel-btn">Editar</button>
+                            <button class="btn btn-danger sys-btn panel-btn">Deletar</button>
                         </td>
                         <td>1</td>
                         <td>Caderno</td>

@@ -9,7 +9,7 @@ error_reporting(E_ALL);
 //MYSQL configurations 
 define('MYSQL_CONFIG', [
     'host' => 'localhost',
-    'database' => '',
+    'database' => 'papelaria_db',
     'username' => 'root',
     'password' => '',
 ]);

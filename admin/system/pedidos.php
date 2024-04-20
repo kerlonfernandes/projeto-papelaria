@@ -7,10 +7,9 @@
     </div>
     <h3>Filtrar por:</h3>
 
-    <div class="btn-group-toggle mb-3" data-toggle="buttons">
-        <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+    <div class="btn-group mb-3 d-flex flex-wrap" role="group" aria-label="Basic radio toggle button group">
             <input type="radio" class="btn-check" name="filtro-radio" id="n-pedido" autocomplete="off" value="n_pedido">
-            <label class="btn btn-outline-primary" for="n-pedido">N pedido</label>
+            <label class="btn btn-outline-primary" for="n-pedido">Nº pedido</label>
 
             <input type="radio" class="btn-check" name="filtro-radio" id="filter-description" autocomplete="off" value="descricao">
             <label class="btn btn-outline-primary" for="filter-description">Usuário</label>
@@ -21,28 +20,27 @@
             <input type="radio" class="btn-check" name="filtro-radio" id="filter-quantity" autocomplete="off" value="quantidade">
             <label class="btn btn-outline-primary" for="filter-quantity">Quantidade</label>
         </div>
-    </div>
 
-    <div class="btn-group-toggle mb-3" data-toggle="buttons">
-        <div class="btn-group" role="group" aria-label="Basic checkbox toggle button group">
-            <input type="checkbox" class="btn-check" id="em-aberto" autocomplete="off" value="Em aberto">
-            <label class="btn btn-outline-primary" for="em-aberto">Em aberto</label>
 
-            <input type="checkbox" class="btn-check" id="pendentes" autocomplete="off" value="Pendente">
-            <label class="btn btn-outline-primary" for="pendentes">Pendente</label>
 
-            <input type="checkbox" class="btn-check" id="finalizados" autocomplete="off" value="Finalizar">
-            <label class="btn btn-outline-primary" for="finalizados">Finalizar</label>
+    <div class="btn-group mb-3 d-flex flex-wrap" role="group" aria-label="Basic radio toggle button group">
+    <input type="radio" class="btn-check" name="status" id="em-aberto" autocomplete="off" value="Em aberto">
+    <label class="btn btn-outline-primary" for="em-aberto">Em aberto</label>
 
-            <input type="checkbox" class="btn-check" id="entregar" autocomplete="off" value="A entregar">
-            <label class="btn btn-outline-primary" for="entregar">A entregar</label>
-            
-            <input type="checkbox" class="btn-check" id="cancel" autocomplete="off" value="Cancelado">
-            <label class="btn btn-outline-primary" for="cancel">Cancelados</label>
-        </div>
-    </div>
+    <input type="radio" class="btn-check" name="status" id="pendentes" autocomplete="off" value="Pendente">
+    <label class="btn btn-outline-primary" for="pendentes">Pendente</label>
 
+    <input type="radio" class="btn-check" name="status" id="finalizados" autocomplete="off" value="Finalizar">
+    <label class="btn btn-outline-primary" for="finalizados">Finalizar</label>
+
+    <input type="radio" class="btn-check" name="status" id="entregar" autocomplete="off" value="A entregar">
+    <label class="btn btn-outline-primary" for="entregar">A entregar</label>
+    
+    <input type="radio" class="btn-check" name="status" id="cancel" autocomplete="off" value="Cancelado">
+    <label class="btn btn-outline-primary" for="cancel">Cancelados</label>
     <button class="btn btn-secondary sys-btn" type="button" id="button-clear">Limpar Filtro</button>
+</div>
+
 </form>
 
     </div>
@@ -55,7 +53,7 @@
                         <th></th>
                         <th>ID</th>
                         <th>ID do pedido</th>
-                        <th>N Pedido</th>
+                        <th>Nº Pedido</th>
                         <th>Usuário</th>
                         <th>Quantidade de itens</th>
                         <th>Valor total</th>
@@ -67,9 +65,9 @@
                 <tbody>
                     <tr>
                         <td>
-                            <button class="btn btn-success sys-btn">Acessar</button>
-                            <button class="btn btn-primary sys-btn">Editar</button>
-                            <button class="btn btn-danger sys-btn">Deletar</button>
+                            <button class="btn btn-success sys-btn panel-btn">Acessar</button>
+                            <button class="btn btn-primary sys-btn panel-btn">Editar</button>
+                            <button class="btn btn-danger sys-btn panel-btn">Deletar</button>
                         </td>
                         <td>1</td>
                         <td>João</td>

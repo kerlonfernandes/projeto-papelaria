@@ -274,6 +274,29 @@ $(document).ready(function () {
     );
   });
 
+  // mudar imagem 
+  $(document).on('click', "#btnSalvarImagem", function() {
+    var formData = new FormData();
 
+    var fileInput = document.getElementById('novaImagem');
+    formData.append('imagem', fileInput.files[0]);
+    formData.append('image_name', $("#imagemModal").attr("data-image"))
+    console.log(formData);
+    $.ajax({
+        type: 'POST',
+        url: `${AJAX_ADMIN_URL}/mudar_imagem_produto.php`,
+        data: formData,
+        contentType: false,
+        processData: false,
+        success: function(response) {
+            console.log(response);
+        },
+        error: function(xhr, status, error) {
+            console.error('Erro ao enviar imagem:', error);
+        }
+    });
+
+    $('#uploadImagemModal').modal('hide');
+});
 
 });

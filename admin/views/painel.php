@@ -60,6 +60,9 @@
                         case "products";
                             echo "Produtos";
                             break;
+                        case "product";
+                            echo "Editar produto";
+                            break;
                         case "pedidos";
                             echo "Pedidos";
                             break;
@@ -102,7 +105,6 @@
     <script src="<?= SITE ?>/src/js/styles/styles.js?id=<?= uniqid() ?>"></script>
     <script src="<?= SITE ?>/src/js/scripts.js?id=<?= uniqid() ?>"></script>
     <script src="<?= SITE ?>/src/js/admin/admin.js?id=<?= uniqid() ?>"></script>
-
 </body>
 
 </html>

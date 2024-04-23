@@ -25,8 +25,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     $imagens = $_FILES["imagens"];
 
-    $imagens = $_FILES["imagens"];
-
     $pastaDestino =  "../../app/images/";
     if (!file_exists($pastaDestino)) {
         mkdir($pastaDestino, 0777, true);

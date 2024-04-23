@@ -59,7 +59,7 @@ $produtos = $db->execute_query($sql);
     <?php foreach ($produtos->results as $produto) : ?>
         <tr>
             <td>
-                <button class="btn btn-success sys-btn panel-btn">Acessar</button>
+                <a class="btn btn-success sys-btn panel-btn" href="<?= SITE ?>/admin/?route=painel&sys=product&id=<?= $produto->id ?>">Acessar</a>
 
                 <button class="btn btn-primary sys-btn panel-btn" data-bs-toggle="modal" data-bs-target="#editar-produto" data-produto-nome="<?= $produto->nome ?>" data-descricao="<?= $produto->descricao ?>" data-quantidade="<?= $produto->quantidade ?>" data-preco="<?= number_format($produto->preco, 2, ',', '.');  ?>" data-preco-anterior="<?= number_format($produto->preco_anterior, 2, ',', '.');  ?>" data-categoria="<?= $produto->cat_nome ?>" data-tipo="<?= $produto->tipo_nome ?>">Editar</button>
 

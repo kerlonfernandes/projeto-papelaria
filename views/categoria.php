@@ -25,7 +25,9 @@ session_start();
         <div class="spinner"></div>
     </div>
     <?php 
-print_r($route);
+    if(isset($route)){
+        print_r($route);
+    }
     ?>
 
     <?php

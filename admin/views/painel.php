@@ -1,3 +1,22 @@
+<?php 
+
+    use Midspace\Database;
+    
+    $db = new Database(MYSQL_CONFIG);
+
+    $pedidos_abertos = $db->execute_query("SELECT COUNT(id) AS p_abertos FROM `pedidos` WHERE status_pedido = 'Em aberto';")->results[0];
+    $finalizados = $db->execute_query("SELECT COUNT(id) AS p_finalizados FROM `pedidos` WHERE status_pedido = 'Finalizado';")->results[0];
+    $a_entregar = $db->execute_query("SELECT COUNT(id) AS p_a_entregar FROM `pedidos` WHERE status_pedido = 'A entregar';")->results[0];
+    $aguardando_reembolso = $db->execute_query("SELECT COUNT(id) AS a_reembolso FROM `pedidos` WHERE aguardando_reembolso = 1; ")->results[0];
+    
+    $usuarios = $db->execute_query("SELECT COUNT(id) AS usuarios_qtd FROM users;
+    ")->results[0];
+    $prod_cad = $db->execute_query("SELECT COUNT(id) AS produtos_qtd FROM produtos;")->results[0];
+
+
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 

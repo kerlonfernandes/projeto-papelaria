@@ -1,16 +1,14 @@
-
-
 <div class="container-fluid">
     <div class="container mt-5">
         <form id="pesquisar-usuario">
 
             <div class="input-group mb-3">
-                <input type="text" class="form-control" placeholder="Pesquisar" aria-label="Pesquisar" aria-describedby="button-search" name="pesquisa">
+                <input type="text" class="form-control" placeholder="Pesquisar" aria-label="Pesquisar" aria-describedby="button-search" name="pesquisa" required="">
                 <button class="btn btn-outline-primary" type="submit" id="button-search" name="pesquisa">Pesquisar</button>
             </div>
             <h3>Filtrar por:</h3>
             <div class="btn-group mb-3 d-flex flex-wrap" role="group" aria-label="Basic radio toggle button group">
-                <input type="radio" class="btn-check" name="filtro" id="filtro-nome" autocomplete="off" value="nome">
+                <input type="radio" class="btn-check" name="filtro" id="filtro-nome" autocomplete="off" value="nome" required>
                 <label class="btn btn-outline-primary mb-2" for="filtro-nome">Nome</label>
 
                 <input type="radio" class="btn-check" name="filtro" id="filtro-email" autocomplete="off" value="email">
@@ -41,7 +39,11 @@
                     </tr>
                 </thead>
                 <tbody class="usuarios-table">
-
+                    <div class="text-center mt-3" id="loading" style="display:none;">
+                        <div class="spinner-border" role="status">
+                            <span class="visually-hidden">Loading...</span>
+                        </div>
+                    </div>
 
                 </tbody>
             </table>

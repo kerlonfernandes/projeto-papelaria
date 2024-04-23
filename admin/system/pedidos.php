@@ -1,47 +1,47 @@
 <div class="container-fluid">
     <div class="container mt-5">
-    <form id="pesquisar-pedido">
-    <div class="input-group mb-3">
-        <input type="text" class="form-control" placeholder="Pesquisar" aria-label="Pesquisar" aria-describedby="button-search">
-        <button class="btn btn-outline-primary" type="submit" id="button-search">Pesquisar</button>
-    </div>
-    <h3>Filtrar por:</h3>
+        <form id="pesquisar-pedido">
+            <div class="input-group mb-3">
+                <input type="text" class="form-control" placeholder="Pesquisar" aria-label="Pesquisar" aria-describedby="button-search" name="pesquisa">
+                <button class="btn btn-outline-primary" type="submit" id="button-search">Pesquisar</button>
+            </div>
+            <h3>Filtrar por:</h3>
 
-    <div class="btn-group mb-3 d-flex flex-wrap" role="group" aria-label="Basic radio toggle button group">
-            <input type="radio" class="btn-check" name="filtro-radio" id="n-pedido" autocomplete="off" value="n_pedido">
-            <label class="btn btn-outline-primary" for="n-pedido">Nº pedido</label>
+            <div class="btn-group mb-3 d-flex flex-wrap" role="group" aria-label="Basic radio toggle button group">
+                <input type="radio" class="btn-check" name="filtro" id="n-pedido" autocomplete="off" value="n_pedido">
+                <label class="btn btn-outline-primary" for="n-pedido">Nº pedido</label>
 
-            <input type="radio" class="btn-check" name="filtro-radio" id="filter-description" autocomplete="off" value="descricao">
-            <label class="btn btn-outline-primary" for="filter-description">Usuário</label>
+                <input type="radio" class="btn-check" name="filtro" id="filter-description" autocomplete="off" value="usuario">
+                <label class="btn btn-outline-primary" for="filter-description">Usuário</label>
 
-            <input type="radio" class="btn-check" name="filtro-radio" id="filter-value" autocomplete="off" value="valor_produto">
-            <label class="btn btn-outline-primary" for="filter-value">Valor</label>
+                <input type="radio" class="btn-check" name="filtro" id="filter-value" autocomplete="off" value="valor">
+                <label class="btn btn-outline-primary" for="filter-value">Valor</label>
 
-            <input type="radio" class="btn-check" name="filtro-radio" id="filter-quantity" autocomplete="off" value="quantidade">
-            <label class="btn btn-outline-primary" for="filter-quantity">Quantidade</label>
-        </div>
+                <input type="radio" class="btn-check" name="filtro" id="filter-quantity" autocomplete="off" value="quantidade">
+                <label class="btn btn-outline-primary" for="filter-quantity">Quantidade</label>
+            </div>
 
 
+            <div class="btn-group mb-3 d-flex flex-wrap" role="group" aria-label="Basic radio toggle button group">
+                <input type="radio" class="btn-check" name="status" id="em-aberto" autocomplete="off" value="Em aberto">
+                <label class="btn btn-outline-primary" for="em-aberto">Em aberto</label>
 
-    <div class="btn-group mb-3 d-flex flex-wrap" role="group" aria-label="Basic radio toggle button group">
-    <input type="radio" class="btn-check" name="status" id="em-aberto" autocomplete="off" value="Em aberto">
-    <label class="btn btn-outline-primary" for="em-aberto">Em aberto</label>
+                <input type="radio" class="btn-check" name="status" id="pendentes" autocomplete="off" value="Pendente">
+                <label class="btn btn-outline-primary" for="pendentes">Pendente</label>
 
-    <input type="radio" class="btn-check" name="status" id="pendentes" autocomplete="off" value="Pendente">
-    <label class="btn btn-outline-primary" for="pendentes">Pendente</label>
+                <input type="radio" class="btn-check" name="status" id="finalizados" autocomplete="off" value="Finalizado">
+                <label class="btn btn-outline-primary" for="finalizados">Finalizado</label>
 
-    <input type="radio" class="btn-check" name="status" id="finalizados" autocomplete="off" value="Finalizar">
-    <label class="btn btn-outline-primary" for="finalizados">Finalizar</label>
+                <input type="radio" class="btn-check" name="status" id="entregar" autocomplete="off" value="A entregar">
+                <label class="btn btn-outline-primary" for="entregar">A entregar</label>
 
-    <input type="radio" class="btn-check" name="status" id="entregar" autocomplete="off" value="A entregar">
-    <label class="btn btn-outline-primary" for="entregar">A entregar</label>
-    
-    <input type="radio" class="btn-check" name="status" id="cancel" autocomplete="off" value="Cancelado">
-    <label class="btn btn-outline-primary" for="cancel">Cancelados</label>
-    <button class="btn btn-secondary sys-btn" type="button" id="button-clear">Limpar Filtro</button>
-</div>
+                <input type="radio" class="btn-check" name="status" id="cancel" autocomplete="off" value="Cancelado">
+                <label class="btn btn-outline-primary" for="cancel">Cancelado</label>
+                <button class="btn btn-secondary sys-btn" type="button" id="button-clear">Limpar Filtro</button>
+            </div>
 
-</form>
+
+        </form>
 
     </div>
 
@@ -52,7 +52,6 @@
                     <tr>
                         <th></th>
                         <th>ID</th>
-                        <th>ID do pedido</th>
                         <th>Nº Pedido</th>
                         <th>Usuário</th>
                         <th>Quantidade de itens</th>
@@ -62,33 +61,12 @@
 
                     </tr>
                 </thead>
-                <tbody>
-                    <tr>
-                        <td>
-                            <button class="btn btn-success sys-btn panel-btn">Acessar</button>
-                            <button class="btn btn-primary sys-btn panel-btn">Editar</button>
-                            <button class="btn btn-danger sys-btn panel-btn">Deletar</button>
-                        </td>
-                        <td>1</td>
-                        <td>João</td>
-                        <td>jdsaasd@example.com</td>
-                        <td><a href="<?= SITE ?>/admin/?route=painel&sys=usuario&id=<?= 1 ?>" style="text-decoration: none;">Nome do usuário</a></td>
-                        <td>10</td>
-                        <td>1020,00</td>
-                        <td>
-                            <div class="input-group mb-3">
-                                <select class="form-select" id="select" aria-label="Select example">
-                                    <option selected>Estado do pedido</option>
-                                    <option value="Aberto">Em Aberto</option>
-                                    <option value="Pendente">Pendente</option>
-                                    <option value="Finalizado">Finalizado</option>
-                                    <option value="A entregar">A entregar</option>
-                                    <option value="Cancelado">Cancelado</option>
-                                </select>
-                            </div>
-                        </td>
-                        <td>Não</td>
-                    </tr>
+                <tbody class="tabela-pedidos">
+                    <div class="text-center mt-3" id="loading" style="display:none;">
+                        <div class="spinner-border" role="status">
+                            <span class="visually-hidden">Loading...</span>
+                        </div>
+                    </div>
                 </tbody>
             </table>
         </div>

@@ -102,6 +102,7 @@
 
 @media (max-width: 767px) {
     .sidebar {
+        
         width: 100%;
         left: -100%;
         z-index: 1000;

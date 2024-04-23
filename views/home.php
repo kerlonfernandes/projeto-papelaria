@@ -28,25 +28,25 @@ session_start();
         <a class="centered-text categorias-titulo mt-3">Destaques</a>
     </div>
 
-    <?php include "./components_load/destaques.php" ?>
+    <?php include "./templates/destaques.php" ?>
 
     <div class="horizontal-bar mt-5 mb-5  d-flex justify-content-center align-items-center">
         <a href="<?= SITE ?>/categoria/material-escolar" class="centered-text categorias-titulo mt-3">Materiais escolares</a>
     </div>
 
-    <?php include "./components_load/materiais.php" ?>
+    <?php include "./templates/materiais.php" ?>
 
     <div class="horizontal-bar mt-5 mb-5 d-flex justify-content-center align-items-center">
         <a href="<?= SITE ?>/categoria/materiais-escritorio" class="centered-text categorias-titulo mt-3">Materiais para Escritório</a>
     </div>
-    <?php include "./components_load/materiais-escritorio.php" ?>
+    <?php include "./templates/materiais-escritorio.php" ?>
 
     <div class="horizontal-bar mt-5 mb-5 d-flex justify-content-center align-items-center">
         <a href="<?= SITE ?>/categoria/mochilas" class="centered-text categorias-titulo mt-3">Mochilas</a>
     </div>
 
 
-    <?php include "./components_load/mochilas.php" ?>
+    <?php include "./templates/mochilas.php" ?>
 
     <?php include "./components/footer.php" ?>
 

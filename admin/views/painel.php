@@ -1,7 +1,9 @@
 <?php 
 
     use Midspace\Database;
-    
+    use HelpersClass\SupAid;
+
+    $helpers = new SupAid;
     $db = new Database(MYSQL_CONFIG);
 
     $pedidos_abertos = $db->execute_query("SELECT COUNT(id) AS p_abertos FROM `pedidos` WHERE status_pedido = 'Em aberto';")->results[0];

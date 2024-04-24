@@ -3,12 +3,16 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
+
 require "../../classes/Database.inc.php";
+require "../../classes/Helpers.inc.php";
 require "../../_app/Config.inc.php";
 
 use Midspace\Database;
+use HelpersClass\SupAid;
 
 $db = new Database(MYSQL_CONFIG);
+$helpers = new SupAid();
 
 $filtro = isset($_GET['filtro']) ? $_GET['filtro'] : '';
 $search = isset($_GET['pesquisa']) ? $_GET['pesquisa'] : '';
@@ -51,6 +55,7 @@ switch ($filtro) {
         break;
 }
 
+$sql .= " ORDER BY id DESC ";
 $produtos = $db->execute_query($sql);
 
 
@@ -59,7 +64,7 @@ $produtos = $db->execute_query($sql);
     <?php foreach ($produtos->results as $produto) : ?>
         <tr>
             <td>
-                <a class="btn btn-success sys-btn panel-btn" href="<?= SITE ?>/admin/?route=painel&sys=product&id=<?= $produto->id ?>">Acessar</a>
+                <a class="btn btn-success sys-btn panel-btn" href="<?= SITE ?>/admin/?route=painel&sys=product&id=<?= $helpers->encodeURL( $produto->id ) ?>">Acessar</a>
 
                 <button class="btn btn-primary sys-btn panel-btn" data-bs-toggle="modal" data-bs-target="#editar-produto" data-produto-nome="<?= $produto->nome ?>" data-descricao="<?= $produto->descricao ?>" data-quantidade="<?= $produto->quantidade ?>" data-preco="<?= number_format($produto->preco, 2, ',', '.');  ?>" data-preco-anterior="<?= number_format($produto->preco_anterior, 2, ',', '.');  ?>" data-categoria="<?= $produto->cat_nome ?>" data-tipo="<?= $produto->tipo_nome ?>">Editar</button>
 

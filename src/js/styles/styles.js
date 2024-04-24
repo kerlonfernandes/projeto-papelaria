@@ -137,7 +137,11 @@ function confirmarDelecao() {
     alert("Item deletado com sucesso!");
 }
 
+
 function createYesNoDialog(message, yesCallback, noCallback) {
+
+    $('#yesNoModal').remove();
+    
     var dialog = document.createElement('div');
     dialog.className = 'modal fade';
     dialog.id = 'yesNoModal';

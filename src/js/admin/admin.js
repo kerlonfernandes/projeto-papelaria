@@ -263,6 +263,7 @@ $(document).ready(function () {
           type: "POST",
           data: { id_produto: id_produto },
           success: function (response) {
+            response = JSON.parse(response)
             showToast(response.status, response.message, (duration = 3000));
             load_products_table();
           },
@@ -280,8 +281,9 @@ $(document).ready(function () {
 
     var fileInput = document.getElementById('novaImagem');
     formData.append('imagem', fileInput.files[0]);
-    formData.append('image_name', $("#imagemModal").attr("data-image"))
-    console.log(formData);
+    formData.append('image_name', $("#imagemModal").attr("data-image"));
+    formData.append('id_produto', $(this).data("prod-id"));
+
     $.ajax({
         type: 'POST',
         url: `${AJAX_ADMIN_URL}/mudar_imagem_produto.php`,
@@ -289,7 +291,8 @@ $(document).ready(function () {
         contentType: false,
         processData: false,
         success: function(response) {
-            console.log(response);
+          response = JSON.parse(response)
+          showToast(response.status, response.message, (duration = 3000));
         },
         error: function(xhr, status, error) {
             console.error('Erro ao enviar imagem:', error);

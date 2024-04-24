@@ -1,6 +1,7 @@
 <?php
 
-namespace Kerlo\papelaria\app;
+namespace HelpersClass;
+
 use DateTime;
 
 class SupAid
@@ -74,6 +75,33 @@ class SupAid
         return $age->y;
     }
 
+    ///////////// ENCODE URL /////////////////////
+    function encodeURL($str)
+    {
+        $prfx = array(
+            'AFVxaIF', 'Vzc2ddS', 'ZEca3d1', 'aOdhlVq', 'QhdFmVJ', 'VTUaU5U',
+            'QRVMuiZ', 'lRZnhnU', 'Hi10dX1', 'GbT9nUV', 'TPnZGZz', 'ZGiZnZG',
+            'dodHJe5', 'dGcl0NT', 'Y0NeTZy', 'dGhnlNj', 'azc5lOD', 'BqbWedo',
+            'bFmR0Mz', 'Q1MFjNy', 'ZmFMkdm', 'dkaDIF1', 'hrMaTk3', 'aGVFsbG'
+        );
+        for ($i = 0; $i < 3; $i++) {
+            $str = $prfx[array_rand($prfx)] . strrev(base64_encode($str));
+        }
+        $str = strtr($str, "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789", "a8rqxPtfiNOlYFGdonMweLCAm0TXERcugBbj79yDVIWsh3Z5vHS46pQzKJ1Uk2");
+        return $str;
+    }
+
+    ///////////// DECODE URL /////////////////////
+    function decodeURL($str)
+    {
+        $str = strtr($str, "a8rqxPtfiNOlYFGdonMweLCAm0TXERcugBbj79yDVIWsh3Z5vHS46pQzKJ1Uk2", "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789");
+        for ($i = 0; $i < 3; $i++) {
+            $str = base64_decode(strrev(substr($str, 7)));
+        }
+        return $str;
+    }
+
+
     public function fileExists($filePath)
     {
         return file_exists($filePath);
@@ -94,5 +122,17 @@ class SupAid
     {
         header("Location: $url");
         exit();
+    }
+
+    public function hashPassword($password)
+    {
+        $hashedPassword = password_hash($password, PASSWORD_BCRYPT);
+        return $hashedPassword;
+    }
+    public function verifyPassword($password, $hashedPassword)
+    {
+
+        $passwordMatch = password_verify($password, $hashedPassword);
+        return $passwordMatch;
     }
 }

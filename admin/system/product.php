@@ -1,8 +1,9 @@
 <?php
 
+$prod_id = $helpers->decodeURL($_GET['id']);
 
 $produto = $db->execute_query("SELECT produtos.*, categorias.nome AS categoria, tipo_produto.tipo_produto AS tipo FROM produtos LEFT JOIN categorias ON categorias.id = produtos.categoria_id LEFT JOIN tipo_produto ON tipo_produto.id = produtos.tipo_produto_id WHERE produtos.id = :id", [
-    ":id" => $_GET['id']
+    ":id" => $prod_id
 ]);
 
 if ($produto->affected_rows < 1) {
@@ -54,7 +55,7 @@ $imagens_array = array_map('trim', $imagens_array);
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
-                <button type="button" class="btn btn-primary" id="btnSalvarImagem">Salvar</button>
+                <button type="button" class="btn btn-primary" id="btnSalvarImagem" data-prod-id="<?= $prod_id  ?>">Salvar</button>
             </div>
         </div>
     </div>
@@ -141,7 +142,7 @@ $imagens_array = array_map('trim', $imagens_array);
                             <input type="number" class="form-control" id="prod-quantidade" name="produto_quantidade" min="0" value="<?= $prod->quantidade ?>">
                         </div>
                         <div class="d-flex justify-content-end m-3">
-                            <button type="button" class="btn btn-danger sys-btn panel-btn deletar-produto me-3" style="width: 248px;">Deletar produto</button>
+                            <button type="button" class="btn btn-danger sys-btn panel-btn deletar-produto me-3" style="width: 248px;" data-id-produto="<?= $_GET['id'] ?>" data-produto-nome="<?= $prod->nome ?>">Deletar produto</button>
                             <button type="submit" class="btn btn-primary sys-btn panel-btn" style="width: 248px;">Editar</button>
 
                         </div>

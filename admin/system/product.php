@@ -1,5 +1,7 @@
 <?php
 
+isset($_GET['id']) ?  : $helpers->redirect(SITE . "/admin/?route=painel&sys=products");
+
 $prod_id = $helpers->decodeURL($_GET['id']);
 
 $produto = $db->execute_query("SELECT produtos.*, categorias.nome AS categoria, tipo_produto.tipo_produto AS tipo FROM produtos LEFT JOIN categorias ON categorias.id = produtos.categoria_id LEFT JOIN tipo_produto ON tipo_produto.id = produtos.tipo_produto_id WHERE produtos.id = :id", [
@@ -8,10 +10,10 @@ $produto = $db->execute_query("SELECT produtos.*, categorias.nome AS categoria, 
 
 if ($produto->affected_rows < 1) {
     echo '
-    <a type="button" class="btn sys-btn panel-btn" style="width: 248px;" href="' . SITE . '/admin/?route=painel&sys=products">Voltar</a>
+    <a type="button" class="btn sys-btn panel-btn m-4" style="width: 248px;" href="' . SITE . '/admin/?route=painel&sys=products">Voltar</a>
     <div class="alert alert-danger d-flex align-items-center" role="alert">
     <svg class="bi flex-shrink-0 me-2 m-2" role="img" aria-label="Danger:"><use xlink:href="#exclamation-triangle-fill"/></svg>
-    <div>
+    <div class="text-center">
       Produto não encontrado!
     </div>
   </div>';
@@ -69,16 +71,24 @@ $imagens_array = array_map('trim', $imagens_array);
                 <div class="carousel-inner">
                     <?php if (!empty($imagens_array)) : ?>
                         <?php foreach ($imagens_array as $key => $imagem) : ?>
+                            <?php
+                            $caminho_imagem = "../app/images/$imagem";
+                            $imagem_existente = file_exists($caminho_imagem);
+                            ?>
                             <div class="carousel-item <?php echo ($key === 0) ? 'active' : ''; ?>">
-                                <img src="../app/images/<?= $imagem; ?>" class="d-block w-100 imagem-carousel" alt="Imagem <?= $key + 1; ?>" data-bs-toggle="modal" data-bs-target="#uploadImagemModal" data-imagem="../app/images/<?= $imagem; ?>" data-img-name="<?= $imagem ?>">
+                                <?php if ($imagem_existente) : ?>
+                                    <img src="<?= $caminho_imagem; ?>" class="d-block w-100 imagem-carousel" alt="Imagem <?= $key + 1; ?>" data-bs-toggle="modal" data-bs-target="#uploadImagemModal" data-imagem="<?= $caminho_imagem; ?>" data-img-name="<?= $imagem ?>">
+                                <?php else : ?>
+
+                                    <img src="https://via.placeholder.com/600x200?text=Sem Imagem&&fg=black
+" class="d-block w-100 imagem-carousel" alt="Placeholder" data-bs-toggle="modal" data-bs-target="#uploadImagemModal">
+                                <?php endif; ?>
                             </div>
                         <?php endforeach; ?>
                     <?php else : ?>
                         <div class="alert alert-danger d-flex align-items-center" role="alert">
-                                Este produto não contem imagem, portanto, não aparecerá na home inicial do site por questões do sistema.
+                            Este produto não contém imagem, portanto, não aparecerá na home inicial do site por questões do sistema.
                         </div>
-
-                        
                     <?php endif; ?>
                 </div>
                 <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
@@ -90,84 +100,80 @@ $imagens_array = array_map('trim', $imagens_array);
                     <span class="visually-hidden">Next</span>
                 </button>
             </div>
-        </div>
-    </div>
 
-    <div class="row mt-5">
-        <div class="col-lg-12">
-            <!-- Formulário -->
-            <div class="card">
-                <div class="card-header">
-                    <h1 class="card-title">Produto</h1>
-                </div>
-                <div class="card-body">
-                    <form class="cadastro-produto">
-                        <div class="form-group">
-                            <label for="prod-nome">Nome do Produto:</label>
-                            <input type="text" class="form-control" id="prod-nome" name="produto_nome" value="<?= $prod->nome ?>">
-                        </div>
-                        <div class="form-group">
-                            <label for="prod-descricao">Descrição:</label>
-                            <textarea class="form-control" id="prod-descricao" name="produto_descricao" rows="3"><?= $prod->descricao ?></textarea>
-                        </div>
 
-                        <div class="form-group">
-                            <label for="categorias-produtos">Selecione a categoria do produto</label>
-                            <select class="form-control" id="categorias-produtos" name="categoria_produto">
-                                <option value="<?= $prod->categoria_id ?>"><?= $prod->categoria ?></option>
-                                <?php foreach ($cat as $categoria) : ?>
-                                    <option value="<?= $categoria->id ?>"><?= $categoria->nome ?></option>
-                                <?php endforeach; ?>
-                            </select>
+            <div class="row mt-5">
+                <div class="col-lg-12">
+                    <!-- Formulário -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h1 class="card-title">Produto</h1>
                         </div>
-                        <div class="form-group">
-                            <label for="tipo-produto">Selecione o tipo do produto</label>
-                            <select class="form-control" id="tipo-produtos" name="tipo_produto">
-                                <option value="<?= $prod->tipo_produto_id ?>"><?= $prod->tipo ?></option>
-                                <?php foreach ($tip as $tipo) : ?>
-                                    <option value="<?= $tipo->id ?>"><?= $tipo->tipo_produto ?></option>
-                                <?php endforeach; ?>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="prod-preco">Valor:</label>
-                            <input type="text" class="form-control" id="real" placeholder="0,00" onkeyup="formatarReal(this)" name="preco" min="0" value="<?= number_format($prod->preco, 2, ',', '.'); ?>">
-                        </div>
-                        <div class="form-group">
-                            <label for="prod-preco-anterior">Valor anterior:</label>
-                            <input type="text" class="form-control" id="prod-preco-anterior" placeholder="0,00" onkeyup="formatarReal(this)" name="preco_anterior" min="0" value="<?= number_format($prod->preco_anterior, 2, ',', '.'); ?>">
-                        </div>
-                        <div class="form-group">
-                            <label for="prod-quantidade">Quantidade:</label>
-                            <input type="number" class="form-control" id="prod-quantidade" name="produto_quantidade" min="0" value="<?= $prod->quantidade ?>">
-                        </div>
-                        <div class="d-flex justify-content-end m-3">
-                            <button type="button" class="btn btn-danger sys-btn panel-btn deletar-produto me-3" style="width: 248px;" data-id-produto="<?= $_GET['id'] ?>" data-produto-nome="<?= $prod->nome ?>">Deletar produto</button>
-                            <button type="submit" class="btn btn-primary sys-btn panel-btn" style="width: 248px;">Editar</button>
+                        <div class="card-body">
+                            <form class="editar-produto">
+                                <div class="form-group">
+                                    <label for="prod-nome">Nome do Produto:</label>
+                                    <input type="text" class="form-control" id="prod-nome" name="produto_nome" value="<?= $prod->nome ?>">
+                                </div>
+                                <div class="form-group">
+                                    <label for="prod-descricao">Descrição:</label>
+                                    <textarea class="form-control" id="prod-descricao" name="produto_descricao" rows="3"><?= $prod->descricao ?></textarea>
+                                </div>
 
+                                <div class="form-group">
+                                    <label for="categorias-produtos">Selecione a categoria do produto</label>
+                                    <select class="form-control" id="categorias-produtos" name="categoria_produto">
+                                        <option value="<?= $prod->categoria_id ?>"><?= $prod->categoria ?></option>
+                                        <?php foreach ($cat as $categoria) : ?>
+                                            <option value="<?= $categoria->id ?>"><?= $categoria->nome ?></option>
+                                        <?php endforeach; ?>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="tipo-produto">Selecione o tipo do produto</label>
+                                    <select class="form-control" id="tipo-produtos" name="tipo_produto">
+                                        <option value="<?= $prod->tipo_produto_id ?>"><?= $prod->tipo ?></option>
+                                        <?php foreach ($tip as $tipo) : ?>
+                                            <option value="<?= $tipo->id ?>"><?= $tipo->tipo_produto ?></option>
+                                        <?php endforeach; ?>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="prod-preco">Valor:</label>
+                                    <input type="text" class="form-control" id="real" placeholder="0,00" onkeyup="formatarReal(this)" name="preco" min="0" value="<?= number_format($prod->preco, 2, ',', '.'); ?>">
+                                </div>
+                                <div class="form-group">
+                                    <label for="prod-preco-anterior">Valor anterior:</label>
+                                    <input type="text" class="form-control" id="prod-preco-anterior" placeholder="0,00" onkeyup="formatarReal(this)" name="preco_anterior" min="0" value="<?= number_format($prod->preco_anterior, 2, ',', '.'); ?>">
+                                </div>
+                                <div class="form-group">
+                                    <label for="prod-quantidade">Quantidade:</label>
+                                    <input type="number" class="form-control" id="prod-quantidade" name="produto_quantidade" min="0" value="<?= $prod->quantidade ?>">
+                                </div>
+                                <div class="d-flex justify-content-end m-3">
+                                    <button type="button" class="btn btn-danger sys-btn panel-btn deletar-produto me-3" style="width: 248px;" data-id-produto="<?= $prod_id ?>" data-produto-nome="<?= $prod->nome ?>">Deletar produto</button>
+                                    <button type="submit" class="btn btn-primary sys-btn panel-btn" style="width: 248px;" data-id-produto="<?= $_GET['id'] ?>" id="editar-btn">Editar</button>
+                                </div>
+                            </form>
                         </div>
-                    </form>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-</div>
-<script>
-$(document).ready(function() {
-    $('.imagem-carousel').on('click', function() {
-        var imagemSelecionada = $(this).attr('src');
-        var img_name = $(this).attr("data-img-name");
-        $('#imagemModal').attr('src', imagemSelecionada);
-        $('#imagemModal').attr('data-image', img_name); // Correção aqui
+        
+        <script>
+            $(document).ready(function() {
+                $('.imagem-carousel').on('click', function() {
+                    var imagemSelecionada = $(this).attr('src');
+                    var img_name = $(this).attr("data-img-name");
+                    $('#imagemModal').attr('src', imagemSelecionada);
+                    $('#imagemModal').attr('data-image', img_name); // Correção aqui
 
-        $('#uploadImagemModal').modal('show');
-    });
+                    $('#uploadImagemModal').modal('show');
+                });
 
-    $('#btnSalvarImagem').on('click', function() {
-        $('#uploadImagemModal').modal('hide');
-    });
-});
-
-
-
-</script>
+                $('#btnSalvarImagem').on('click', function() {
+                    $('#uploadImagemModal').modal('hide');
+                });
+            });
+        </script>

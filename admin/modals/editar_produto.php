@@ -15,23 +15,7 @@
             <label for="prod-descricao" class="form-label">Descrição:</label>
             <textarea class="form-control" id="prod-descricao" name="produto_descricao" rows="3"></textarea>
           </div>
-          <div class="mb-3">
-            <label for="imagens" class="form-label">Adicione as imagens do imóvel:</label>
-            <input class="form-control" type="file" id="imagens" name="imagens[]" accept="image/*" multiple>
 
-            <div id="carouselExample" class="carousel slide" data-bs-ride="carousel">
-              <div class="carousel-inner">
-              </div>
-              <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Previous</span>
-              </button>
-              <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Next</span>
-              </button>
-            </div>
-          </div>
           <div class="mb-3">
             <label for="categorias-produtos-editar" class="form-label">Selecione a categoria do produto</label>
             <select class="form-select form-select" id="categorias-produtos-editar">

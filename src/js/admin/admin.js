@@ -56,9 +56,14 @@ $(document).ready(function () {
   }
   function reset_form(btn, form, callback) {
     $(btn).on("click", () => {
-      $(form)[0].reset();
-      if (typeof callback === "function") {
-        callback();
+      const formElement = document.querySelector(form);
+      if (formElement) {
+        formElement.reset();
+        if (typeof callback === "function") {
+          callback();
+        }
+      } else {
+        console.error("Form element not found");
       }
     });
   }
@@ -96,6 +101,39 @@ $(document).ready(function () {
     }
   });
 
+  var currentPage = 1;
+
+  function load_products_table_pagination(page = 1) {
+      var target = ".table-products";
+      var loader_div = "#loading";
+  
+      if ($(target).length > 0) {
+          load_view(target, loader_div, `${RELOAD_ADMIN}/produtos_table.php?page=${page}`);
+          $("#current-page").text(page);
+      }
+  }
+  
+  $(document).ready(function () {
+      load_products_table_pagination();
+  
+      // Botão "Próximo"
+      $("#next-page").click(function () {
+          currentPage++;
+          load_products_table_pagination(currentPage);
+      });
+  
+      // Botão "Anterior"
+      $("#prev-page").click(function () {
+          if (currentPage > 1) {
+              currentPage--;
+              load_products_table_pagination(currentPage);
+          }
+      });
+  });
+  
+  
+
+  
   function load_users_table(data) {
     var target = ".usuarios-table";
     var loader_div = "#loading";
@@ -255,8 +293,8 @@ $(document).ready(function () {
     let id_produto = $(this).data("id-produto");
     createYesNoDialog(
       "Tem certeza que deseja deletar o produto <strong>" +
-        $(this).data("produto-nome") +
-        "</strong> ?",
+      $(this).data("produto-nome") +
+      "</strong> ?",
       () => {
         $.ajax({
           url: `${AJAX_ADMIN_URL}/deleta_produto.php`,
@@ -276,7 +314,7 @@ $(document).ready(function () {
   });
 
   // mudar imagem 
-  $(document).on('click', "#btnSalvarImagem", function() {
+  $(document).on('click', "#btnSalvarImagem", function () {
     var formData = new FormData();
 
     var fileInput = document.getElementById('novaImagem');
@@ -285,21 +323,137 @@ $(document).ready(function () {
     formData.append('id_produto', $(this).data("prod-id"));
 
     $.ajax({
-        type: 'POST',
-        url: `${AJAX_ADMIN_URL}/mudar_imagem_produto.php`,
-        data: formData,
-        contentType: false,
-        processData: false,
-        success: function(response) {
-          response = JSON.parse(response)
-          showToast(response.status, response.message, (duration = 3000));
-        },
-        error: function(xhr, status, error) {
-            console.error('Erro ao enviar imagem:', error);
-        }
+      type: 'POST',
+      url: `${AJAX_ADMIN_URL}/mudar_imagem_produto.php`,
+      data: formData,
+      contentType: false,
+      processData: false,
+      success: function (response) {
+        response = JSON.parse(response)
+        showToast(response.status, response.message, (duration = 3000));
+      },
+      error: function (xhr, status, error) {
+        console.error('Erro ao enviar imagem:', error);
+      }
     });
 
     $('#uploadImagemModal').modal('hide');
+  });
+
+  $(document).on("submit", ".editar-produto", function (e) {
+    e.preventDefault();
+    createYesNoDialog(
+      "Tem certeza que deseja editar este produto ?",
+      () => {
+        let id_produto = $("#editar-btn").attr("data-id-produto");
+        let formData = $(this).serialize() + "&id_produto=" + id_produto;
+        $.ajax({
+          url: `${AJAX_ADMIN_URL}/editar_produto.php`,
+          type: "POST",
+          data: formData,
+          success: function (response) {
+            let res = JSON.parse(response);
+            showToast(res.status, res.message, (duration = 3000));
+            load_products_table();
+          },
+          error: function (xhr, status, error) {
+            console.error("Erro ao enviar dados:", error);
+          },
+        });
+      });
+  });
+
+  function load_categorias_table() {
+    var target = ".categorias-table";
+    var loader_div = "#loading-categorias";
+
+    if ($(target).length > 0) {
+      load_view(target, loader_div, `${RELOAD_ADMIN}/listar_categorias.php`);
+    }
+  }
+
+  $(document).ready(function () {
+    $("#categorias").on("show.bs.modal", function (e) {
+      load_categorias_table()
+    });
+  });
+
+    function load_tipos_table() {
+      var target = ".tipos-table";
+      var loader_div = "#loading-tipos";
+
+      if ($(target).length > 0) {
+        load_view(target, loader_div, `${RELOAD_ADMIN}/listar_tipos.php`);
+      }
+    }
+  $(document).ready(function () {
+    $("#tipos").on("show.bs.modal", function (e) {
+      load_tipos_table()
+    });
+  });
+
+  $(document).on("submit", ".cadastrar-tipo, .cadastrar-categoria", function (e) {
+    e.preventDefault();
+
+    const formData = $(this).serialize();
+
+    $.ajax({
+      url: `${AJAX_ADMIN_URL}/cadastar_categoria_tipo.php`,
+      type: "POST",
+      data: formData,
+      success: function (response) {
+        let res = JSON.parse(response);
+        showToast(res.status, res.message, (duration = 3000));
+        load_categorias_table();
+        load_tipos_table()
+        document.querySelector('.cadastrar-tipo').reset();
+        document.querySelector('.cadastrar-categoria').reset();
+      },
+      error: function (xhr, status, error) {
+        console.error("Erro ao enviar dados:", error);
+      },
+
+    }
+    );
+  });
+
+  $(document).on("click", ".deletar-tipo", function () {
+    let id = $(this).data("id");
+
+    $.ajax({
+      url: `${AJAX_ADMIN_URL}/deleta_tipo.php`,
+      type: "POST",
+      data: { id: id },
+      success: function (response) {
+        response = JSON.parse(response)
+        showToast(response.status, response.message, (duration = 3000));
+        load_tipos_table();
+      },
+      error: function (xhr, status, error) {
+        console.error("Erro ao enviar dados:", error);
+      },
+
+    }
+    );
+  });
+
+  $(document).on("click", ".deletar-categoria", function () {
+    let id_categoria = $(this).data("id");
+    $.ajax({
+      url: `${AJAX_ADMIN_URL}/deleta_categoria.php`,
+      type: "POST",
+      data: { id: id_categoria },
+      success: function (response) {
+        response = JSON.parse(response)
+        showToast(response.status, response.message, (duration = 3000));
+        load_categorias_table()
+      },
+      error: function (xhr, status, error) {
+        console.error("Erro ao enviar dados:", error);
+      },
+    });
+  }
+  );
 });
 
-});
+

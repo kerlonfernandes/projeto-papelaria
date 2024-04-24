@@ -75,7 +75,7 @@
                 <div class="table-responsive">
                     <h3 class="text-center mb-3">Produtos Comprados</h3>
 
-                    <table class="table table-striped">
+                    <table class="table table-striped table-hover">
                         <thead>
                             <tr>
                                 <th>ID</th>

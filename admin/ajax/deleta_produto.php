@@ -6,6 +6,7 @@ error_reporting(E_ALL);
 
 require "../../classes/Database.inc.php";
 require "../../_app/Config.inc.php";
+
 use Midspace\Database;
 
 $db = new Database(MYSQL_CONFIG);

@@ -25,7 +25,7 @@
                 <div class="mb-3 mt-3">
                     <form class="cadastrar-tipo">
                         <div class="input-group">
-                            <input type="text" class="form-control" placeholder="Escreva um novo tipo" aria-label="" name="tipo">
+                            <input type="text" class="form-control" placeholder="Escreva um novo tipo" aria-label="" name="tipo" required="">
                             <button class="btn btn-outline-success" type="submit">Cadastrar</button>
                         </div>
                     </form>

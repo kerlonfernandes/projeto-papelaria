@@ -1,6 +1,6 @@
 <?php
 
-isset($_GET['id']) ?  : $helpers->redirect(SITE . "/admin/?route=painel&sys=products");
+isset($_GET['id']) ?: $helpers->redirect(SITE . "/admin/?route=painel&sys=products");
 
 $prod_id = $helpers->decodeURL($_GET['id']);
 
@@ -67,7 +67,7 @@ $imagens_array = array_map('trim', $imagens_array);
     <div class="row">
         <div class="col-lg-12">
 
-            <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+            <div id="carouselExampleControls" class="carousel slide card" data-bs-ride="carousel">
                 <div class="carousel-inner">
                     <?php if (!empty($imagens_array)) : ?>
                         <?php foreach ($imagens_array as $key => $imagem) : ?>
@@ -104,7 +104,7 @@ $imagens_array = array_map('trim', $imagens_array);
 
             <div class="row mt-5">
                 <div class="col-lg-12">
-                    <!-- Formulário -->
+
                     <div class="card">
                         <div class="card-header">
                             <h1 class="card-title">Produto</h1>
@@ -160,7 +160,7 @@ $imagens_array = array_map('trim', $imagens_array);
                 </div>
             </div>
         </div>
-        
+
         <script>
             $(document).ready(function() {
                 $('.imagem-carousel').on('click', function() {

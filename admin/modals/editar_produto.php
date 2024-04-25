@@ -18,14 +18,14 @@
 
           <div class="mb-3">
             <label for="categorias-produtos-editar" class="form-label">Selecione a categoria do produto</label>
-            <select class="form-select form-select" id="categorias-produtos-editar">
+            <select class="form-select form-select" id="categorias-produtos-editar" name="categoria_produto">
             <option value="" class="cat-editar"></option>
             </select>
           </div>
 
           <div class="mb-3">
             <label for="tipo-produto-editar" class="form-label">Selecione o tipo do produto</label>
-            <select class="form-select form-select" id="tipo-produtos-editar">
+            <select class="form-select form-select" id="tipo-produtos-editar" name="tipo_produto">
               <option value="" class="tipo-editar"></option>
             </select>
           </div>

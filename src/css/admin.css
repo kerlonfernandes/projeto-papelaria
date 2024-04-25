@@ -4,7 +4,8 @@
     font-family: "Poppins", sans-serif;
     margin: 0;
     padding: 0;
-    box-sizing: border-box; /* Adicionado */
+    box-sizing: border-box;
+    /* Adicionado */
 }
 
 .sidebar a {
@@ -28,7 +29,8 @@
 }
 
 .content {
-    margin-left: 220px; /* Ajustado */
+    margin-left: 220px;
+    /* Ajustado */
     padding: 20px;
 }
 
@@ -41,14 +43,16 @@
 }
 
 .logout-btn {
-    bottom: 10px;
-    left: 10px;
     color: white;
     text-decoration: none;
     padding: 10px 15px;
     font-size: 18px;
     transition: 0.3s;
     cursor: pointer;
+    align-self: flex-end;
+    /* Adicionado */
+    margin-bottom: 10px;
+    /* Adicionado */
 }
 
 .logout-btn:hover {
@@ -97,7 +101,7 @@
 @media (max-width: 992px) {
     .content {
         margin-left: 0;
-        
+
     }
 
 }
@@ -116,7 +120,7 @@
         padding: 20px;
     }
 
-  
+
 }
 
 #sidebar-container {
@@ -126,13 +130,16 @@
 .sidebar {
     height: 100vh;
     width: 220px;
-    position: absolute;
+    position: fixed;
     top: 0;
+    left: 0;
     background-color: #333;
     transition: 0.3s;
-    overflow-x: hidden;
+    overflow-y: auto;
     padding-top: 60px;
+    z-index: 1001;
 }
+
 .menu-icon {
     position: absolute;
     top: 10px;
@@ -178,9 +185,9 @@
 }
 
 .badge {
-    position: absolute; 
-    top: 5px; 
-    right: 5px; 
+    position: absolute;
+    top: 5px;
+    right: 5px;
     background-color: #007bff;
     color: white;
     padding: 5px 10px;
@@ -192,7 +199,7 @@
 
 .btn-da-box {
     width: 100%;
-    height:24px;
+    height: 24px;
     font-size: 2px;
     border-radius: 0px;
     text-align: center;
@@ -201,13 +208,15 @@
 
 .box-text {
     padding: 1.5em;
-    overflow-wrap: break-word; /* Quebra a palavra se não couber na caixa */
+    overflow-wrap: break-word;
 
 }
 
 .panel-btn {
     width: 100px;
 }
+
+
 
 /* .box .btn-primary {
     margin-top: 30px;

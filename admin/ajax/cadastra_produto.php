@@ -34,6 +34,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     $nomesImagensString = '';
 
+    $err_msg = ""; // Inicializando a variável err_msg aqui
+
     foreach ($imagens["tmp_name"] as $index => $tmpName) {
         if ($imagens["error"][$index] == UPLOAD_ERR_OK) {
             $novoNome = uniqid('img_', true) . '_' . basename($imagens["name"][$index]);
@@ -42,10 +44,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $nomesImagens[] = $novoNome;
                 $nomesImagensString .= $novoNome . ', ';
             } else {
-                echo "Erro ao mover o arquivo $tmpName para $caminhoArquivo";
+                $err_msg = "Erro ao mover o arquivo $tmpName para $caminhoArquivo"; // Definindo o valor da variável err_msg
             }
         } else {
-            echo "Erro ao carregar o arquivo {$imagens['name'][$index]}: " . $imagens['error'][$index];
+            $err_msg = "Não foi possível carregar a imagem!"; // Definindo o valor da variável err_msg
         }
     }
 
@@ -64,6 +66,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     ]);
 
     if($produto->status == "success") {
+        if ($err_msg != "") {
+            $res['status'] = "success";
+            $res['message'] = "Produto cadastrado com sucesso! <div class='alert alert-danger' role='alert'>{$err_msg}</div>";
+            $res['error'] = false;
+            echo json_encode($res);
+            return;
+        }
+      
+
         $res['status'] = "success";
         $res['message'] = "Produto cadastrado com sucesso!";
         $res['error'] = false;

@@ -51,7 +51,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_FILES["imagem"])) {
             ]);
             $res['status'] = "success"; 
             $res['success'] = true;
-            $res['message'] = "Imagem alterada com sucesso!";
+            $res['message'] = "Imagem alterada com sucesso! Atualize a pagina para vizualizar.";
             
         } else {
             $res['success'] = false;

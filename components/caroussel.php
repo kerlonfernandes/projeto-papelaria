@@ -1,4 +1,4 @@
-<div id="carouselExampleFade" class="carousel slide carousel-fade" style="margin-top: -17px;">
+<div id="carouselExampleFade" class="carousel slide carousel-fade" data-bs-ride="carousel" style="margin-top: -17px;">
   <div class="carousel-inner">
     <div class="carousel-item active">
       <img src="./src/images/banner3.png" class="d-block w-100" alt="...">

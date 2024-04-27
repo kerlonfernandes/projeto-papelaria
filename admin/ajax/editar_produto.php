@@ -32,12 +32,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $res = array();
 
 
-    $produto = $db->execute_non_query("UPDATE produtos SET nome = :nome, descricao = :descricao, preco = :preco, preco_anterior = :preco_anterior, quantidade = :quantidade, categoria_id = :categoria_id, tipo_produto_id = :tipo_produto_id WHERE id = :id", [
+    $produto = $db->execute_non_query("UPDATE produtos SET nome = :nome, descricao = :descricao, preco = :preco, preco_anterior = :preco_anterior, quantidade = :quantidade, slug = :slug, categoria_id = :categoria_id, tipo_produto_id = :tipo_produto_id WHERE id = :id", [
         ":nome" => $nomeProduto,
         ":descricao" => $descricaoProduto,
         ":preco" => $precoProduto,
         ":preco_anterior" => $precoAnterior,
         ":quantidade" => $quantidadeProduto,
+        ":slug" => $helpers->createSlug($nomeProduto),
         ":categoria_id" => $categoriaProduto,
         ":tipo_produto_id" => $tipoProduto,
         ":id" => $idProduto

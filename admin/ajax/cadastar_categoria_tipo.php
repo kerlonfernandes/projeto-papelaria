@@ -1,4 +1,5 @@
 <?php
+
 session_start();
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
@@ -6,8 +7,10 @@ error_reporting(E_ALL);
 
 require "../../classes/Database.inc.php";
 require "../../_app/Config.inc.php";
+require "../../classes/Helpers.inc.php";
+use HelpersClass\SupAid;
 use Midspace\Database;
-
+$helpers = new SupAid();
 $db = new Database(MYSQL_CONFIG);
 $res = array();
 
@@ -17,14 +20,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $query = ""; 
 
     if(isset($_POST['tipo'])) {
-        $query = "INSERT INTO tipo_produto (tipo_produto) VALUES (:tipo_n)";
-        $params = [":tipo_n" => $_POST["tipo"]];
+        $query = "INSERT INTO tipo_produto (tipo_produto, slug_tipo) VALUES (:tipo_n, :slug_tipo)";
+        $params = [":tipo_n" => $_POST["tipo"],
+                 ":slug_tipo" => $helpers->createSlug($_POST["tipo"])];
         $msg = "Tipo cadastrado com sucesso!";
 
     }
     if(isset($_POST['categoria'])) {
-        $query = "INSERT INTO categorias (nome) VALUES (:categoria)";
-        $params = [":categoria" => $_POST["categoria"]];
+        $query = "INSERT INTO categorias (nome, slug_categoria) VALUES (:categoria, :slug_categoria)";
+        $params = [":categoria" => $_POST["categoria"],
+                    ':slug_categoria' => $helpers->createSlug($_POST["categoria"])];
         $msg = "Categoria cadastrada com sucesso!";
     }
 

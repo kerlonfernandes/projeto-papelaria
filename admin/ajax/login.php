@@ -27,7 +27,7 @@ try {
     $result = $db->execute_query(
         "SELECT * 
         FROM users 
-        LEFT JOIN nivel_acesso 
+        INNER JOIN nivel_acesso 
         ON users.id = nivel_acesso.id_user 
         WHERE users.email = :email",
         ["email" => $email]
@@ -47,12 +47,12 @@ try {
             $res['erro'] = false;
         } else {
             $res['status'] = 'error';
-            $res['message'] = 'Login ou senha incorretos!';
+            $res['message'] = 'Acesso negado!';
             $res['erro'] = true;
         }
     } else {
         $res['status'] = 'error';
-        $res['message'] = 'Usuário não encontrado!';
+        $res['message'] = 'Administrador não encontrado!';
         $res['erro'] = true;
     }
 
@@ -62,4 +62,3 @@ try {
     $res["message"] = "ocorreu um erro interno no servidor";
     echo json_encode($res);
 }
-?>

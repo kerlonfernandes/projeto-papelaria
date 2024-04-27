@@ -1,32 +1,28 @@
 <?php
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
-require "./classes/Database.inc.php";
+require "../classes/Database.inc.php";
+require "../_app/Config.inc.php";
+
 
 use Midspace\Database;
 
 $db = new Database(MYSQL_CONFIG);
-
 
 $sql = "SELECT produtos.*, tipo_produto.descricao AS description FROM `produtos` 
 LEFT JOIN tipo_produto ON produtos.tipo_produto_id = tipo_produto.id";
 $result = $db->execute_query($sql);
 $produtos = $result->results;
 
-
-
 if ($result->status === 'success') :
     $grupos_produtos = array_chunk($produtos, 4);
 ?>
 
-    <div class="limit">
+<div class="limit">
         <div class="container mt-5">
             <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
                 <span class="carousel-control-prev-icon buttons-caroussel" aria-hidden="true"></span>
                 <span class="visually-hidden">Previous</span>
             </button>
-            <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+            <div id="carouselExampleIndicators" class="carousel slide">
                 <div class="carousel-indicators" style="pointer-events: none;">
                     <?php foreach ($grupos_produtos as $index => $grupo) : ?>
                         <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="<?php echo $index; ?>" class="<?php echo $index === 0 ? 'active' : ''; ?>" aria-current="true" aria-label="Slide <?php echo $index + 1; ?>"></button>
@@ -52,17 +48,31 @@ if ($result->status === 'success') :
                                                                         ?>" class="card-img-top img-hover" alt="<?php echo $produto->nome; ?>" style="width: 100%; height: 100%; object-fit: cover;">
                                             </div>
                                             <div class="card-body">
-                                                <h5 class="card-title"><?php echo $produto->nome; ?></h5>
+                                                <h5 class="card-title"><?php
+                                                                        $nome = $produto->nome;
+                                                                        if (strlen($nome) > 50) {
+                                                                            $nome = substr($nome, 0, 50) . "...";
+                                                                        }
+                                                                        ?>
+                                                    <h5 class="card-title"><?php echo $nome; ?></h5> 
+                                                </h5>
                                                 <p class="card-text"><?php $produto->descricao ?></p>
                                             </div>
                                             <div class="card-footer text-body-secondary">
                                                 <h3>R$<?= number_format($produto->preco, 2, ',', '.'); ?></h3>
-                                                <h5 class="riscado text-end">R$<?= number_format($produto->preco_anterior, 2, ',', '.'); ?></h5>
+
+                                                <?php
+                                                if ($produto->preco_anterior != 0) {
+                                                    echo '<h5 class="riscado text-end">R$' . number_format($produto->preco_anterior, 2, ',', '.') . '</h5>';
+                                                } else {
+                                                    echo "'<h5 class='text-center novo'>Novo</h5>";;
+                                                } ?>
+
 
                                                 <div class="button-container">
-                                                    <button type="button" class="btn btn-success botao-ver-mais" style="width:60%; background-color: #008A00 !important; ">ADICIONAR <i class="fa-solid fa-cart-plus"></i></button>
+                                                    <button type="button" class="btn btn-success botao-ver-mais adicionar">ADICIONAR <i class="fa-solid fa-cart-plus"></i></button>
                                                     <br>
-                                                    <button type="button" class="btn btn-primary botao-ver-mais" style="width:100%;  background-color: #00BFFF;">Ver Mais</button>
+                                                    <a href="<?= SITE ?>/produto/<?= $produto->slug ?>" type="button" class="btn btn-primary botao-ver-mais" style="width:100%;  background-color: #086E7D;">Ver Mais</a>
                                                 </div>
                                             </div>
                                         </div>
@@ -83,7 +93,6 @@ if ($result->status === 'success') :
 
 <?php
 else :
-    // Se a consulta falhar, exibir uma mensagem de erro
     echo '<p>Erro ao recuperar os produtos.</p>';
 endif;
 ?>

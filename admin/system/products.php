@@ -40,59 +40,56 @@
 
         </form>
         <div class="container-fluid">
-            <div class="container mt-5">
-                <button class="btn btn-secondary sys-btn mt-3" type="button" id="button-clear">Limpar Filtro</button>
+    <div class="container mt-5">
+        <button class="btn btn-secondary sys-btn mt-3" type="button" id="button-clear">Limpar Filtro</button>
+        <div class="container mt-5">
+            <button class="btn btn-primary sys-btn" type="button" data-bs-toggle="modal" data-bs-target="#cadastrar-produto">Cadastrar Produto</button>
+            <button class="btn btn-danger sys-btn ms-3" type="button" data-bs-toggle="modal" data-bs-target="#categorias">Categorias dos produtos</button>
+            <button class="btn btn-secondary sys-btn ms-3" type="button" data-bs-toggle="modal" data-bs-target="#tipos">Tipo dos produtos</button>
+        </div>
 
-                <div class="container mt-5">
-                    <button class="btn btn-primary sys-btn" type="button" data-bs-toggle="modal" data-bs-target="#cadastrar-produto">Cadastrar Produto</button>
-
-                    <button class="btn btn-danger sys-btn ms-3" type="button" data-bs-toggle="modal" data-bs-target="#categorias">Categorias dos produtos</button>
-
-                    <button class="btn btn-secondary sys-btn ms-3" type="button" data-bs-toggle="modal" data-bs-target="#tipos">Tipo dos produtos</button>
-                </div>
-
-           
-                    <div class="table-responsive mt-5" style="max-height: 800px;">
-                        <table class="table table-striped table-hover">
-                            <thead>
-                                <tr>
-                                    <th></th>
-                                    <th>ID</th>
-                                    <th>Nome do produto</th>
-                                    <th>Descrição</th>
-                                    <th>Valor</th>
-                                    <th>Quantidade</th>
-                                    <th>Categoria</th>
-                                    <th>Tipo do produto</th>
-                                    <th>Data de cadastro</th>
-                                </tr>
-                            </thead>
-                            <tbody class="table-products" style="overflow: scroll;">
-                                <div class="text-center mt-3" id="loading" style="display:none;">
-                                    <div class="spinner-border" role="status">
-                                        <span class="visually-hidden">Loading...</span>
-                                    </div>
-                                </div>
-                            </tbody>
-                        </table>
-               
-
-
-                    <div id="pagination-info" class="text-center mt-3">
-                        Você está na página <span id="current-page">1</span>
+        <div class="table-responsive mt-3" style="max-height: 600px;">
+            <table class="table table-striped table-hover">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>ID</th>
+                        <th>Nome do produto</th>
+                        <th>Descrição</th>
+                        <th>Valor</th>
+                        <th>Quantidade</th>
+                        <th>Categoria</th>
+                        <th>Tipo do produto</th>
+                        <th>Data de cadastro</th>
+                    </tr>
+                </thead>
+                <tbody class="table-products">
+                    <div class="text-center mt-3" id="loading" style="display:none;">
+                        <div class="spinner-border" role="status">
+                            <span class="visually-hidden">Loading...</span>
+                        </div>
                     </div>
+                </tbody>
+            </table>
+        </div>
 
-                    <div id="pagination-buttons" class="d-flex justify-content-between align-items-center mt-3">
-                        <button id="prev-page" class="btn btn-outline-primary">Anterior</button>
-                        <button id="next-page" class="btn btn-outline-primary">Próximo</button>
-                    </div>
-                </div>
-            </div>
+        <div id="pagination-info" class="text-center mt-3">
+            Você está na página <span id="current-page">1</span>
+        </div>
+
+        <div id="pagination-buttons" class="d-flex justify-content-between align-items-center mt-3">
+            <button id="prev-page" class="btn btn-outline-primary">Anterior</button>
+            <button id="next-page" class="btn btn-outline-primary">Próximo</button>
+        </div>
+    </div>
+</div>
+
+    </div>
+</div>
 
 
 
-
-            <?php include "./modals/cadastrar_produto.php"; ?>
-            <?php include "./modals/editar_produto.php"; ?>
-            <?php include "./modals/tipos_modal.php"; ?>
-            <?php include "./modals/categorias_modal.php"; ?>
+<?php include "./modals/cadastrar_produto.php"; ?>
+<?php include "./modals/editar_produto.php"; ?>
+<?php include "./modals/tipos_modal.php"; ?>
+<?php include "./modals/categorias_modal.php"; ?>

@@ -1,10 +1,11 @@
 // configurations
 
 const PROJECT_NAME = "/projeto-papelaria";
-const URL = "https://2a68-45-7-164-193.ngrok-free.app";
+const URL = "https://localhost";
 const SITE = `${URL}${PROJECT_NAME}`;
 const VIEWS_LOCAL = `/load_view/`;
-const VIEW = `${URL}${VIEWS_LOCAL}`;
+const VIEW = `${SITE}${VIEWS_LOCAL}`;
+const TEMPLATES = `${SITE}/templates`;
 const AJAX_ADMIN_URL = `${SITE}/admin/ajax`;
 const RELOAD_ADMIN = `${SITE}/admin/reload`;
 

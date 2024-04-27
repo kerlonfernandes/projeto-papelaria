@@ -7,6 +7,7 @@
       </div>
       <div class="modal-body">
         <form class="editar-produto">
+          <input type="hidden" class="id-prod" value="" name="id_produto">
           <div class="mb-3">
             <label for="prod-nome" class="form-label">Nome do Produto:</label>
             <input type="text" class="form-control" id="prod-nome" name="produto_nome">

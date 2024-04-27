@@ -115,14 +115,12 @@ $(document).ready(function () {
   
   $(document).ready(function () {
       load_products_table_pagination();
-  
-      // Botão "Próximo"
+ 
       $("#next-page").click(function () {
           currentPage++;
           load_products_table_pagination(currentPage);
       });
   
-      // Botão "Anterior"
       $("#prev-page").click(function () {
           if (currentPage > 1) {
               currentPage--;
@@ -150,7 +148,7 @@ $(document).ready(function () {
   });
 
   reset_form("#button-clear-users", "#pesquisar-usuario", load_users_table());
-
+  
   load_users_table();
 
   function load_products_table(data) {
@@ -209,6 +207,7 @@ $(document).ready(function () {
       success: function (response) {
         let res = JSON.parse(response);
         showToast(res.status, res.message, (duration = 3000));
+        $(".cadastro-produto")[0].reset()
         load_products_table();
       },
       error: function (xhr, status, error) {
@@ -265,7 +264,8 @@ $(document).ready(function () {
       var precoAnterior = button.data("preco-anterior");
       var categoria = button.data("categoria");
       var tipo = button.data("tipo");
-
+      var id = button.data("id");
+     
       var modal = $(this);
       modal.find("#prod-nome").val(produtoNome);
       modal.find("#prod-descricao").val(descricao);
@@ -276,6 +276,8 @@ $(document).ready(function () {
       modal.find(".tipo-editar").val(tipo);
       modal.find(".cat-editar").text(categoria);
       modal.find(".tipo-editar").text(tipo);
+      modal.find(".id-prod").val(id);
+
       load_view(
         "#categorias-produtos-editar",
         "",
@@ -346,7 +348,12 @@ $(document).ready(function () {
       "Tem certeza que deseja editar este produto ?",
       () => {
         let id_produto = $("#editar-btn").attr("data-id-produto");
+        if (id_produto == undefined) {
+          id_produto = $(".id-prod").val();
+        }
+
         let formData = $(this).serialize() + "&id_produto=" + id_produto;
+        console.log(formData)
         $.ajax({
           url: `${AJAX_ADMIN_URL}/editar_produto.php`,
           type: "POST",

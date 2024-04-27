@@ -73,7 +73,7 @@ $produtos = $db->execute_query($sql);
             <td>
                 <a class="btn btn-primary sys-btn panel-btn" href="<?= SITE ?>/admin/?route=painel&sys=product&id=<?= $helpers->encodeURL( $produto->id ) ?>">Acessar</a>
 
-                <button class="btn btn-success sys-btn panel-btn" data-bs-toggle="modal" data-bs-target="#editar-produto" data-produto-nome="<?= $produto->nome ?>" data-descricao="<?= $produto->descricao ?>" data-quantidade="<?= $produto->quantidade ?>" data-preco="<?= number_format($produto->preco, 2, ',', '.');  ?>" data-preco-anterior="<?= number_format($produto->preco_anterior, 2, ',', '.');  ?>" data-categoria="<?= $produto->cat_nome ?>" data-tipo="<?= $produto->tipo_nome ?>">Editar</button>
+                <button class="btn btn-success sys-btn panel-btn" data-bs-toggle="modal" data-bs-target="#editar-produto" data-id="<?= $helpers->encodeURL( $produto->id ) ?>" data-produto-nome="<?= $produto->nome ?>" data-descricao="<?= $produto->descricao ?>" data-quantidade="<?= $produto->quantidade ?>" data-preco="<?= number_format($produto->preco, 2, ',', '.');  ?>" data-preco-anterior="<?= number_format($produto->preco_anterior, 2, ',', '.');  ?>" data-categoria="<?= $produto->cat_nome ?>" data-tipo="<?= $produto->tipo_nome ?>">Editar</button>
 
                 <button class="btn btn-danger sys-btn panel-btn deletar-produto" data-id-produto="<?= $produto->id ?>" data-produto-nome="<?= $produto->nome ?>">Deletar</button>
             </td>
@@ -90,6 +90,6 @@ $produtos = $db->execute_query($sql);
         </tr>
     <?php endforeach; ?>
 <?php else : ?>
-    <td colspan="7" class="text-center">Nenhum resultado encontrado</td>
+    <td colspan="9" rowspan="5" class="text-center">Nenhum resultado encontrado</td>
 
 <?php endif ?>

@@ -128,10 +128,10 @@
                     $st = new Core();                  
                     $sites = $st->getFilesWithoutExtension("./views");
                     foreach($sites as $site) {
-                     
+                    if($site != "notFound" && $site != "login" && $site != "produto" && $site != "login") {
                   ?>
                     <li><a href="<?= SITE ?>/<?= $site ?> "><?= $site ?></a></li>
-                    <?php } ?>
+                    <?php } }?>
                 </ul>
             </div>
         </div>

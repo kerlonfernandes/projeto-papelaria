@@ -2,10 +2,10 @@
 -- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost
--- Generation Time: Apr 24, 2024 at 02:59 PM
--- Server version: 10.4.32-MariaDB
--- PHP Version: 8.2.12
+-- Host: 127.0.0.1
+-- Tempo de geração: 27/04/2024 às 02:44
+-- Versão do servidor: 10.4.32-MariaDB
+-- Versão do PHP: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,33 +18,35 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `papelaria_db`
+-- Banco de dados: `papelaria_db`
 --
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `categorias`
+-- Estrutura para tabela `categorias`
 --
 
 CREATE TABLE `categorias` (
   `id` int(11) NOT NULL,
   `nome` varchar(100) NOT NULL,
-  `descricao` text DEFAULT NULL
+  `descricao` text DEFAULT NULL,
+  `slug_categoria` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `categorias`
+-- Despejando dados para a tabela `categorias`
 --
 
-INSERT INTO `categorias` (`id`, `nome`, `descricao`) VALUES
-(1, 'CADERNOS', 'CATEGORIA DE CADERNOS'),
-(2, 'MOCHILAS', NULL);
+INSERT INTO `categorias` (`id`, `nome`, `descricao`, `slug_categoria`) VALUES
+(1, 'CADERNOS', 'CATEGORIA DE CADERNOS', 'cadernos'),
+(2, 'MOCHILAS', NULL, ''),
+(15, 'CANETAS', NULL, '');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `nivel_acesso`
+-- Estrutura para tabela `nivel_acesso`
 --
 
 CREATE TABLE `nivel_acesso` (
@@ -55,7 +57,7 @@ CREATE TABLE `nivel_acesso` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `nivel_acesso`
+-- Despejando dados para a tabela `nivel_acesso`
 --
 
 INSERT INTO `nivel_acesso` (`id`, `id_user`, `nivel_acesso`, `acesso`) VALUES
@@ -64,7 +66,7 @@ INSERT INTO `nivel_acesso` (`id`, `id_user`, `nivel_acesso`, `acesso`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `pedidos`
+-- Estrutura para tabela `pedidos`
 --
 
 CREATE TABLE `pedidos` (
@@ -78,7 +80,7 @@ CREATE TABLE `pedidos` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `pedidos`
+-- Despejando dados para a tabela `pedidos`
 --
 
 INSERT INTO `pedidos` (`id`, `id_usuario`, `numero_pedido`, `status_pedido`, `aguardando_reembolso`, `hora_pedido`, `data_pedido`) VALUES
@@ -88,7 +90,7 @@ INSERT INTO `pedidos` (`id`, `id_usuario`, `numero_pedido`, `status_pedido`, `ag
 -- --------------------------------------------------------
 
 --
--- Table structure for table `pedido_produtos`
+-- Estrutura para tabela `pedido_produtos`
 --
 
 CREATE TABLE `pedido_produtos` (
@@ -99,7 +101,7 @@ CREATE TABLE `pedido_produtos` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `pedido_produtos`
+-- Despejando dados para a tabela `pedido_produtos`
 --
 
 INSERT INTO `pedido_produtos` (`id`, `id_pedido`, `id_produto`, `preco_unitario`) VALUES
@@ -109,7 +111,7 @@ INSERT INTO `pedido_produtos` (`id`, `id_pedido`, `id_produto`, `preco_unitario`
 -- --------------------------------------------------------
 
 --
--- Table structure for table `produtos`
+-- Estrutura para tabela `produtos`
 --
 
 CREATE TABLE `produtos` (
@@ -120,46 +122,51 @@ CREATE TABLE `produtos` (
   `preco` decimal(10,2) NOT NULL,
   `preco_anterior` decimal(10,0) NOT NULL,
   `quantidade` int(11) NOT NULL,
+  `slug` varchar(255) NOT NULL,
   `data_cadastro` timestamp NOT NULL DEFAULT current_timestamp(),
   `categoria_id` int(11) DEFAULT NULL,
   `tipo_produto_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `produtos`
+-- Despejando dados para a tabela `produtos`
 --
 
-INSERT INTO `produtos` (`id`, `nome`, `descricao`, `imagens`, `preco`, `preco_anterior`, `quantidade`, `data_cadastro`, `categoria_id`, `tipo_produto_id`) VALUES
-(1, 'Mochila HotWhells muito foda', 'é doida mano', NULL, 150.00, 230, 100, '2024-04-22 14:32:34', 2, 2),
-(10, 'Camisa Rio Branco ES edição 2024', 'modelo treino', 'img_66281e081b7df8.28873036_Picsart_24-04-17_03-29-49-060.jpg', 169.00, 120, 1, '2024-04-23 20:46:00', 2, 1),
-(13, 'Teste kkkkkkkkk', 'mais um teste de imagem kkkkk', 'img_6628f428290c91.95795771_Screenshot from 2024-02-21 13-34-39.png, img_6628f3fadd6152.95364726_408306345.jpg, img_6628f4196de496.92821975_Screenshot from 2024-04-23 17-09-57.png, img_6628f3fadd6938.25608782_374863409.jpg', 100.00, 100, 1, '2024-04-24 11:58:50', 1, 1),
-(14, 'teste produto unico', 'teste 1', 'img_6628f7d15fd163.24237843_asdsafwd.jpg', 122.22, 122, 1, '2024-04-24 12:14:41', 1, 1);
+INSERT INTO `produtos` (`id`, `nome`, `descricao`, `imagens`, `preco`, `preco_anterior`, `quantidade`, `slug`, `data_cadastro`, `categoria_id`, `tipo_produto_id`) VALUES
+(1, 'Mochila HotWhells muito foda', 'é doida mano', NULL, 150.00, 230, 100, '', '2024-04-22 14:32:34', 2, 2),
+(59, 'saddas', 'dasdsaads', 'img_662bb7305e39b0.30106597_176072z_2.webp', 1.23, 2, 1, '', '2024-04-26 14:16:16', 15, 2),
+(60, 'imprescindível dicionário aurélio resiliência cônjuge recíproco intrínseco caráter efêmero cínico diligência anuência intempérie idôneo condolências escrúpulo contemporâneo supérfluo idílico âmbito propósito análogo genuíno essência parcimônia hipócrita v', 'qeqwe', 'img_662bb7e04033b1.39762308_176072z_2.webp', 22.23, 21, 1, 'imprescindivel-dicionario-aurelio-resiliencia-conjuge-reciproco-intrinseco-carater-efemero-cinico-diligencia-anuencia-intemperie-idoneo-condolencias-escrupulo-contemporaneo-superfluo-idilico-ambito-proposito-analogo-genuino-essencia-parcimonia-hipocrita-v', '2024-04-26 14:19:12', 15, 2),
+(61, 'Cadernos escolar Básico', 'ótimo para o dia-a-dia leve e pequeno ótimo para estudos ', 'img_662bc813212de5.17743527_WhatsApp Image 2024-04-25 at 13.40.09 (1).jpeg', 15.00, 0, 1, '', '2024-04-26 15:28:19', 1, 2),
+(68, 'Mochila muito loka', 'mochila categoria', 'img_662bd518b1d527.57005773_mochila_escolar_rodinha_lancheira_estojo_hot_wheels_luxcel_2605_1_9bfe5c0bfa3e0f435a238f8ace5928cb.webp', 150.00, 220, 1, '', '2024-04-26 16:23:52', 2, 3),
+(69, 'Porta lapis', 'Porta lapis', 'img_662bd62929d074.59308738_61+y8UkBQpL._AC_SX679_.jpg', 9.99, 10, 1, '', '2024-04-26 16:28:25', 15, 1),
+(70, 'não pão ão mão lingîça mínhaasdcvsadfvsadqsdbsfqedwffdfsf', 'adsasd', 'img_662c33fe5a8855.65851801_azul-caneta.webp', 10.00, 10, 1, 'nao-pao-ao-mao-lingica-minhaasdcvsadfvsadqsdbsfqedwffdfsf', '2024-04-26 16:35:41', 1, 2);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tipo_produto`
+-- Estrutura para tabela `tipo_produto`
 --
 
 CREATE TABLE `tipo_produto` (
   `id` int(11) NOT NULL,
   `tipo_produto` varchar(100) NOT NULL,
-  `descricao` text DEFAULT NULL
+  `descricao` text DEFAULT NULL,
+  `slug_tipo` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `tipo_produto`
+-- Despejando dados para a tabela `tipo_produto`
 --
 
-INSERT INTO `tipo_produto` (`id`, `tipo_produto`, `descricao`) VALUES
-(1, 'Material para escritório', 'Material para escritório'),
-(2, 'Material Escolar', NULL),
-(3, 'Mochilas', NULL);
+INSERT INTO `tipo_produto` (`id`, `tipo_produto`, `descricao`, `slug_tipo`) VALUES
+(1, 'Material para escritório', 'Material para escritório', 'material-para-escritorio'),
+(2, 'Material Escolar', NULL, 'material-escolar'),
+(3, 'Mochilas', '', 'mochilas');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `users`
+-- Estrutura para tabela `users`
 --
 
 CREATE TABLE `users` (
@@ -175,7 +182,7 @@ CREATE TABLE `users` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `users`
+-- Despejando dados para a tabela `users`
 --
 
 INSERT INTO `users` (`id`, `nome`, `cpfcnpj`, `email`, `telefone`, `senha`, `recover_key`, `acessou_em`, `ultima_atualizacao`) VALUES
@@ -183,31 +190,31 @@ INSERT INTO `users` (`id`, `nome`, `cpfcnpj`, `email`, `telefone`, `senha`, `rec
 (2, 'Cezar', '111.111.111-11', 'xtxwk414@gmail.com', '(27) 9 999-9999', '$2y$10$LzZV6G.AbADSX5PECfSmbu7/DcbOGeiippbTQFl/dhnOLWZE802sS', NULL, '2024-04-19 21:27:23', '2024-04-22 19:18:22');
 
 --
--- Indexes for dumped tables
+-- Índices para tabelas despejadas
 --
 
 --
--- Indexes for table `categorias`
+-- Índices de tabela `categorias`
 --
 ALTER TABLE `categorias`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `nivel_acesso`
+-- Índices de tabela `nivel_acesso`
 --
 ALTER TABLE `nivel_acesso`
   ADD PRIMARY KEY (`id`),
   ADD KEY `id_user` (`id_user`);
 
 --
--- Indexes for table `pedidos`
+-- Índices de tabela `pedidos`
 --
 ALTER TABLE `pedidos`
   ADD PRIMARY KEY (`id`),
   ADD KEY `id_usuario` (`id_usuario`);
 
 --
--- Indexes for table `pedido_produtos`
+-- Índices de tabela `pedido_produtos`
 --
 ALTER TABLE `pedido_produtos`
   ADD PRIMARY KEY (`id`),
@@ -215,7 +222,7 @@ ALTER TABLE `pedido_produtos`
   ADD KEY `fk_produto` (`id_produto`);
 
 --
--- Indexes for table `produtos`
+-- Índices de tabela `produtos`
 --
 ALTER TABLE `produtos`
   ADD PRIMARY KEY (`id`),
@@ -223,88 +230,88 @@ ALTER TABLE `produtos`
   ADD KEY `fk_tipo_produto` (`tipo_produto_id`);
 
 --
--- Indexes for table `tipo_produto`
+-- Índices de tabela `tipo_produto`
 --
 ALTER TABLE `tipo_produto`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `users`
+-- Índices de tabela `users`
 --
 ALTER TABLE `users`
   ADD PRIMARY KEY (`id`);
 
 --
--- AUTO_INCREMENT for dumped tables
+-- AUTO_INCREMENT para tabelas despejadas
 --
 
 --
--- AUTO_INCREMENT for table `categorias`
+-- AUTO_INCREMENT de tabela `categorias`
 --
 ALTER TABLE `categorias`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
--- AUTO_INCREMENT for table `nivel_acesso`
+-- AUTO_INCREMENT de tabela `nivel_acesso`
 --
 ALTER TABLE `nivel_acesso`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
--- AUTO_INCREMENT for table `pedidos`
+-- AUTO_INCREMENT de tabela `pedidos`
 --
 ALTER TABLE `pedidos`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
--- AUTO_INCREMENT for table `pedido_produtos`
+-- AUTO_INCREMENT de tabela `pedido_produtos`
 --
 ALTER TABLE `pedido_produtos`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
--- AUTO_INCREMENT for table `produtos`
+-- AUTO_INCREMENT de tabela `produtos`
 --
 ALTER TABLE `produtos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=71;
 
 --
--- AUTO_INCREMENT for table `tipo_produto`
+-- AUTO_INCREMENT de tabela `tipo_produto`
 --
 ALTER TABLE `tipo_produto`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
--- AUTO_INCREMENT for table `users`
+-- AUTO_INCREMENT de tabela `users`
 --
 ALTER TABLE `users`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
--- Constraints for dumped tables
+-- Restrições para tabelas despejadas
 --
 
 --
--- Constraints for table `nivel_acesso`
+-- Restrições para tabelas `nivel_acesso`
 --
 ALTER TABLE `nivel_acesso`
   ADD CONSTRAINT `nivel_acesso_ibfk_1` FOREIGN KEY (`id_user`) REFERENCES `users` (`id`);
 
 --
--- Constraints for table `pedidos`
+-- Restrições para tabelas `pedidos`
 --
 ALTER TABLE `pedidos`
   ADD CONSTRAINT `pedidos_ibfk_1` FOREIGN KEY (`id_usuario`) REFERENCES `users` (`id`);
 
 --
--- Constraints for table `pedido_produtos`
+-- Restrições para tabelas `pedido_produtos`
 --
 ALTER TABLE `pedido_produtos`
   ADD CONSTRAINT `fk_pedido` FOREIGN KEY (`id_pedido`) REFERENCES `pedidos` (`id`),
   ADD CONSTRAINT `fk_produto` FOREIGN KEY (`id_produto`) REFERENCES `produtos` (`id`);
 
 --
--- Constraints for table `produtos`
+-- Restrições para tabelas `produtos`
 --
 ALTER TABLE `produtos`
   ADD CONSTRAINT `fk_tipo_produto` FOREIGN KEY (`tipo_produto_id`) REFERENCES `tipo_produto` (`id`),

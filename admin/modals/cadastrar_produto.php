@@ -9,7 +9,7 @@
         <form class="cadastro-produto">
           <div class="mb-3">
             <label for="prod-nome" class="form-label">Nome do Produto:</label>
-            <input type="text" class="form-control" id="prod-nome" name="produto_nome">
+            <input type="text" class="form-control" id="prod-nome" name="produto_nome" require="">
           </div>
           <div class="mb-3">
             <label for="prod-descricao" class="form-label">Descrição:</label>
@@ -17,7 +17,7 @@
           </div>
           <div class="mb-3">
             <label for="imagens" class="form-label">Adicione as imagens do imóvel:</label>
-            <input class="form-control" type="file" id="imagens" name="imagens[]" accept="image/*" multiple>
+            <input class="form-control" type="file" id="imagens" name="imagens[]" accept="image/*" multiple require>
 
             <div id="carouselExample" class="carousel slide" data-bs-ride="carousel">
               <div class="carousel-inner">
@@ -34,18 +34,18 @@
           </div>
           <div class="mb-3">
             <label for="categorias-produtos" class="form-label">Selecione a categoria do produto</label>
-            <select class="form-select form-select" id="categorias-produtos" name="categoria_produto">
+            <select class="form-select form-select" id="categorias-produtos" name="categoria_produto" require="">
             </select>
           </div>
 
           <div class="mb-3">
             <label for="tipo-produto" class="form-label">Selecione o tipo do produto</label>
-            <select class="form-select form-select" id="tipo-produtos" name="tipo_produto">
+            <select class="form-select form-select" id="tipo-produtos" name="tipo_produto" require="">
             </select>
           </div>
           <div class="mb-3 mt-5">
             <label for="prod-preco" class="form-label">Valor:</label>
-            <input type="text" class="form-control" id="real" placeholder="0,00" onkeyup="formatarReal(this)" name="preco" min="0">
+            <input type="text" class="form-control" id="real" placeholder="0,00" onkeyup="formatarReal(this)" name="preco" min="0" require="">
           </div>
           <div class="mb-3">
             <label for="prod-preco-anterior" class="form-label">Valor anterior:</label>
@@ -53,7 +53,7 @@
           </div>
           <div class="mb-3">
             <label for="prod-quantidade" class="form-label">Quantidade:</label>
-            <input type="number" class="form-control" id="prod-quantidade" name="produto_quantidade" min="0" value="1">
+            <input type="number" class="form-control" id="prod-quantidade" name="produto_quantidade" min="0" value="1" require="">
           </div>
           <div class="d-flex justify-content-end">
             <button type="submit" class="btn btn-primary">Cadastrar Produto</button>

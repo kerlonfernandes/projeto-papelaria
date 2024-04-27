@@ -5,9 +5,13 @@ ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
 require "../../classes/Database.inc.php";
+require "../../classes/Helpers.inc.php";
+
 require "../../_app/Config.inc.php";
 use Midspace\Database;
+use HelpersClass\SupAid;
 
+$helpers = new SupAid();
 $db = new Database(MYSQL_CONFIG);
 $res = array();
 
@@ -53,13 +57,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     $nomesImagensString = rtrim($nomesImagensString, ', ');
 
-    $produto = $db->execute_non_query("INSERT INTO produtos (nome, descricao, imagens, preco, preco_anterior, quantidade, data_cadastro, categoria_id, tipo_produto_id) VALUES (:nome, :descricao, :imagens, :preco, :preco_anterior, :quantidade, :data_cadastro, :categoria_id, :tipo_produto_id)", [
+    $produto = $db->execute_non_query("INSERT INTO produtos (nome, descricao, imagens, preco, preco_anterior, quantidade, slug, data_cadastro, categoria_id, tipo_produto_id) VALUES (:nome, :descricao, :imagens, :preco, :preco_anterior, :quantidade, :slug, :data_cadastro, :categoria_id, :tipo_produto_id)", [
         ":nome" => $nomeProduto,
         ":descricao" => $descricaoProduto,
         ":imagens" => $nomesImagensString,
         ":preco" => $precoProduto,
         ":preco_anterior" => $precoAnterior,
         ":quantidade" => $quantidadeProduto,
+        ":slug" => $helpers->createSlug($nomeProduto),
         "data_cadastro" => date("Y-m-d H:i:s"),
         ":categoria_id" => $categoriaProduto,
         ":tipo_produto_id" => $tipoProduto

@@ -6,6 +6,8 @@ const SITE = `${URL}${PROJECT_NAME}`;
 const VIEWS_LOCAL = `/load_view/`;
 const VIEW = `${SITE}${VIEWS_LOCAL}`;
 const TEMPLATES = `${SITE}/templates`;
+const LOAD = `${SITE}/load`;
+const AJAX = `${SITE}/ajax`;
 const AJAX_ADMIN_URL = `${SITE}/admin/ajax`;
 const RELOAD_ADMIN = `${SITE}/admin/reload`;
 

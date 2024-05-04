@@ -115,14 +115,14 @@
         <div class="notfound">
             <div class="notfound-bg">
                 <div></div>
-                <div><h1>404 :(</h1></div>
+                <div><h1>oops!</h1></div>
                 <div></div>
             </div>
-            <h1>oops!</h1>
+            <h1></h1>
             <h2>Parece que a página não foi encontrada!</h2>
             <a href="<?= SITE ?>/">Voltar para a página inicial</a>
             <div class="suggestion">
-                <h3>Você não quis dizer:</h3>
+                <h3>Você não quis dizer</h3>
                 <ul>
                   <?php
                     $st = new Core();                  

@@ -39,7 +39,7 @@ if ($prod->imagens !== null) {
 
 $imagens_array = array_map('trim', $imagens_array);
 ?>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="<?= SITE ?>/src/js/jquery.min.js?id=<?= uniqid() ?>"></script>
 
 <div class="modal fade" id="uploadImagemModal" tabindex="-1" aria-labelledby="uploadImagemModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-lg">
@@ -51,60 +51,81 @@ $imagens_array = array_map('trim', $imagens_array);
             <div class="modal-body text-center">
                 <img id="imagemModal" src="" class="img-fluid" alt="Imagem Selecionada" data-image="">
                 <div class="mt-3">
-                    <label for="novaImagem" class="form-label">Enviar Nova Imagem:</label>
+                    <label for="novaImagem" class="form-label">Substituir Imagem:</label>
                     <input type="file" class="form-control" id="novaImagem" name="novaImagem" accept="image/*">
                 </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                <button type="button" class="btn btn-danger" id="btnDeleteImagem" data-prod-id="<?= $prod_id  ?>">Deletar</button>
                 <button type="button" class="btn btn-primary" id="btnSalvarImagem" data-prod-id="<?= $prod_id  ?>">Salvar</button>
+
             </div>
         </div>
     </div>
 </div>
 
+<div class="modal fade" id="addImagens" tabindex="-1" aria-labelledby="addImagensLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addImagensLabel">Adicionar imagens</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body text-center">
+                <div class="mt-3">
+                    <label for="maisImg" class="form-label">Enviar Nova Imagem:</label>
+                    <input type="file" class="form-control" id="maisImg" name="maisImg" multiple accept="image/*">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                <button type="button" class="btn btn-primary" id="enviar-mais-imagens" data-prod-id="<?= $prod_id  ?>">Salvar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 <div class="container">
     <div class="row">
         <div class="col-lg-12">
 
-            <div id="carouselExampleControls" class="carousel slide card" data-bs-ride="carousel">
-                <div class="carousel-inner">
-                    <?php if (!empty($imagens_array)) : ?>
-                        <?php foreach ($imagens_array as $key => $imagem) : ?>
-                            <?php
-                            $caminho_imagem = "../app/images/$imagem";
-                            $imagem_existente = file_exists($caminho_imagem);
-                            ?>
-                            <div class="carousel-item <?php echo ($key === 0) ? 'active' : ''; ?>">
-                                <?php if ($imagem_existente) : ?>
-                                    <img src="<?= $caminho_imagem; ?>" class="d-block w-100 imagem-carousel" alt="Imagem <?= $key + 1; ?>" data-bs-toggle="modal" data-bs-target="#uploadImagemModal" data-imagem="<?= $caminho_imagem; ?>" data-img-name="<?= $imagem ?>">
-                                <?php else : ?>
-
-                                    <img src="https://via.placeholder.com/600x200?text=Sem Imagem&&fg=black
-" class="d-block w-100 imagem-carousel" alt="Placeholder" data-bs-toggle="modal" data-bs-target="#uploadImagemModal">
-                                <?php endif; ?>
-                            </div>
-                        <?php endforeach; ?>
+        <div id="carouselExampleControls" class="carousel slide card" data-bs-ride="carousel">
+    <div class="carousel-inner">
+        <?php if (!empty($imagens_array)) : ?>
+            <?php foreach ($imagens_array as $key => $imagem) : ?>
+                <?php
+                $caminho_imagem = "../app/images/$imagem";
+                $imagem_existente = file_exists($caminho_imagem) && !empty($imagem); // Verifica se a imagem existe e não está vazia
+                ?>
+                <div class="carousel-item <?= ($key === 0) ? 'active' : ''; ?>">
+                    <?php if ($imagem_existente) : ?>
+                        <img src="<?= $caminho_imagem; ?>" class="d-block w-100 imagem-carousel" alt="Imagem <?= $key + 1; ?>" data-bs-toggle="modal" data-bs-target="#uploadImagemModal" data-imagem="<?= $caminho_imagem; ?>" data-img-name="<?= $imagem ?>" style="width: 200px auto;">
                     <?php else : ?>
-                        <div class="alert alert-danger d-flex align-items-center" role="alert">
-                            Este produto não contém imagem, portanto, não aparecerá na home inicial do site por questões do sistema.
-                        </div>
+                        <img src="../src/images/sem-imagem.jpg" class="d-block w-100 imagem-carousel" alt="Placeholder">
                     <?php endif; ?>
                 </div>
-                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
-                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden">Previous</span>
-                </button>
-                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
-                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden">Next</span>
-                </button>
+            <?php endforeach; ?>
+        <?php else : ?>
+            <div class="alert alert-danger d-flex align-items-center text-center" role="alert">
+                Este produto não contém imagem, portanto, não aparecerá na home inicial do site por questões do sistema.
             </div>
-
+        <?php endif; ?>
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+    </button>
+    <button class="btn" data-bs-toggle="modal" data-bs-target="#addImagens"><i class="fa-solid fa-image"></i> Adicionar mais imagens ao produto</button>
+</div>
 
             <div class="row mt-5">
                 <div class="col-lg-12">
-
                     <div class="card">
                         <div class="card-header">
                             <h1 class="card-title">Produto</h1>

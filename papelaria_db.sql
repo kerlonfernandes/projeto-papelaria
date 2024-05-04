@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 27/04/2024 às 02:44
+-- Tempo de geração: 04/05/2024 às 20:43
 -- Versão do servidor: 10.4.32-MariaDB
 -- Versão do PHP: 8.2.12
 
@@ -20,6 +20,30 @@ SET time_zone = "+00:00";
 --
 -- Banco de dados: `papelaria_db`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura para tabela `carrinho`
+--
+
+CREATE TABLE `carrinho` (
+  `id` int(11) NOT NULL,
+  `user_id` int(11) DEFAULT NULL,
+  `produto_id` int(11) DEFAULT NULL,
+  `quantidade` int(11) DEFAULT NULL,
+  `adicionado_em` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Despejando dados para a tabela `carrinho`
+--
+
+INSERT INTO `carrinho` (`id`, `user_id`, `produto_id`, `quantidade`, `adicionado_em`) VALUES
+(537, 1, 74, 1, '2024-05-03 00:49:25'),
+(540, 1, 74, 1, '2024-05-03 00:49:49'),
+(542, 1, 76, 1, '2024-05-03 00:51:03'),
+(543, 1, 75, 1, '2024-05-03 01:42:40');
 
 -- --------------------------------------------------------
 
@@ -41,7 +65,8 @@ CREATE TABLE `categorias` (
 INSERT INTO `categorias` (`id`, `nome`, `descricao`, `slug_categoria`) VALUES
 (1, 'CADERNOS', 'CATEGORIA DE CADERNOS', 'cadernos'),
 (2, 'MOCHILAS', NULL, ''),
-(15, 'CANETAS', NULL, '');
+(15, 'CANETAS', NULL, ''),
+(17, 'osjgskd', NULL, 'osjgskd');
 
 -- --------------------------------------------------------
 
@@ -133,13 +158,11 @@ CREATE TABLE `produtos` (
 --
 
 INSERT INTO `produtos` (`id`, `nome`, `descricao`, `imagens`, `preco`, `preco_anterior`, `quantidade`, `slug`, `data_cadastro`, `categoria_id`, `tipo_produto_id`) VALUES
-(1, 'Mochila HotWhells muito foda', 'é doida mano', NULL, 150.00, 230, 100, '', '2024-04-22 14:32:34', 2, 2),
-(59, 'saddas', 'dasdsaads', 'img_662bb7305e39b0.30106597_176072z_2.webp', 1.23, 2, 1, '', '2024-04-26 14:16:16', 15, 2),
-(60, 'imprescindível dicionário aurélio resiliência cônjuge recíproco intrínseco caráter efêmero cínico diligência anuência intempérie idôneo condolências escrúpulo contemporâneo supérfluo idílico âmbito propósito análogo genuíno essência parcimônia hipócrita v', 'qeqwe', 'img_662bb7e04033b1.39762308_176072z_2.webp', 22.23, 21, 1, 'imprescindivel-dicionario-aurelio-resiliencia-conjuge-reciproco-intrinseco-carater-efemero-cinico-diligencia-anuencia-intemperie-idoneo-condolencias-escrupulo-contemporaneo-superfluo-idilico-ambito-proposito-analogo-genuino-essencia-parcimonia-hipocrita-v', '2024-04-26 14:19:12', 15, 2),
-(61, 'Cadernos escolar Básico', 'ótimo para o dia-a-dia leve e pequeno ótimo para estudos ', 'img_662bc813212de5.17743527_WhatsApp Image 2024-04-25 at 13.40.09 (1).jpeg', 15.00, 0, 1, '', '2024-04-26 15:28:19', 1, 2),
-(68, 'Mochila muito loka', 'mochila categoria', 'img_662bd518b1d527.57005773_mochila_escolar_rodinha_lancheira_estojo_hot_wheels_luxcel_2605_1_9bfe5c0bfa3e0f435a238f8ace5928cb.webp', 150.00, 220, 1, '', '2024-04-26 16:23:52', 2, 3),
-(69, 'Porta lapis', 'Porta lapis', 'img_662bd62929d074.59308738_61+y8UkBQpL._AC_SX679_.jpg', 9.99, 10, 1, '', '2024-04-26 16:28:25', 15, 1),
-(70, 'não pão ão mão lingîça mínhaasdcvsadfvsadqsdbsfqedwffdfsf', 'adsasd', 'img_662c33fe5a8855.65851801_azul-caneta.webp', 10.00, 10, 1, 'nao-pao-ao-mao-lingica-minhaasdcvsadfvsadqsdbsfqedwffdfsf', '2024-04-26 16:35:41', 1, 2);
+(1, 'Mochila HotWhells ', 'é doida mano', 'img_662dc68dcaf6a8.77394343_mochila_escolar_rodinha_lancheira_estojo_hot_wheels_luxcel_2605_1_9bfe5c0bfa3e0f435a238f8ace5928cb.webp', 150.00, 230, 100, '', '2024-04-22 14:32:34', 2, 2),
+(74, 'asdsadsasddasd', 'sadasdsa', '', 1.23, 231, 1, 'asdsadsasddasd', '2024-04-28 03:59:02', 2, 2),
+(75, 'wfdwdeewdwe', 'rererewrew', '', 3132.13, 21332, 1, 'wfdwdeewdwe', '2024-04-28 03:59:13', 1, 2),
+(76, 'não pão ão mão lingîça mínha', 'rewtgdff', '', 2.34, 43, 1, 'nao-pao-ao-mao-lingica-minha', '2024-04-28 03:59:37', 1, 2),
+(78, 'Mochila ', 'asdasd', 'img_66330ed08321d7.98696885_azul-caneta.webp, img_66330ed0833b72.23350879_caneta_esferografica_cristal_1_0mm_bic_azul_4299_1_c16f6a69e57f6d3b1e4d05ed3e2e5850.webp, img_66330ed0835521.51109111_Sem título.png', 1000.00, 1000, 322, 'mochila', '2024-05-02 03:56:00', 1, 2);
 
 -- --------------------------------------------------------
 
@@ -194,6 +217,14 @@ INSERT INTO `users` (`id`, `nome`, `cpfcnpj`, `email`, `telefone`, `senha`, `rec
 --
 
 --
+-- Índices de tabela `carrinho`
+--
+ALTER TABLE `carrinho`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `user_id` (`user_id`),
+  ADD KEY `produto_id` (`produto_id`);
+
+--
 -- Índices de tabela `categorias`
 --
 ALTER TABLE `categorias`
@@ -246,10 +277,16 @@ ALTER TABLE `users`
 --
 
 --
+-- AUTO_INCREMENT de tabela `carrinho`
+--
+ALTER TABLE `carrinho`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=544;
+
+--
 -- AUTO_INCREMENT de tabela `categorias`
 --
 ALTER TABLE `categorias`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT de tabela `nivel_acesso`
@@ -273,13 +310,13 @@ ALTER TABLE `pedido_produtos`
 -- AUTO_INCREMENT de tabela `produtos`
 --
 ALTER TABLE `produtos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=71;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=80;
 
 --
 -- AUTO_INCREMENT de tabela `tipo_produto`
 --
 ALTER TABLE `tipo_produto`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT de tabela `users`
@@ -290,6 +327,13 @@ ALTER TABLE `users`
 --
 -- Restrições para tabelas despejadas
 --
+
+--
+-- Restrições para tabelas `carrinho`
+--
+ALTER TABLE `carrinho`
+  ADD CONSTRAINT `carrinho_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `carrinho_ibfk_2` FOREIGN KEY (`produto_id`) REFERENCES `produtos` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Restrições para tabelas `nivel_acesso`

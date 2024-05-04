@@ -11,10 +11,11 @@ session_start();
     <link rel="icon" type="image/png" href="./src/images/logo.png">
     <?php require_once "./inc/assets.inc.php"; ?>
     <?php require_once "./inc/css_files.inc.php"; ?>
-
 </head>
 
 <body>
+<?php include "./components/header.php" ?>
+
     <div id="overlay">
         <div class="spinner"></div>
     </div>
@@ -25,20 +26,22 @@ session_start();
     use Midspace\Database;
 
     $db = new Database(MYSQL_CONFIG);
-
-
-
+    $_SESSION['user'] = "Kerlon";
+    $_SESSION['user_id'] = 1;
+    $_SESSION['logged_user'] = True;
 
     ?>
 
-    <?php include "./components/header.php" ?>
+   
     <?php
-    include "./components/caroussel.php"
-    ?>
+    include "./components/caroussel.php";
+
+?>
+    
     <div class="horizontal-bar mb-4 d-flex justify-content-center align-items-center">
         <a class="centered-text categorias-titulo mt-3">Destaques</a>
     </div>
-    <div class="text-center mt-3" id="loading-destaques" style="display:block;">
+    <div class="text-center mt-3" id="loading-destaques" style="display:block; padding:150px;">
         <div class="spinner-border" role="status">
             <span class="visually-hidden">Loading...</span>
         </div>
@@ -49,7 +52,7 @@ session_start();
         <a href="<?= SITE ?>/categoria/material-escolar" class="centered-text categorias-titulo mt-3">Materiais escolares</a>
     </div>
     <div class="materiais"></div>
-    <div class="text-center mt-3" id="loading-materiais" style="display:block;">
+    <div class="text-center mt-3" id="loading-materiais" style="display:block; padding:150px;">
         <div class="spinner-border" role="status">
             <span class="visually-hidden">Loading...</span>
         </div>
@@ -57,7 +60,7 @@ session_start();
     <div class="horizontal-bar mt-5 mb-5 d-flex justify-content-center align-items-center">
         <a href="<?= SITE ?>/categoria/materiais-escritorio" class="centered-text categorias-titulo mt-3">Materiais para Escritório</a>
     </div>
-    <div class="text-center mt-3" id="loading-materiais-escritorio" style="display:block;">
+    <div class="text-center mt-3" id="loading-materiais-escritorio" style="display:block; padding:150px; padding:150px;">
         <div class="spinner-border" role="status">
             <span class="visually-hidden">Loading...</span>
         </div>
@@ -67,7 +70,7 @@ session_start();
     <div class="horizontal-bar mt-5 mb-5 d-flex justify-content-center align-items-center">
         <a href="<?= SITE ?>/categoria/mochilas" class="centered-text categorias-titulo mt-3">Mochilas</a>
     </div>
-    <div class="text-center mt-3" id="loading-mochilas" style="display:block;">
+    <div class="text-center mt-3" id="loading-mochilas" style="display:block; padding:150px;">
         <div class="spinner-border" role="status">
             <span class="visually-hidden">Loading...</span>
         </div>

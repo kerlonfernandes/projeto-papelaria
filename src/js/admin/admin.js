@@ -104,34 +104,34 @@ $(document).ready(function () {
   var currentPage = 1;
 
   function load_products_table_pagination(page = 1) {
-      var target = ".table-products";
-      var loader_div = "#loading";
-  
-      if ($(target).length > 0) {
-          load_view(target, loader_div, `${RELOAD_ADMIN}/produtos_table.php?page=${page}`);
-          $("#current-page").text(page);
-      }
-  }
-  
-  $(document).ready(function () {
-      load_products_table_pagination();
- 
-      $("#next-page").click(function () {
-          currentPage++;
-          load_products_table_pagination(currentPage);
-      });
-  
-      $("#prev-page").click(function () {
-          if (currentPage > 1) {
-              currentPage--;
-              load_products_table_pagination(currentPage);
-          }
-      });
-  });
-  
-  
+    var target = ".table-products";
+    var loader_div = "#loading";
 
-  
+    if ($(target).length > 0) {
+      load_view(target, loader_div, `${RELOAD_ADMIN}/produtos_table.php?page=${page}`);
+      $("#current-page").text(page);
+    }
+  }
+
+  $(document).ready(function () {
+    load_products_table_pagination();
+
+    $("#next-page").click(function () {
+      currentPage++;
+      load_products_table_pagination(currentPage);
+    });
+
+    $("#prev-page").click(function () {
+      if (currentPage > 1) {
+        currentPage--;
+        load_products_table_pagination(currentPage);
+      }
+    });
+  });
+
+
+
+
   function load_users_table(data) {
     var target = ".usuarios-table";
     var loader_div = "#loading";
@@ -148,7 +148,7 @@ $(document).ready(function () {
   });
 
   reset_form("#button-clear-users", "#pesquisar-usuario", load_users_table());
-  
+
   load_users_table();
 
   function load_products_table(data) {
@@ -265,7 +265,7 @@ $(document).ready(function () {
       var categoria = button.data("categoria");
       var tipo = button.data("tipo");
       var id = button.data("id");
-     
+
       var modal = $(this);
       modal.find("#prod-nome").val(produtoNome);
       modal.find("#prod-descricao").val(descricao);
@@ -332,7 +332,62 @@ $(document).ready(function () {
       processData: false,
       success: function (response) {
         response = JSON.parse(response)
-        showToast(response.status, response.message, (duration = 3000));
+        showToast(response.status, response.message, duration = 3000);
+      },
+      error: function (xhr, status, error) {
+        console.error('Erro ao enviar imagem:', error);
+      }
+    });
+
+    $('#uploadImagemModal').modal('hide');
+  });
+
+  // adicionar mais imagens 
+  $(document).on('click', "#enviar-mais-imagens", function () {
+    var formData = new FormData();
+    var fileInput = document.getElementById('maisImg');
+    var files = fileInput.files;
+
+    for (var i = 0; i < files.length; i++) {
+      formData.append("imagens[]", files[i]);
+    }
+
+    formData.append('id_produto', $(this).data("prod-id"));
+
+    $.ajax({
+      type: 'POST',
+      url: `${AJAX_ADMIN_URL}/add_imagens.php`,
+      data: formData,
+      contentType: false,
+      processData: false,
+      success: function (response) {
+        response = JSON.parse(response);
+        showToast(response.status, response.message, duration = 3000);
+
+        $('#addImagens').modal('hide');
+      },
+      error: function (xhr, status, error) {
+        console.error('Erro ao enviar imagem:', error);
+      }
+    });
+  });
+  //apagar imagens
+  $(document).on('click', "#btnDeleteImagem", function () {
+    var formData = new FormData();
+    formData.append('id_produto', $(this).data("prod-id"));
+    formData.append('image_name', $("#imagemModal").attr("data-image"));
+
+    console.log(formData);
+    $.ajax({
+      type: 'POST',
+      url: `${AJAX_ADMIN_URL}/delete_image.php`,
+      data: formData,
+      contentType: false,
+      processData: false,
+      success: function (response) {
+        response = JSON.parse(response);
+        showToast(response.status, response.message, duration = 3000);
+        
       },
       error: function (xhr, status, error) {
         console.error('Erro ao enviar imagem:', error);
@@ -385,14 +440,14 @@ $(document).ready(function () {
     });
   });
 
-    function load_tipos_table() {
-      var target = ".tipos-table";
-      var loader_div = "#loading-tipos";
+  function load_tipos_table() {
+    var target = ".tipos-table";
+    var loader_div = "#loading-tipos";
 
-      if ($(target).length > 0) {
-        load_view(target, loader_div, `${RELOAD_ADMIN}/listar_tipos.php`);
-      }
+    if ($(target).length > 0) {
+      load_view(target, loader_div, `${RELOAD_ADMIN}/listar_tipos.php`);
     }
+  }
   $(document).ready(function () {
     $("#tipos").on("show.bs.modal", function (e) {
       load_tipos_table()
@@ -462,5 +517,4 @@ $(document).ready(function () {
   }
   );
 });
-
 

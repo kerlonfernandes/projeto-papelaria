@@ -1,11 +1,14 @@
 <?php
 require "../classes/Database.inc.php";
+require "../classes/Helpers.inc.php";
+
 require "../_app/Config.inc.php";
 
-
+use HelpersClass\SupAid;
 use Midspace\Database;
 
 $db = new Database(MYSQL_CONFIG);
+$helpers= new SupAid();
 
 $sql = "SELECT produtos.*, tipo_produto.descricao AS description FROM `produtos` 
 LEFT JOIN tipo_produto ON produtos.tipo_produto_id = tipo_produto.id WHERE tipo_produto = 'Mochilas'";
@@ -20,14 +23,14 @@ if ($result->status === 'success') :
  
  <div class="limit">
         <div class="container mt-5">
-            <button class="carousel-control-prev" type="button" data-bs-target="#carouselMochilas" data-bs-slide="prev">
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselMateriais" data-bs-slide="prev">
                 <span class="carousel-control-prev-icon buttons-caroussel" aria-hidden="true"></span>
                 <span class="visually-hidden">Previous</span>
             </button>
-            <div id="carouselMochilas" class="carousel slide">
+            <div id="carouselMateriais" class="carousel slide">
                 <div class="carousel-indicators" style="pointer-events: none;">
                     <?php foreach ($grupos_produtos as $index => $grupo) : ?>
-                        <button type="button" data-bs-target="#carouselMochilas" data-bs-slide-to="<?php echo $index; ?>" class="<?php echo $index === 0 ? 'active' : ''; ?>" aria-current="true" aria-label="Slide <?php echo $index + 1; ?>"></button>
+                        <button type="button" data-bs-target="#carouselMateriais" data-bs-slide-to="<?php echo $index; ?>" class="<?php echo $index === 0 ? 'active' : ''; ?>" aria-current="true" aria-label="Slide <?php echo $index + 1; ?>"></button>
                     <?php endforeach; ?>
                 </div>
                 <div class="carousel-inner">
@@ -38,16 +41,21 @@ if ($result->status === 'success') :
                                     <div class="col">
                                         <div class="card h-100">
                                             <div class="image-container" style="height: 300px; padding:10px; padding-bottom:10px; overflow: hidden;">
-                                                <img src="./app/images/<?php
-                                                                        $imagens = $produto->imagens;
-                                                                        if (strpos($imagens, ',') !== false) {
-                                                                            $imagensArray = explode(',', $imagens);
-                                                                            $primeiraImagem = $imagensArray[0];
-                                                                            echo $primeiraImagem;
-                                                                        } else {
-                                                                            echo $imagens;
-                                                                        }
-                                                                        ?>" class="card-img-top img-hover" alt="<?php echo $produto->nome; ?>" style="width: 100%; height: 100%; object-fit: cover;">
+                                                <img src=" <?php
+                                                            $imagens = $produto->imagens;
+                                                            if (strpos($imagens, ',') !== false) {
+                                                                $imagensArray = explode(',', $imagens);
+                                                                $primeiraImagem = $imagensArray[0];
+                                                                echo $primeiraImagem;
+                                                            } else {
+
+                                                                if ($imagens != "") {
+                                                                    echo SITE . "/app/images/" . $imagens;
+                                                                } else {
+                                                                    echo SITE . "/src/images/sem-imagem.jpg";
+                                                                }
+                                                            }
+                                                            ?>" class="card-img-top img-hover" alt="<?php echo $produto->nome; ?>" style="width: 100%; height: 100%; object-fit: cover;">
                                             </div>
                                             <div class="card-body">
                                                 <h5 class="card-title"><?php
@@ -56,7 +64,7 @@ if ($result->status === 'success') :
                                                                             $nome = substr($nome, 0, 50) . "...";
                                                                         }
                                                                         ?>
-                                                    <h5 class="card-title"><?php echo $nome; ?></h5> 
+                                                    <h5 class="card-title"><?php echo $nome; ?></h5>
                                                 </h5>
                                                 <p class="card-text"><?php $produto->descricao ?></p>
                                             </div>
@@ -72,9 +80,9 @@ if ($result->status === 'success') :
 
 
                                                 <div class="button-container">
-                                                    <button type="button" class="btn btn-success botao-ver-mais adicionar">ADICIONAR <i class="fa-solid fa-cart-plus"></i></button>
+                                                    <button type="button" class="btn btn-success botao-ver-mais adicionar" data-prod="<?= $helpers->encodeURL($produto->id) ?>">ADICIONAR <i class="fa-solid fa-cart-plus"></i></button>
                                                     <br>
-                                                    <a href="<?= SITE ?>/produto/<?= $produto->slug ?>" type="button" class="btn btn-primary botao-ver-mais" style="width:100%;  background-color: #086E7D;">Ver Mais</a>
+                                                    <a href="<?= SITE ?>/produto/<?= $produto->slug ?>/<?= $helpers->encodeURL($produto->id) ?>" type="button" class="btn btn-primary botao-ver-mais" style="width:100%;  background-color: #086E7D;">Ver Mais</a>
                                                 </div>
                                             </div>
                                         </div>
@@ -86,7 +94,7 @@ if ($result->status === 'success') :
                     <?php endforeach; ?>
                 </div>
             </div>
-            <button class="carousel-control-next" type="button" data-bs-target="#carouselMochilas" data-bs-slide="next">
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselMateriais" data-bs-slide="next">
                 <span class="carousel-control-next-icon buttons-caroussel" aria-hidden="true"></span>
                 <span class="visually-hidden">Next</span>
             </button>

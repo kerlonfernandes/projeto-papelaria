@@ -48,7 +48,7 @@ body {
 
 .riscado {
   text-decoration: line-through;
-  color: red !important;
+  color: rgba(109, 109, 109, 0.536)ortant;
 }
 
 .custom-input {
@@ -154,7 +154,7 @@ body {
 .usuario .nav-item {
   display: block;
   margin-bottom: 10px;
-  /* Adicione margem entre os itens para separá-los */
+
 }
 
 .icon-usuario {
@@ -172,7 +172,6 @@ body {
   width: 100%;
   height: 100%;
   background-color: rgba(0, 0, 0, 0.5);
-  /* Cor do fundo com transparência */
   display: flex;
   justify-content: center;
   align-items: center;
@@ -182,9 +181,9 @@ body {
 
 .spinner {
   border: 4px solid rgba(255, 255, 255, 0.3);
-  /* Cor do spinner */
+
   border-top: 4px solid #fff;
-  /* Cor do spinner */
+
   border-radius: 50%;
   width: 50px;
   height: 50px;
@@ -253,4 +252,81 @@ body {
   width: 50%;
   background-color: rgb(0, 193, 0) !important;
   border-radius: 3px;
+}
+
+ #navbar {
+  transition: top 0.3s ease;
+}
+
+.fixed-header {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1000; 
+}
+
+.product-image {
+  width: 100%;
+  overflow: hidden;
+}
+
+.product-card {
+  border: none;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.product-card .card-body {
+  padding: 1rem;
+  position: relative;
+}
+
+.product-card .product-image {
+  width: 100%;
+  height: 0;
+  padding-bottom: 66.66%;
+  /* 150px/225px */
+  overflow: hidden;
+  border-radius: 10px;
+}
+
+.product-card .product-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.product-card .product-info {
+  margin-top: 0.5rem;
+  margin-left: 1.5rem;
+}
+
+.product-card .product-title {
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem;
+}
+
+.product-card .product-price {
+  font-size: 1rem;
+  margin-bottom: 1rem;
+  /* text-decoration: line-through; */
+  font-size: 20px;
+  color: #888;
+}
+
+.product-card .remove-btn {
+  position: absolute;
+  bottom: 1rem;
+  right: 1rem;
+}
+
+.card-checkout {
+  margin-bottom: 20px;
+}
+
+.form-group {
+  display: none;
 }

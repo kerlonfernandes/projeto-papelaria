@@ -6,7 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Carrinho</title>
     <?php
-
     require "./inc/assets.inc.php";
     require "./inc/css_files.inc.php";
     ?>
@@ -14,20 +13,16 @@
 
 <body>
 
-    <?php require "./components/header.php"; ?>
+    <?php
+        require "./components/header.php"; 
+        require "./modals/finalizar_modal.php"; 
+    
+    ?>
     <div id="overlay">
         <div class="spinner"></div>
     </div>
 
-    <?php 
-    if(isset($route[0]) && $route[0] == "checkout") {
-        require "./templates/checkout.php";
-    }
-    else {
-        
-    }
-        
-    ?>
+   
         
             
     <?php if(!isset($route)): ?>
@@ -75,7 +70,7 @@
                                                 <p class="mb-0 h3">R$<span class="total">0,00</span></p>
                                             </div>
                                             <div>
-                                                <button type="button" data-mdb-button-init data-mdb-ripple-color="primary" class="btn btn-primary btn-lg" id="checkoutBtn">Finalizar pedido</button>
+                                                <button type="button" data-mdb-button-init data-mdb-ripple-color="primary" class="btn btn-primary btn-lg" id="checkoutBtn" style="border-radius: 2px;" data-bs-toggle="modal" data-bs-target="#finalizar">Resumo do pedido</button>
                                             </div>
                                         </li>
                                     </ul>

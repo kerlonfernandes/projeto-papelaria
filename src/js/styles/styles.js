@@ -139,7 +139,6 @@ function confirmarDelecao() {
 
 
 function createYesNoDialog(message, yesCallback, noCallback) {
-
     $('#yesNoModal').remove();
     
     var dialog = document.createElement('div');

@@ -28,7 +28,7 @@
 
           <li class="nav justify-content-center">
             <form class="d-flex" role="search">
-              <input class="form-control custom-input me-2 input-pesquisa" type="search" placeholder="Pesquisar produto..." aria-label="Search" style="margin-left: 25px;">
+              <input class="form-control custom-input me-2 input-pesquisa" type="search" placeholder="Pesquisar produto..." aria-label="Search" style="margin-left: 25px; height: 50px;">
               <button class="btn btn-outline" type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
             </form>
           </li>

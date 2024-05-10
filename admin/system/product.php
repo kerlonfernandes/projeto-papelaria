@@ -39,7 +39,6 @@ if ($prod->imagens !== null) {
 
 $imagens_array = array_map('trim', $imagens_array);
 ?>
-<script src="<?= SITE ?>/src/js/jquery.min.js?id=<?= uniqid() ?>"></script>
 
 <div class="modal fade" id="uploadImagemModal" tabindex="-1" aria-labelledby="uploadImagemModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-lg">
@@ -91,38 +90,38 @@ $imagens_array = array_map('trim', $imagens_array);
     <div class="row">
         <div class="col-lg-12">
 
-        <div id="carouselExampleControls" class="carousel slide card" data-bs-ride="carousel">
-    <div class="carousel-inner">
-        <?php if (!empty($imagens_array)) : ?>
-            <?php foreach ($imagens_array as $key => $imagem) : ?>
-                <?php
-                $caminho_imagem = "../app/images/$imagem";
-                $imagem_existente = file_exists($caminho_imagem) && !empty($imagem); // Verifica se a imagem existe e não está vazia
-                ?>
-                <div class="carousel-item <?= ($key === 0) ? 'active' : ''; ?>">
-                    <?php if ($imagem_existente) : ?>
-                        <img src="<?= $caminho_imagem; ?>" class="d-block w-100 imagem-carousel" alt="Imagem <?= $key + 1; ?>" data-bs-toggle="modal" data-bs-target="#uploadImagemModal" data-imagem="<?= $caminho_imagem; ?>" data-img-name="<?= $imagem ?>" style="width: 200px auto;">
+            <div id="carouselExampleControls" class="carousel slide card" data-bs-ride="carousel">
+                <div class="carousel-inner">
+                    <?php if (!empty($imagens_array)) : ?>
+                        <?php foreach ($imagens_array as $key => $imagem) : ?>
+                            <?php
+                            $caminho_imagem = "../app/images/$imagem";
+                            $imagem_existente = file_exists($caminho_imagem) && !empty($imagem); // Verifica se a imagem existe e não está vazia
+                            ?>
+                            <div class="carousel-item <?= ($key === 0) ? 'active' : ''; ?>">
+                                <?php if ($imagem_existente) : ?>
+                                    <img src="<?= $caminho_imagem; ?>" class="d-block w-100 imagem-carousel" alt="Imagem <?= $key + 1; ?>" data-bs-toggle="modal" data-bs-target="#uploadImagemModal" data-imagem="<?= $caminho_imagem; ?>" data-img-name="<?= $imagem ?>" style="width: 200px auto;">
+                                <?php else : ?>
+                                    <img src="../src/images/sem-imagem.jpg" class="d-block w-100 imagem-carousel" alt="Placeholder">
+                                <?php endif; ?>
+                            </div>
+                        <?php endforeach; ?>
                     <?php else : ?>
-                        <img src="../src/images/sem-imagem.jpg" class="d-block w-100 imagem-carousel" alt="Placeholder">
+                        <div class="alert alert-danger d-flex align-items-center text-center" role="alert">
+                            Este produto não contém imagem, portanto, não aparecerá na home inicial do site por questões do sistema.
+                        </div>
                     <?php endif; ?>
                 </div>
-            <?php endforeach; ?>
-        <?php else : ?>
-            <div class="alert alert-danger d-flex align-items-center text-center" role="alert">
-                Este produto não contém imagem, portanto, não aparecerá na home inicial do site por questões do sistema.
+                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+                <button class="btn" data-bs-toggle="modal" data-bs-target="#addImagens"><i class="fa-solid fa-image"></i> Adicionar mais imagens ao produto</button>
             </div>
-        <?php endif; ?>
-    </div>
-    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
-        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Previous</span>
-    </button>
-    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
-        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Next</span>
-    </button>
-    <button class="btn" data-bs-toggle="modal" data-bs-target="#addImagens"><i class="fa-solid fa-image"></i> Adicionar mais imagens ao produto</button>
-</div>
 
             <div class="row mt-5">
                 <div class="col-lg-12">
@@ -131,7 +130,7 @@ $imagens_array = array_map('trim', $imagens_array);
                             <h1 class="card-title">Produto</h1>
                         </div>
                         <div class="card-body">
-                            <form class="editar-produto">
+                            <form class="edita-produto">
                                 <div class="form-group">
                                     <label for="prod-nome">Nome do Produto:</label>
                                     <input type="text" class="form-control" id="prod-nome" name="produto_nome" value="<?= $prod->nome ?>">
@@ -181,7 +180,8 @@ $imagens_array = array_map('trim', $imagens_array);
                 </div>
             </div>
         </div>
-
+    </div>
+    
         <script>
             $(document).ready(function() {
                 $('.imagem-carousel').on('click', function() {

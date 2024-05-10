@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
 
 * {
   font-family: "Poppins", sans-serif;
@@ -15,14 +15,14 @@ body {
 .horizontal-bar {
   width: 100%;
   height: 100px;
-  background-color: #FFC900;
+  background-color: #ffc900;
   font-size: 28px;
   font-weight: bold;
   margin: auto 0;
   color: #000;
 }
 
-.horizontal-bar>a {
+.horizontal-bar > a {
   color: #000;
   text-decoration: none;
 }
@@ -48,7 +48,7 @@ body {
 
 .riscado {
   text-decoration: line-through;
-  color: rgba(109, 109, 109, 0.536)ortant;
+  color: rgba(109, 109, 109, 0.536) ortant;
 }
 
 .custom-input {
@@ -56,15 +56,13 @@ body {
 }
 
 .bg-navbar {
-
-  background-color: #FFC700 !important;
+  background-color: #ffc700 !important;
 }
 
 .input-pesquisa {
   border-radius: 2px;
   /* width: 600px; */
   border: none;
-
 }
 
 .navbar-nav .nav-link {
@@ -114,8 +112,6 @@ body {
   }
 }
 
-
-
 .custom-navbar {
   margin: 0;
   border: 0;
@@ -127,7 +123,7 @@ body {
 }
 
 .footer {
-  background-color: #FFC700;
+  background-color: #ffc700;
   padding: 1rem;
   text-align: center;
 }
@@ -154,14 +150,11 @@ body {
 .usuario .nav-item {
   display: block;
   margin-bottom: 10px;
-
 }
 
 .icon-usuario {
-
   color: #0000 !important;
   text-decoration: none !important;
-
 }
 
 #overlay,
@@ -232,12 +225,11 @@ body {
 
 .card {
   border: 1px solid rgba(228, 220, 207, 0.4);
-  ;
 }
 
 .ver {
   width: 100%;
-  background-color: #00BFFF;
+  background-color: #00bfff;
   border-radius: 3px;
 }
 
@@ -254,7 +246,7 @@ body {
   border-radius: 3px;
 }
 
- #navbar {
+#navbar {
   transition: top 0.3s ease;
 }
 
@@ -262,7 +254,7 @@ body {
   position: fixed;
   top: 0;
   width: 100%;
-  z-index: 1000; 
+  z-index: 1000;
 }
 
 .product-image {
@@ -328,5 +320,34 @@ body {
 }
 
 .form-group {
-  display: none;
+  display: block;
+}
+.step {
+  background-color: #f8f9fa;
+  border-radius: 5px;
+  padding: 20px;
+  margin-bottom: 30px;
+}
+
+.step-item {
+  padding: 10px 0;
+  color: #6c757d;
+  font-size: 18px;
+  position: relative;
+  margin-bottom: 20px;
+}
+
+.step-item::before {
+  content: "\2022";
+  font-size: 18px;
+  position: absolute;
+  left: -25px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #007bff;
+}
+
+.step-item.active::before {
+  content: "\25BA";
+  font-size: 20px;
 }

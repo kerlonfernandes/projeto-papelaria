@@ -34,6 +34,7 @@ function printData($data, $die = true) {
 
 } 
 
+
 $BASE_URL = "https://" . $_SERVER['SERVER_NAME'] . dirname($_SERVER['REQUEST_URI'] . "?") . "/";
 
 define("SITE", "https://" . $_SERVER['SERVER_NAME'] . "/projeto-papelaria");

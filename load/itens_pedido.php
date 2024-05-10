@@ -13,21 +13,23 @@ $res = array();
 $produtos = [];
 
 if (isset($_SESSION["user_id"]) && $_SESSION['logged_user'] == true) {
-    $res = $db->execute_query("SELECT 
-    carrinho.produto_id, 
-    produtos.*,
-    carrinho.item_selecionado,
-    COUNT(*) AS quantidade_p
-FROM 
-    carrinho 
-LEFT JOIN 
-    users ON carrinho.user_id = users.id 
-LEFT JOIN 
-    produtos ON produtos.id = carrinho.produto_id 
-WHERE 
-    users.id = :user_id 
-GROUP BY 
-    carrinho.produto_id;", [
+    $res = $db->execute_query("
+    SELECT 
+        carrinho.produto_id, 
+        produtos.*,
+        carrinho.item_selecionado,
+        COUNT(*) AS quantidade_p
+    FROM 
+        carrinho 
+    LEFT JOIN 
+        users ON carrinho.user_id = users.id 
+    LEFT JOIN 
+        produtos ON produtos.id = carrinho.produto_id 
+    WHERE 
+        users.id = :user_id 
+        AND carrinho.item_selecionado = 1
+    GROUP BY 
+        carrinho.produto_id;", [
         ":user_id" => $_SESSION['user_id']
     ]);
 
@@ -66,39 +68,34 @@ GROUP BY
                 </div>
             </div>
             <div class="col-md-8 mb-4">
-                <div class="card product-card p-3  <?= $produto->item_selecionado == 1 ? 'alert alert-primary' : '' ?>" >
-                    <div class="row align-items-center">
-                        <div class="col-md-6">
+                <div class="p-3">
+                    <!-- <div class="row align-items-center">
+                        <div class="col-md-6"> -->
                             <div class="card-body">
                                 <h5 class="product-title mb-1"><a href="#"><?= $produto->nome ?></a></h5>
                                 <p class="product-price mb-2">R$<?= number_format($produto->preco, 2, ',', '.'); ?></p>
                                 <div class="input-group input-group-sm mb-3">
                                     <span class="input-group-text">Quantidade</span>
                                     <input type="text" class="form-control form-control-sm quantidade-input" value="<?= $produto->quantidade_p ?>" readonly>
-                                    <span class="input-group-text">
+                                    <!-- <span class="input-group-text">
                                         <button class="btn btn-outline-secondary diminui-qtd" type="button" data-id="<?= $helpers->encodeURL($produto->produto_id) ?>">-</button>
                                         <button class="btn btn-outline-secondary aumentar-qtd" type="button" data-id="<?= $helpers->encodeURL($produto->produto_id) ?>">+</button>
-                                    </span>
+                                    </span> -->
                                 </div>
-                                <div class="form-check form-switch">
-                                    <input class="form-check-input" type="checkbox" id="product<?= $produto->nome ?>Checkbox" data-id="<?= $helpers->encodeURL($produto->produto_id) ?>" <?= $produto->item_selecionado == 1 ? 'checked' : '' ?>>
-                                </div>
+                            
 
-                            </div>
+                            <!-- </div>
                         </div>
-                        <div class="col-md-6">
-                            <button type="button" class="btn btn-danger btn-sm mt-auto float-end remove-prod" data-mdb-ripple-color="danger" data-id="<?= $helpers->encodeURL($produto->id) ?>">Remover do carrinho <i class="fa-regular fa-square-minus"></i></button>
-                        </div>
+                         -->
                     </div>
                 </div>
             </div>
         </div>
-
+        <hr>
     <?php endforeach; ?>
-
 <?php else : ?>
     <div class="row align-items-center text-center">
-        <span>Não há produtos no carrinho</span>
+        <span style="margin-top: 200px;">Não há produtos selecionados</span>
     </div>
 
 <?php endif; ?>

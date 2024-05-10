@@ -396,34 +396,34 @@ $(document).ready(function () {
 
     $('#uploadImagemModal').modal('hide');
   });
-
   $(document).on("submit", ".editar-produto", function (e) {
     e.preventDefault();
     createYesNoDialog(
-      "Tem certeza que deseja editar este produto ?",
-      () => {
-        let id_produto = $("#editar-btn").attr("data-id-produto");
-        if (id_produto == undefined) {
-          id_produto = $(".id-prod").val();
-        }
+        "Tem certeza que deseja editar este produto ?",
+        function() { 
+            let id_produto = $("#editar-btn").attr("data-id-produto");
+            if (id_produto == undefined) {
+                id_produto = $(".id-prod").val();
+            }
 
-        let formData = $(this).serialize() + "&id_produto=" + id_produto;
-        console.log(formData)
-        $.ajax({
-          url: `${AJAX_ADMIN_URL}/editar_produto.php`,
-          type: "POST",
-          data: formData,
-          success: function (response) {
-            let res = JSON.parse(response);
-            showToast(res.status, res.message, (duration = 3000));
-            load_products_table();
-          },
-          error: function (xhr, status, error) {
-            console.error("Erro ao enviar dados:", error);
-          },
-        });
-      });
-  });
+            let formData = $(this).serialize() + "&id_produto=" + id_produto;
+            console.log(formData)
+            $.ajax({
+                url: `${AJAX_ADMIN_URL}/editar_produto.php`,
+                type: "POST",
+                data: formData,
+                success: function(response) {
+                    let res = JSON.parse(response);
+                    showToast(res.status, res.message, (duration = 3000));
+                    load_products_table();
+                },
+                error: function(xhr, status, error) {
+                    console.error("Erro ao enviar dados:", error);
+                },
+            });
+        }
+    );
+});
 
   function load_categorias_table() {
     var target = ".categorias-table";

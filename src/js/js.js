@@ -124,9 +124,13 @@ $(document).on("click", ".diminui-qtd", function() {
 $(document).on("click", ".aumentar-qtd", function() {
     incrementarQuantidade(this); 
     let id = $(this).attr('data-id');
+    let checkboxChecked = $(this).closest('.card').find('.form-check-input').is(":checked");
     $.ajax({
         method: "POST",
-        data: {id: id},
+        data: {
+            id: id,
+            checkboxChecked: checkboxChecked
+        },
         url: `${AJAX}/aumenta_qtd.php`,
         success: function (res) {
             res = JSON.parse(res)
@@ -139,6 +143,71 @@ $(document).on("click", ".aumentar-qtd", function() {
         },
     });
 });
+
+
+$(document).on("click", ".form-check-input", function() {
+    let id = $(this).attr('data-id');
+    let action = $(this).is(":checked") ? "select" : "unselect";
+
+    $.ajax({
+        method: "POST",
+        url: `${AJAX}/selecionar_produto.php`,
+        data: {
+            id: id,
+            action: action
+        },
+        dataType: "json",
+        success: function(response) {
+            load_view(".subtotal", "", `${LOAD}/subtotal.php`);
+        },
+        error: function(xhr, status, error) {
+            console.error("Erro na requisição AJAX:", error);
+        }
+    });
+});
+
+
+$("#finalizar").on("show.bs.modal", function (e) {
+    load_view(".itens_pedido", ".loader-finalizar", `${LOAD}/itens_pedido.php`)
+    load_view(".subtotal_finalizar", "", `${LOAD}/subtotal.php`);
+
+});
+
+$(document).on("click", ".finalizar_pedido", function() {
+    swal("Você tem certeza que deseja fazer este pedido ?", {
+        buttons: {
+          cancel: "Cancelar",
+          catch: {
+            text: "Finalizar",
+            value: "catch",
+          },
+      
+        },
+      })
+      .then((value) => {
+        switch (value) {
+          case "catch":
+            $.ajax({
+                method: "GET",
+                url: `${AJAX}/fazer_pedido.php`,
+                success: function (res) {
+                    res = JSON.parse(res) 
+                    swal(res.retorno , res.message, res.status);
+                    setTimeout(function() {
+                        window.location.href = `${SITE}/pedido/${res.id}`;
+                    }, 3000); // 3000 milissegundos = 3 segundos
+                },
+                error: function (error) {
+                    swal("Ocorreu um erro!", "Verifique sua conexão com a internet", "error");
+                },
+            });
+            break;
+       
+  
+        }
+      });
+});
+
 
 $(document).on("click", ".remove-prod", function() {
 
@@ -163,6 +232,8 @@ $(document).on("click", ".remove-prod", function() {
 });
 
 
+
+
 $(document).ready(function() {
     $(".form-check-input").click(function() {
         var valor = $(this).val();
@@ -170,17 +241,3 @@ $(document).ready(function() {
         $("#" + valor + "Form .form-group").show();
     });
 });
-// $(document).on('click', ".aumentar-qtd", function () {
-//     var quantidadeInput = $(this).closest('.prod-card').find('.quantidade-input');
-//     var valor = parseInt(quantidadeInput.val());
-//     if (!isNaN(valor)) {
-//         console.log("Valor atual:", valor);
-//     } else {
-//         console.log("Valor atual não é um número.");
-//     }
-// });
-
-
-// $(document).on('click', ".diminui-qtd", function () {
-//     console.log($(this))
-// });

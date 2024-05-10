@@ -2,10 +2,10 @@
 -- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Tempo de geração: 04/05/2024 às 20:43
--- Versão do servidor: 10.4.32-MariaDB
--- Versão do PHP: 8.2.12
+-- Host: localhost
+-- Generation Time: May 10, 2024 at 10:52 PM
+-- Server version: 10.4.32-MariaDB
+-- PHP Version: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,13 +18,13 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Banco de dados: `papelaria_db`
+-- Database: `papelaria_db`
 --
 
 -- --------------------------------------------------------
 
 --
--- Estrutura para tabela `carrinho`
+-- Table structure for table `carrinho`
 --
 
 CREATE TABLE `carrinho` (
@@ -32,23 +32,21 @@ CREATE TABLE `carrinho` (
   `user_id` int(11) DEFAULT NULL,
   `produto_id` int(11) DEFAULT NULL,
   `quantidade` int(11) DEFAULT NULL,
-  `adicionado_em` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+  `adicionado_em` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `item_selecionado` tinyint(1) NOT NULL DEFAULT 0 COMMENT '1 = sim, 0 = não'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Despejando dados para a tabela `carrinho`
+-- Dumping data for table `carrinho`
 --
 
-INSERT INTO `carrinho` (`id`, `user_id`, `produto_id`, `quantidade`, `adicionado_em`) VALUES
-(537, 1, 74, 1, '2024-05-03 00:49:25'),
-(540, 1, 74, 1, '2024-05-03 00:49:49'),
-(542, 1, 76, 1, '2024-05-03 00:51:03'),
-(543, 1, 75, 1, '2024-05-03 01:42:40');
+INSERT INTO `carrinho` (`id`, `user_id`, `produto_id`, `quantidade`, `adicionado_em`, `item_selecionado`) VALUES
+(697, 1, 1, 1, '2024-05-10 02:32:02', 0);
 
 -- --------------------------------------------------------
 
 --
--- Estrutura para tabela `categorias`
+-- Table structure for table `categorias`
 --
 
 CREATE TABLE `categorias` (
@@ -59,19 +57,61 @@ CREATE TABLE `categorias` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Despejando dados para a tabela `categorias`
+-- Dumping data for table `categorias`
 --
 
 INSERT INTO `categorias` (`id`, `nome`, `descricao`, `slug_categoria`) VALUES
 (1, 'CADERNOS', 'CATEGORIA DE CADERNOS', 'cadernos'),
 (2, 'MOCHILAS', NULL, ''),
-(15, 'CANETAS', NULL, ''),
-(17, 'osjgskd', NULL, 'osjgskd');
+(15, 'CANETAS', NULL, '');
 
 -- --------------------------------------------------------
 
 --
--- Estrutura para tabela `nivel_acesso`
+-- Table structure for table `estados`
+--
+
+CREATE TABLE `estados` (
+  `codigo_ibge` varchar(4) NOT NULL,
+  `sigla` char(2) NOT NULL,
+  `nome` varchar(30) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci ROW_FORMAT=DYNAMIC;
+
+--
+-- Dumping data for table `estados`
+--
+
+INSERT INTO `estados` (`codigo_ibge`, `sigla`, `nome`) VALUES
+('12', 'AC', 'Acre'),
+('27', 'AL', 'Alagoas'),
+('13', 'AM', 'Amazonas'),
+('16', 'AP', 'Amapá'),
+('29', 'BA', 'Bahia'),
+('23', 'CE', 'Ceará'),
+('53', 'DF', 'Distrito Federal'),
+('32', 'ES', 'Espírito Santo'),
+('52', 'GO', 'Goiás'),
+('21', 'MA', 'Maranhão'),
+('31', 'MG', 'Minas Gerais'),
+('50', 'MS', 'Mato Grosso do Sul'),
+('51', 'MT', 'Mato Grosso'),
+('15', 'PA', 'Pará'),
+('25', 'PB', 'Paraíba'),
+('26', 'PE', 'Pernambuco'),
+('22', 'PI', 'Piauí'),
+('41', 'PR', 'Paraná'),
+('33', 'RJ', 'Rio de Janeiro'),
+('24', 'RN', 'Rio Grande do Norte'),
+('11', 'RO', 'Rondônia'),
+('14', 'RR', 'Roraima'),
+('43', 'RS', 'Rio Grande do Sul'),
+('42', 'SC', 'Santa Catarina'),
+('28', 'SE', 'Sergipe');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `nivel_acesso`
 --
 
 CREATE TABLE `nivel_acesso` (
@@ -82,7 +122,7 @@ CREATE TABLE `nivel_acesso` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Despejando dados para a tabela `nivel_acesso`
+-- Dumping data for table `nivel_acesso`
 --
 
 INSERT INTO `nivel_acesso` (`id`, `id_user`, `nivel_acesso`, `acesso`) VALUES
@@ -91,7 +131,53 @@ INSERT INTO `nivel_acesso` (`id`, `id_user`, `nivel_acesso`, `acesso`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estrutura para tabela `pedidos`
+-- Table structure for table `pedido`
+--
+
+CREATE TABLE `pedido` (
+  `id` int(11) NOT NULL,
+  `id_cliente` int(11) DEFAULT NULL,
+  `data_pedido` date DEFAULT NULL,
+  `hora_pedido` time NOT NULL,
+  `total_pedido` decimal(10,2) DEFAULT NULL,
+  `nome_completo` varchar(255) DEFAULT NULL,
+  `telefone` varchar(30) DEFAULT NULL,
+  `cep` varchar(30) DEFAULT NULL,
+  `endereco` text DEFAULT NULL,
+  `numero_residencia` int(11) DEFAULT NULL,
+  `complemento` text DEFAULT NULL,
+  `bairro` text DEFAULT NULL,
+  `cidade` varchar(100) DEFAULT NULL,
+  `estado` varchar(10) DEFAULT NULL,
+  `metodo_pagamento` varchar(50) DEFAULT NULL,
+  `taxa_envio` decimal(10,2) DEFAULT NULL,
+  `codigo_rastreamento` varchar(100) DEFAULT NULL,
+  `observacoes` text DEFAULT NULL,
+  `cupom_desconto` varchar(50) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `pedido`
+--
+
+INSERT INTO `pedido` (`id`, `id_cliente`, `data_pedido`, `hora_pedido`, `total_pedido`, `nome_completo`, `telefone`, `cep`, `endereco`, `numero_residencia`, `complemento`, `bairro`, `cidade`, `estado`, `metodo_pagamento`, `taxa_envio`, `codigo_rastreamento`, `observacoes`, `cupom_desconto`) VALUES
+(1, 1, '2024-05-05', '22:51:22', 451.23, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(17, 1, '2024-05-05', '23:57:56', 452.34, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(18, 1, '2024-05-06', '07:58:39', 30.42, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(19, 1, '2024-05-06', '08:12:59', 100228.16, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(20, 1, '2024-05-06', '08:18:58', 450.00, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(21, 1, '2024-05-06', '08:31:51', 300.00, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(22, 1, '2024-05-07', '08:19:12', 300.00, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(23, 1, '2024-05-09', '20:18:16', 3439.15, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(24, 1, '2024-05-09', '20:59:00', 3439.15, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(25, 1, '2024-05-09', '23:27:59', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(26, 1, '2024-05-09', '23:28:17', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(27, 1, '2024-05-09', '23:32:12', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `pedidos`
 --
 
 CREATE TABLE `pedidos` (
@@ -105,7 +191,7 @@ CREATE TABLE `pedidos` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Despejando dados para a tabela `pedidos`
+-- Dumping data for table `pedidos`
 --
 
 INSERT INTO `pedidos` (`id`, `id_usuario`, `numero_pedido`, `status_pedido`, `aguardando_reembolso`, `hora_pedido`, `data_pedido`) VALUES
@@ -115,28 +201,7 @@ INSERT INTO `pedidos` (`id`, `id_usuario`, `numero_pedido`, `status_pedido`, `ag
 -- --------------------------------------------------------
 
 --
--- Estrutura para tabela `pedido_produtos`
---
-
-CREATE TABLE `pedido_produtos` (
-  `id` int(11) NOT NULL,
-  `id_pedido` int(11) NOT NULL,
-  `id_produto` int(11) NOT NULL,
-  `preco_unitario` decimal(10,2) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Despejando dados para a tabela `pedido_produtos`
---
-
-INSERT INTO `pedido_produtos` (`id`, `id_pedido`, `id_produto`, `preco_unitario`) VALUES
-(1, 1, 1, 150.00),
-(2, 2, 1, 130.00);
-
--- --------------------------------------------------------
-
---
--- Estrutura para tabela `produtos`
+-- Table structure for table `produtos`
 --
 
 CREATE TABLE `produtos` (
@@ -154,20 +219,19 @@ CREATE TABLE `produtos` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Despejando dados para a tabela `produtos`
+-- Dumping data for table `produtos`
 --
 
 INSERT INTO `produtos` (`id`, `nome`, `descricao`, `imagens`, `preco`, `preco_anterior`, `quantidade`, `slug`, `data_cadastro`, `categoria_id`, `tipo_produto_id`) VALUES
 (1, 'Mochila HotWhells ', 'é doida mano', 'img_662dc68dcaf6a8.77394343_mochila_escolar_rodinha_lancheira_estojo_hot_wheels_luxcel_2605_1_9bfe5c0bfa3e0f435a238f8ace5928cb.webp', 150.00, 230, 100, '', '2024-04-22 14:32:34', 2, 2),
 (74, 'asdsadsasddasd', 'sadasdsa', '', 1.23, 231, 1, 'asdsadsasddasd', '2024-04-28 03:59:02', 2, 2),
 (75, 'wfdwdeewdwe', 'rererewrew', '', 3132.13, 21332, 1, 'wfdwdeewdwe', '2024-04-28 03:59:13', 1, 2),
-(76, 'não pão ão mão lingîça mínha', 'rewtgdff', '', 2.34, 43, 1, 'nao-pao-ao-mao-lingica-minha', '2024-04-28 03:59:37', 1, 2),
-(78, 'Mochila ', 'asdasd', 'img_66330ed08321d7.98696885_azul-caneta.webp, img_66330ed0833b72.23350879_caneta_esferografica_cristal_1_0mm_bic_azul_4299_1_c16f6a69e57f6d3b1e4d05ed3e2e5850.webp, img_66330ed0835521.51109111_Sem título.png', 1000.00, 1000, 322, 'mochila', '2024-05-02 03:56:00', 1, 2);
+(76, 'não pão ão mão lingîça mínha', 'rewtgdff', '', 2.34, 43, 1, 'nao-pao-ao-mao-lingica-minha', '2024-04-28 03:59:37', 1, 2);
 
 -- --------------------------------------------------------
 
 --
--- Estrutura para tabela `tipo_produto`
+-- Table structure for table `tipo_produto`
 --
 
 CREATE TABLE `tipo_produto` (
@@ -178,7 +242,7 @@ CREATE TABLE `tipo_produto` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Despejando dados para a tabela `tipo_produto`
+-- Dumping data for table `tipo_produto`
 --
 
 INSERT INTO `tipo_produto` (`id`, `tipo_produto`, `descricao`, `slug_tipo`) VALUES
@@ -189,7 +253,7 @@ INSERT INTO `tipo_produto` (`id`, `tipo_produto`, `descricao`, `slug_tipo`) VALU
 -- --------------------------------------------------------
 
 --
--- Estrutura para tabela `users`
+-- Table structure for table `users`
 --
 
 CREATE TABLE `users` (
@@ -205,7 +269,7 @@ CREATE TABLE `users` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Despejando dados para a tabela `users`
+-- Dumping data for table `users`
 --
 
 INSERT INTO `users` (`id`, `nome`, `cpfcnpj`, `email`, `telefone`, `senha`, `recover_key`, `acessou_em`, `ultima_atualizacao`) VALUES
@@ -213,11 +277,11 @@ INSERT INTO `users` (`id`, `nome`, `cpfcnpj`, `email`, `telefone`, `senha`, `rec
 (2, 'Cezar', '111.111.111-11', 'xtxwk414@gmail.com', '(27) 9 999-9999', '$2y$10$LzZV6G.AbADSX5PECfSmbu7/DcbOGeiippbTQFl/dhnOLWZE802sS', NULL, '2024-04-19 21:27:23', '2024-04-22 19:18:22');
 
 --
--- Índices para tabelas despejadas
+-- Indexes for dumped tables
 --
 
 --
--- Índices de tabela `carrinho`
+-- Indexes for table `carrinho`
 --
 ALTER TABLE `carrinho`
   ADD PRIMARY KEY (`id`),
@@ -225,35 +289,34 @@ ALTER TABLE `carrinho`
   ADD KEY `produto_id` (`produto_id`);
 
 --
--- Índices de tabela `categorias`
+-- Indexes for table `categorias`
 --
 ALTER TABLE `categorias`
   ADD PRIMARY KEY (`id`);
 
 --
--- Índices de tabela `nivel_acesso`
+-- Indexes for table `nivel_acesso`
 --
 ALTER TABLE `nivel_acesso`
   ADD PRIMARY KEY (`id`),
   ADD KEY `id_user` (`id_user`);
 
 --
--- Índices de tabela `pedidos`
+-- Indexes for table `pedido`
+--
+ALTER TABLE `pedido`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `id_cliente` (`id_cliente`);
+
+--
+-- Indexes for table `pedidos`
 --
 ALTER TABLE `pedidos`
   ADD PRIMARY KEY (`id`),
   ADD KEY `id_usuario` (`id_usuario`);
 
 --
--- Índices de tabela `pedido_produtos`
---
-ALTER TABLE `pedido_produtos`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `fk_pedido` (`id_pedido`),
-  ADD KEY `fk_produto` (`id_produto`);
-
---
--- Índices de tabela `produtos`
+-- Indexes for table `produtos`
 --
 ALTER TABLE `produtos`
   ADD PRIMARY KEY (`id`),
@@ -261,101 +324,100 @@ ALTER TABLE `produtos`
   ADD KEY `fk_tipo_produto` (`tipo_produto_id`);
 
 --
--- Índices de tabela `tipo_produto`
+-- Indexes for table `tipo_produto`
 --
 ALTER TABLE `tipo_produto`
   ADD PRIMARY KEY (`id`);
 
 --
--- Índices de tabela `users`
+-- Indexes for table `users`
 --
 ALTER TABLE `users`
   ADD PRIMARY KEY (`id`);
 
 --
--- AUTO_INCREMENT para tabelas despejadas
+-- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT de tabela `carrinho`
+-- AUTO_INCREMENT for table `carrinho`
 --
 ALTER TABLE `carrinho`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=544;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=698;
 
 --
--- AUTO_INCREMENT de tabela `categorias`
+-- AUTO_INCREMENT for table `categorias`
 --
 ALTER TABLE `categorias`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
--- AUTO_INCREMENT de tabela `nivel_acesso`
+-- AUTO_INCREMENT for table `nivel_acesso`
 --
 ALTER TABLE `nivel_acesso`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
--- AUTO_INCREMENT de tabela `pedidos`
+-- AUTO_INCREMENT for table `pedido`
+--
+ALTER TABLE `pedido`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+
+--
+-- AUTO_INCREMENT for table `pedidos`
 --
 ALTER TABLE `pedidos`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
--- AUTO_INCREMENT de tabela `pedido_produtos`
---
-ALTER TABLE `pedido_produtos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-
---
--- AUTO_INCREMENT de tabela `produtos`
+-- AUTO_INCREMENT for table `produtos`
 --
 ALTER TABLE `produtos`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=80;
 
 --
--- AUTO_INCREMENT de tabela `tipo_produto`
+-- AUTO_INCREMENT for table `tipo_produto`
 --
 ALTER TABLE `tipo_produto`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
--- AUTO_INCREMENT de tabela `users`
+-- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
--- Restrições para tabelas despejadas
+-- Constraints for dumped tables
 --
 
 --
--- Restrições para tabelas `carrinho`
+-- Constraints for table `carrinho`
 --
 ALTER TABLE `carrinho`
   ADD CONSTRAINT `carrinho_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `carrinho_ibfk_2` FOREIGN KEY (`produto_id`) REFERENCES `produtos` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Restrições para tabelas `nivel_acesso`
+-- Constraints for table `nivel_acesso`
 --
 ALTER TABLE `nivel_acesso`
   ADD CONSTRAINT `nivel_acesso_ibfk_1` FOREIGN KEY (`id_user`) REFERENCES `users` (`id`);
 
 --
--- Restrições para tabelas `pedidos`
+-- Constraints for table `pedido`
+--
+ALTER TABLE `pedido`
+  ADD CONSTRAINT `pedido_ibfk_1` FOREIGN KEY (`id_cliente`) REFERENCES `users` (`id`);
+
+--
+-- Constraints for table `pedidos`
 --
 ALTER TABLE `pedidos`
   ADD CONSTRAINT `pedidos_ibfk_1` FOREIGN KEY (`id_usuario`) REFERENCES `users` (`id`);
 
 --
--- Restrições para tabelas `pedido_produtos`
---
-ALTER TABLE `pedido_produtos`
-  ADD CONSTRAINT `fk_pedido` FOREIGN KEY (`id_pedido`) REFERENCES `pedidos` (`id`),
-  ADD CONSTRAINT `fk_produto` FOREIGN KEY (`id_produto`) REFERENCES `produtos` (`id`);
-
---
--- Restrições para tabelas `produtos`
+-- Constraints for table `produtos`
 --
 ALTER TABLE `produtos`
   ADD CONSTRAINT `fk_tipo_produto` FOREIGN KEY (`tipo_produto_id`) REFERENCES `tipo_produto` (`id`),

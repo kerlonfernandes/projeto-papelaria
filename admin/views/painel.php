@@ -71,7 +71,7 @@ $prod_cad = $db->execute_query("SELECT COUNT(id) AS produtos_qtd FROM produtos;"
                         case "templates-settings";
                             echo "Configurações Gerais";
                             break;
-                        case "payments";
+                        case "pagamentos";
                             echo "Pagamentos";
                             break;
                     }
@@ -108,6 +108,8 @@ $prod_cad = $db->execute_query("SELECT COUNT(id) AS produtos_qtd FROM produtos;"
     <script src="<?= SITE ?>/src/js/styles/styles.js?id=<?= uniqid() ?>"></script>
     <script src="<?= SITE ?>/src/js/scripts.js?id=<?= uniqid() ?>"></script>
     <script src="<?= SITE ?>/src/js/admin/admin.js?id=<?= uniqid() ?>"></script>
+    <script src="<?= SITE ?>/src/js/jquery.mask.js?id=<?= uniqid() ?>"></script>
+    <script src="<?= SITE ?>/src/js/styles/masks.js?id=<?= uniqid() ?>"></script>
 </body>
 
 </html>

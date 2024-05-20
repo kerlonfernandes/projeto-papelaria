@@ -16,6 +16,8 @@ body {
   width: 100%;
   height: 100px;
   background-color: #ffc900;
+  
+
   font-size: 28px;
   font-weight: bold;
   margin: auto 0;
@@ -44,6 +46,11 @@ body {
 .card-img-link:hover .img-hover {
   transform: scale(1.1);
   transition: transform 0.2s;
+}
+
+.img-hover {
+  height: 40vh;
+  width: auto;
 }
 
 .riscado {
@@ -241,8 +248,8 @@ body {
 }
 
 .adicionar {
-  width: 50%;
-  background-color: rgb(0, 193, 0) !important;
+  width: 100%;
+ 
   border-radius: 3px;
 }
 
@@ -350,4 +357,149 @@ body {
 .step-item.active::before {
   content: "\25BA";
   font-size: 20px;
+}
+body {
+  background-color: #f8f9fa;
+  font-family: Arial, sans-serif;
+}
+
+.step {
+  background-color: #ffffff;
+  border-radius: 5px;
+  padding: 20px;
+  margin-bottom: 30px;
+  box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
+}
+
+.step-item {
+  padding: 10px 0;
+  color: #6c757d;
+  font-size: 18px;
+  position: relative;
+  margin-bottom: 20px;
+}
+
+.step-item::before {
+  content: "\2022";
+  font-size: 18px;
+  position: absolute;
+  left: -25px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #007bff;
+}
+
+.step-item.active::before {
+  content: "\25BA";
+  font-size: 20px;
+}
+
+.form-card {
+  background-color: #ffffff;
+  border-radius: 5px;
+  padding: 30px;
+  box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
+}
+
+.form-card h2 {
+  font-size: 24px;
+  color: #333333;
+  margin-bottom: 30px;
+}
+
+.form-group label {
+  font-size: 18px;
+  color: #333333;
+  font-weight: bold;
+}
+
+.form-control {
+  border-radius: 5px;
+}
+
+.botoes button {
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+.btn-prev {
+  background-color: #6c757d;
+  color: #ffffff;
+}
+
+.btn-next {
+  background-color: #007bff;
+  color: #ffffff;
+}
+
+.btn-prev:hover,
+.btn-next:hover {
+  opacity: 0.8;
+}
+
+.review-area {
+  background-color: #f8f9fa;
+  border-radius: 5px;
+  padding: 20px;
+  box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
+}
+
+.review-area h4 {
+  font-size: 20px;
+  color: #333333;
+  margin-bottom: 20px;
+}
+
+.review-area strong {
+  font-weight: bold;
+  color: #333333;
+}
+
+.review-area span {
+  font-size: 16px;
+  color: #555555;
+}
+
+.stepbar {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 40px; 
+}
+.stepbar-item {
+  flex-grow: 1;
+  text-align: center;
+  position: relative;
+  color: #aaa; 
+}
+.stepbar-item.active {
+  color: #333; 
+}
+.step-link {
+  color: inherit;
+  text-decoration: none;
+  transition: color 0.3s;
+  position: relative;
+}
+.step-link:hover {
+  color: #555;
+}
+.step-line {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  transform: translateY(-50%);
+  width: 100%;
+  height: 2px;
+  background-color: #ddd; 
+  z-index: -1;
+}
+.stepbar-item:not(:last-child) .step-line {
+  width: calc(100% - 20px); 
+}
+.stepbar-item.active .step-line {
+  background-color: #333;
+}
+.imagem-caroussel {
+  height: 40vh;
+  width: auto;
 }

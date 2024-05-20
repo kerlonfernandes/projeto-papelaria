@@ -2,6 +2,7 @@
 session_start();
 
 require "./classes/Database.inc.php";
+require "./classes/Helpers.inc.php";
 
 
 use Midspace\Database;
@@ -54,7 +55,7 @@ $db = new Database(MYSQL_CONFIG);
                                 if (strpos($imagens, ',') !== false) {
                                     $imagensArray = explode(',', $imagens);
                                     $primeiraImagem = $imagensArray[0];
-                                    echo $primeiraImagem;
+                                    echo SITE . "/app/images/" . $primeiraImagem;
                                 } else {
 
                                     if($imagens != "") {

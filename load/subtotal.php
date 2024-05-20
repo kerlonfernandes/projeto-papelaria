@@ -28,7 +28,7 @@ if(isset($_SESSION["user_id"]) && $_SESSION['logged_user'] == True) {
                     users.id = :user_id AND carrinho.item_selecionado = 1
                 GROUP BY 
                     carrinho.produto_id
-            ) AS produtos_carrinho;", [
+            ) AS produtos_carrinho", [
         ":user_id" => $_SESSION['user_id']
             ]);
 

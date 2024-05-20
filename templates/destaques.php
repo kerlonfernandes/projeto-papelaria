@@ -39,12 +39,12 @@ if ($result->status === 'success') :
                                     <div class="col">
                                         <div class="card h-100">
                                             <div class="image-container" style="height: 300px; padding:10px; padding-bottom:10px; overflow: hidden;">
-                                                <img src=" <?php
+                                                <img src="<?php
                                                             $imagens = $produto->imagens;
                                                             if (strpos($imagens, ',') !== false) {
                                                                 $imagensArray = explode(',', $imagens);
                                                                 $primeiraImagem = $imagensArray[0];
-                                                                echo $primeiraImagem;
+                                                                echo SITE . "/app/images/" . $primeiraImagem;
                                                             } else {
 
                                                                 if ($imagens != "") {
@@ -53,7 +53,8 @@ if ($result->status === 'success') :
                                                                     echo SITE . "/src/images/sem-imagem.jpg";
                                                                 }
                                                             }
-                                                            ?>" class="card-img-top img-hover" alt="<?php echo $produto->nome; ?>" style="width: 100%; height: 100%; object-fit: cover;">
+                                                            ?>" class="card-img-top img-hover" alt="<?php echo $produto->nome; ?>" style="width: 100%; object-fit: cover;
+                                                            ">
                                             </div>
                                             <div class="card-body">
                                                 <h5 class="card-title"><?php

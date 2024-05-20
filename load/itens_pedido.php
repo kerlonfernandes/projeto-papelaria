@@ -53,7 +53,7 @@ if (isset($_SESSION["user_id"]) && $_SESSION['logged_user'] == true) {
                                 if (strpos($imagens, ',') !== false) {
                                     $imagensArray = explode(',', $imagens);
                                     $primeiraImagem = $imagensArray[0];
-                                    echo $primeiraImagem;
+                                    echo SITE . "/app/images/" . $primeiraImagem;
                                 } else {
                                     if ($imagens != "") {
                                         echo SITE . "/app/images/" . $imagens;

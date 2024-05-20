@@ -46,7 +46,7 @@ if ($result->status === 'success') :
                                                             if (strpos($imagens, ',') !== false) {
                                                                 $imagensArray = explode(',', $imagens);
                                                                 $primeiraImagem = $imagensArray[0];
-                                                                echo $primeiraImagem;
+                                                                echo SITE . "/app/images/" . $primeiraImagem;
                                                             } else {
 
                                                                 if ($imagens != "") {

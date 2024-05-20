@@ -27,11 +27,19 @@ if($_SERVER['REQUEST_METHOD'] == "POST") {
             $res['message'] = "Produto excluído com sucesso!";
             $res['error'] = false;
             echo json_encode($res);
-        } else {
+        } 
+        elseif (strpos($resultProduto->message, "Integrity constraint violation") !== false && strpos($resultProduto->message, "a foreign key constraint fails") !== false) {
+            $res['status'] = "error";
+            $res['message'] = "O produto a ser excluído já foi pedido. Por favor, revise os pedidos.";
+            $res['error'] = true;
+            echo json_encode($res);
+        }
+        else {
  
             $res['status'] = "error";
             $res['message'] = "Ocorreu um erro ao excluir o produto!";
             $res['error'] = true;
+            $res['debug'] = $resultProduto;
             echo json_encode($res);
         }
     } else {

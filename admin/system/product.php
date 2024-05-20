@@ -160,11 +160,11 @@ $imagens_array = array_map('trim', $imagens_array);
                                 </div>
                                 <div class="form-group">
                                     <label for="prod-preco">Valor:</label>
-                                    <input type="text" class="form-control" id="real" placeholder="0,00" onkeyup="formatarReal(this)" name="preco" min="0" value="<?= number_format($prod->preco, 2, ',', '.'); ?>">
+                                    <input type="text" class="form-control moeda" id="real" placeholder="0,00" name="preco" min="0" value="<?= number_format($prod->preco, 2, ',', '.'); ?>">
                                 </div>
                                 <div class="form-group">
                                     <label for="prod-preco-anterior">Valor anterior:</label>
-                                    <input type="text" class="form-control" id="prod-preco-anterior" placeholder="0,00" onkeyup="formatarReal(this)" name="preco_anterior" min="0" value="<?= number_format($prod->preco_anterior, 2, ',', '.'); ?>">
+                                    <input type="text" class="form-control moeda" id="prod-preco-anterior" placeholder="0,00" name="preco_anterior" min="0" value="<?= number_format($prod->preco_anterior, 2, ',', '.'); ?>">
                                 </div>
                                 <div class="form-group">
                                     <label for="prod-quantidade">Quantidade:</label>
@@ -181,7 +181,8 @@ $imagens_array = array_map('trim', $imagens_array);
             </div>
         </div>
     </div>
-    
+    <script src="<?= SITE ?>/src/js/jquery.min.js?id=<?= uniqid() ?>"></script>
+               
         <script>
             $(document).ready(function() {
                 $('.imagem-carousel').on('click', function() {

@@ -19,8 +19,12 @@ if (isset($_POST["id"]) && isset($_SESSION["user_id"]) && $_SESSION['logged_user
     } else {
         $quantidade = $_POST['quantidade'];
     }
-
-    $item_selecionado = isset($_POST['checkboxChecked']) && $_POST['checkboxChecked'] ? 1 : 0;
+  
+    if ($_POST['checkboxChecked'] == "1") {
+        $item_selecionado = 1;
+    } else {
+        $item_selecionado = 0;
+    }
 
     $results = $db->execute_non_query("INSERT INTO carrinho (user_id, produto_id, quantidade, item_selecionado) VALUES (:user_id, :produto_id, :quantidade, :item_selecionado)", [
         ":user_id" => $id_usuario,
@@ -33,6 +37,8 @@ if (isset($_POST["id"]) && isset($_SESSION["user_id"]) && $_SESSION['logged_user
         $res['status'] = "success";
         $res['message'] = "Item adicionado ao carrinho com sucesso!";
         $res['retorno'] = "Sucesso!";
+        $res['debug'] = $item_selecionado;
+
     } else {
         $res['status'] = "error";
         $res['message'] = "Erro ao adicionar item ao carrinho!.";
@@ -40,4 +46,3 @@ if (isset($_POST["id"]) && isset($_SESSION["user_id"]) && $_SESSION['logged_user
     }
     echo json_encode($res);
 }
-?>

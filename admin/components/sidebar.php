@@ -4,7 +4,7 @@
     <a href="?route=painel&sys=users">Usuarios</a>
     <a href="?route=painel&sys=products">Produtos</a>
     <a href="?route=painel&sys=templates-settings">Configurações Gerais</a>
-    <a href="?route=painel&sys=payments">Pagamentos</a>
+    <a href="?route=painel&sys=pagamentos">Pagamentos</a>
     <a href="<?= SITE ?>/">Página Inicial</a>
     
     <span class="close-btn" style="color: white;">&#10005;</span>

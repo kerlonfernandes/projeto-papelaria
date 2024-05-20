@@ -18,7 +18,7 @@
             <div class="modal-footer">
             <h2 class="alert alert-primary">Valor pedido R$<span class="subtotal_finalizar"></span></h2>
             
-            <button class="btn btn-outline-success btn-lg floating-button ml-auto finalizar_pedido" style="border-radius: 2px; height:70px;" data-toggle="modal">Finalizar Pedido</button>
+            <button class="btn btn-outline-success btn-lg floating-button ml-auto finalizar_pedido" style="border-radius: 2px; height:70px;" data-toggle="modal">Abrir Pedido</button>
             </div>
 
 

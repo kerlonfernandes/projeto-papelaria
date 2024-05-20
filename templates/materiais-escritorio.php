@@ -8,7 +8,7 @@ use HelpersClass\SupAid;
 use Midspace\Database;
 
 $db = new Database(MYSQL_CONFIG);
-$helpers= new SupAid();
+$helpers = new SupAid();
 
 $sql = "SELECT produtos.*, tipo_produto.descricao AS description FROM `produtos` 
 LEFT JOIN tipo_produto ON produtos.tipo_produto_id = tipo_produto.id WHERE tipo_produto = 'Material para escritório'";
@@ -21,7 +21,7 @@ if ($result->status === 'success') :
     $grupos_produtos = array_chunk($produtos, 4);
 ?>
 
-<div class="limit">
+    <div class="limit">
         <div class="container mt-5">
             <button class="carousel-control-prev" type="button" data-bs-target="#carouselMateriais" data-bs-slide="prev">
                 <span class="carousel-control-prev-icon buttons-caroussel" aria-hidden="true"></span>
@@ -46,7 +46,7 @@ if ($result->status === 'success') :
                                                             if (strpos($imagens, ',') !== false) {
                                                                 $imagensArray = explode(',', $imagens);
                                                                 $primeiraImagem = $imagensArray[0];
-                                                                echo $primeiraImagem;
+                                                                echo SITE . "/app/images/" . $primeiraImagem;
                                                             } else {
 
                                                                 if ($imagens != "") {

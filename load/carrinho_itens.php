@@ -47,11 +47,12 @@ GROUP BY
                         <div class="product-image">
                             <img src="
                                 <?php
+   
                                 $imagens = $produto->imagens;
                                 if (strpos($imagens, ',') !== false) {
                                     $imagensArray = explode(',', $imagens);
                                     $primeiraImagem = $imagensArray[0];
-                                    echo $primeiraImagem;
+                                    echo SITE . "/app/images/" . $primeiraImagem;
                                 } else {
                                     if ($imagens != "") {
                                         echo SITE . "/app/images/" . $imagens;
@@ -87,7 +88,7 @@ GROUP BY
                             </div>
                         </div>
                         <div class="col-md-6">
-                            <button type="button" class="btn btn-danger btn-sm mt-auto float-end remove-prod" data-mdb-ripple-color="danger" data-id="<?= $helpers->encodeURL($produto->id) ?>">Remover do carrinho <i class="fa-regular fa-square-minus"></i></button>
+                            <button type="button" class="btn btn-outline-danger btn-sm mt-auto float-end remove-prod" data-mdb-ripple-color="danger" data-id="<?= $helpers->encodeURL($produto->id) ?>">Remover do carrinho <i class="fa-regular fa-square-minus"></i></button>
                         </div>
                     </div>
                 </div>

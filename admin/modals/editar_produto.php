@@ -1,4 +1,4 @@
-<div class="modal fade" id="editar-produto" tabindex="-1" aria-labelledby="editar-produtoLabel" aria-hidden="true">
+<div class="modal fade" id="edita-produto" tabindex="-1" aria-labelledby="editar-produtoLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog modal-dialog-scrollable modal-lg">
     <div class="modal-content">
       <div class="modal-header">
@@ -6,7 +6,7 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <form class="editar-produto">
+        <form class="edita-produto">
           <input type="hidden" class="id-prod" value="" name="id_produto">
           <div class="mb-3">
             <label for="prod-nome" class="form-label">Nome do Produto:</label>
@@ -43,7 +43,7 @@
             <input type="number" class="form-control" id="prod-quantidade" name="produto_quantidade" min="0" value="1">
           </div>
           <div class="d-flex justify-content-end">
-            <button type="submit" class="btn btn-primary">Editar</button>
+            <button type="submit" class="btn btn-primary edita-produto">Editar</button>
           </div>
 
         </form>

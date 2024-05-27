@@ -22,6 +22,13 @@ $horaAtual = $dataHoraAtual->format('H:i:s');
 define("currentDate", $dataAtual);
 define("currentTime", $horaAtual);
 
+define('MAILUSER', 'contato@pitagoras.online');
+define('MAILPASS', '@Pitagoras#2024');
+define('MAILPORT', '465');
+define('MAILHOST', 'mail.pitagoras.online');
+define('FROM_NAME', 'Pitágoras Papelaria'); // Quem envia 
+define('FROM_EMAIL', 'contato@pitagoras.online');
+
 function printData($data, $die = true) {
 
     echo "<pre>";

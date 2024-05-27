@@ -29,6 +29,7 @@ class Database {
 
         if (!empty($_return_type) && $_return_type == 'object'){
 
+            
             $this->_return_type = PDO::FETCH_OBJ;
 
         }

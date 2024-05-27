@@ -74,10 +74,10 @@
     </div>
         <form id="login_admin" class="login-form">
             <div class="mb-3">
-                <input type="text" class="form-control" id="user" name="email" placeholder="Username" required>
+                <input type="text" class="form-control" id="user" name="email" placeholder="Email" required>
             </div>
             <div class="mb-3">
-                <input type="password" class="form-control" name="password" id="password" placeholder="Password" required>
+                <input type="password" class="form-control" name="password" id="password" placeholder="Senha" required>
             </div>
             <button type="submit" class="btn btn-primary">Login</button>
         </form>

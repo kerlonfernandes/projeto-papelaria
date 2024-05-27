@@ -2,7 +2,7 @@
 session_start();
 
 require "./classes/Database.inc.php";
-require "./classes/Helpers.inc.php";
+// require "./classes/Helpers.inc.php";
 
 
 use Midspace\Database;

@@ -11,7 +11,7 @@ $helpers = new SupAid();
 $db = new Database(MYSQL_CONFIG);
 $res = array();
 
-if (isset($_POST["id"]) && isset($_SESSION["user_id"]) && $_SESSION['logged_user'] == True) {
+if (isset($_POST["id"]) && isset($_SESSION["id_admin"]) && $_SESSION['logged_admin'] == True) {
     
     $pedido_id = $helpers->decodeURL($_POST["id"]);
     $produto_id = $helpers->decodeURL($_POST["id_produto"]);

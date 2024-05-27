@@ -5,7 +5,7 @@ use Midspace\Database;
 use HelpersClass\SupAid;
 
 require "./classes/Database.inc.php";
-require "./classes/Helpers.inc.php";
+// require "./classes/Helpers.inc.php";
 
 $helpers = new SupAid();
 $db = new Database(MYSQL_CONFIG);

@@ -20,6 +20,9 @@ $data = $db->execute_query("SELECT users.*, pedido.*, pedidos.*, pedidos.id AS n
     ":id" => $_GET['id']
 ]);
 
+$estados = $db->execute_query("SELECT sigla, nome FROM estados");
+
+
 $dados_pedido = $data->results[0]
 
 ?>
@@ -99,9 +102,15 @@ $dados_pedido = $data->results[0]
                             </select>
                     </div>
 
-                    <li class="list-group-item"><strong>Aguardando reembolso:</strong> <?= (isset($dados_pedido->aguardando_reembolso) ? $dados_pedido->aguardando_reembolso : "") == 1 ? "SIM" : "NÃO" ?></li>
+                    <li class="list-group-item"><strong>Aguardando reembolso:</strong>
+                        <select class="form-select  aguardando">
+                            <option value="<?= $dados_pedido->aguardando_reembolso ?>" selected><?= (isset($dados_pedido->aguardando_reembolso) ? $dados_pedido->aguardando_reembolso : "") == 1 ? "SIM" : "NÃO" ?></option>
+                            <option value="1">SIM</option>
+                            <option value="0">NÃO</option>
+                        </select>
+                    </li>
                     <li class="list-group-item"><strong>Hora do pedido:</strong> <?= isset($dados_pedido->hora_pedido) ? $dados_pedido->hora_pedido : "" ?></li>
-                    <li class="list-group-item"><strong>Data do pedido:</strong> <?= isset($dados_pedido->data_pedido) ? $dados_pedido->data_pedido : "" ?></li>
+                    <li class="list-group-item"><strong>Data do pedido:</strong> <?= date("d/m/Y", strtotime($dados_pedido->data_pedido)) ?></li>
                     </ul>
                 </div>
             </div>
@@ -151,10 +160,19 @@ $dados_pedido = $data->results[0]
                 <li class="list-group-item b-n">
                     <div class="input-group">
                         <span class="input-group-text" id="basic-addon1">Estado</span>
-                        <input type="text" class="form-control estado" placeholder="Estado" aria-label="Estado" aria-describedby="basic-addon1" readonly value="<?= isset($dados_pedido->estado) ? $dados_pedido->estado : "Sem estado" ?>">
+
+                        <select class="form-select estado">
+                            <option selected><?= isset($dados_pedido->estado) ? $dados_pedido->estado : "Sem estado" ?>
+                            </option>
+                            <?php if ($estados->affected_rows > 0) : ?>
+                                <?php foreach ($estados->results as $estado) : ?>
+                                    <option value="<?= $estado->sigla ?>"><?= $estado->sigla ?></option>
+                                <?php endforeach; ?>
+                            <?php endif; ?>
+                        </select>
                     </div>
                 </li>
-                <button type="button" class="btn btn-outline-primary w-100 sys-btn mt-3 editar-endereco">Editar Endereço</button>
+                <button type="button" class="btn btn-outline-primary w-100 sys-btn mt-3 editar-endereco" data-id="<?= $helpers->encodeURL($dados_pedido->id_pedido) ?>">Editar Endereço</button>
             </ul>
         </div>
     </div>

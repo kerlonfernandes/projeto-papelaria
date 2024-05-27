@@ -583,7 +583,7 @@ $(document).ready(function () {
       data: { id: id, id_produto: id_produto },
       url: `${AJAX_ADMIN_URL}/diminui_qtd_pedido.php`,
       success: function (res) {
-        res = JSON.parse(res);
+    
         load_view(
           ".produtos-pedidos",
           ".spinner-2",
@@ -602,15 +602,15 @@ $(document).ready(function () {
   });
   function incrementarQuantidade(btn) {
     var input = $(btn).closest(".input-group").find(".quantidade-input");
-    var valor = parseInt(input.text()); // Obtemos o texto do span e convertemos para inteiro
-    input.text(valor + 1); // Incrementamos o valor e atualizamos o texto do span
+    var valor = parseInt(input.text());
+    input.text(valor + 1); 
   }
 
   function decrementarQuantidade(btn) {
     var input = $(btn).closest(".input-group").find(".quantidade-input");
-    var valor = parseInt(input.text()); // Obtemos o texto do span e convertemos para inteiro
+    var valor = parseInt(input.text()); 
     if (valor > 0) {
-      input.text(valor - 1); // Decrementamos o valor e atualizamos o texto do span, se for maior que 0
+      input.text(valor - 1);
     }
   }
 
@@ -624,7 +624,6 @@ $(document).ready(function () {
       data: { id: id, id_produto: id_produto },
       url: `${AJAX_ADMIN_URL}/aumenta_qtd_pedido.php`,
       success: function (res) {
-        res = JSON.parse(res);
         load_view(
           ".produtos-pedidos",
           ".spinner-2",
@@ -645,33 +644,55 @@ $(document).ready(function () {
       },
     });
   });
-  function removerReadonly(className) {
+  function removeReadonly(className) {
     $(className).removeAttr("readonly");
   }
-  function adicionarReadonly(className) {
+  function addReadonly(className) {
     $(className).attr("readonly", "readonly");
   }
   let end_btn = 0;
   $(document).on("click", ".editar-endereco", function () {
     if (end_btn == 0) {
       $(this).addClass("active");
-      removerReadonly(".form-control.cep");
-      removerReadonly(".form-control.endereco");
-      removerReadonly(".form-control.numero");
-      removerReadonly(".form-control.complemento");
-      removerReadonly(".form-control.bairro");
-      removerReadonly(".form-control.cidade");
-      removerReadonly(".form-control.estado");
+      removeReadonly(".form-control.cep");
+      removeReadonly(".form-control.endereco");
+      removeReadonly(".form-control.numero");
+      removeReadonly(".form-control.complemento");
+      removeReadonly(".form-control.bairro");
+      removeReadonly(".form-control.cidade");
+      removeReadonly(".form-control.estado");
       $(this).text("Salvar")
       end_btn = 1;
     } else if (end_btn == 1) {
-      adicionarReadonly(".form-control.cep");
-      adicionarReadonly(".form-control.endereco");
-      adicionarReadonly(".form-control.numero");
-      adicionarReadonly(".form-control.complemento");
-      adicionarReadonly(".form-control.bairro");
-      adicionarReadonly(".form-control.cidade");
-      adicionarReadonly(".form-control.estado");
+      
+      
+      let data = {
+        id: $(this).attr("data-id"),
+        cep: $(".form-control.cep").val(),
+        endereco: $(".form-control.endereco").val(),
+        numero: $(".form-control.numero").val(),
+        complemento: $(".form-control.complemento").val(),
+        bairro: $(".form-control.bairro").val(),
+        cidade: $(".form-control.cidade").val(),
+        estado: $(".estado").val()
+      }
+      $.ajax({
+        method: "POST",
+        data: data,
+        url: `${AJAX_ADMIN_URL}/editar_endereco.php`,
+        success: function (response) {
+          response = JSON.parse(response)
+          showToast(response.status, response.message, (duration = 3000));
+          addReadonly(".form-control.cep");
+          addReadonly(".form-control.endereco");
+          addReadonly(".form-control.numero");
+          addReadonly(".form-control.complemento");
+          addReadonly(".form-control.bairro");
+          addReadonly(".form-control.cidade");
+          addReadonly(".form-control.estado");
+        }
+       });
+          
       end_btn = 0;
       $(this).text("Editar Endereço")
       $(this).removeClass("active");

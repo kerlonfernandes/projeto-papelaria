@@ -8,7 +8,7 @@ ehthumbs_vista.db
 #Config files
 _app/Config.inc.php
 src/js/index.js
-.htaccessvc 
+.htaccess
 
 #images files
 app/images/*

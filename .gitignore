@@ -10,6 +10,9 @@ _app/Config.inc.php
 src/js/index.js
 .htaccess
 
+#images files
+app/images/*
+
 # Dump file
 *.stackdump
 

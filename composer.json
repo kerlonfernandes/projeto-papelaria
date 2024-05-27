@@ -1,0 +1,15 @@
+{
+    "name": "kerlon/projeto-papelaria",
+    "autoload": {
+        "psr-4": {
+            "Kerlon\\ProjetoPapelaria\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "kerlonfernandes",
+            "email": "kerlon1221@gmail.com"
+        }
+    ],
+    "require": {}
+}

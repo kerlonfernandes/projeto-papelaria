@@ -1,8 +1,20 @@
 <?php
+
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
 session_start();
 require "../classes/Database.inc.php";
+require "../classes/Email.inc.php";
 require "../_app/Config.inc.php";
 require "../classes/Helpers.inc.php";
+require_once '../vendor/autoload.php';
+
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\SMTP;
+use PHPMailer\PHPMailer\Exception;
+
 
 use HelpersClass\SupAid;
 use Midspace\Database;
@@ -10,7 +22,7 @@ use Midspace\Database;
 $helpers = new SupAid();
 $db = new Database(MYSQL_CONFIG);
 $res = array();
-
+$email = new Email();
 
 // valor dos itens do pedido
 
@@ -37,7 +49,15 @@ if (isset($_SESSION["user_id"]) && $_SESSION['logged_user'] == True) {
     ) AS produtos_carrinho;", [":user_id" => $user_id])->results[0]->total;
 
 
+    $usuario = $db->execute_query("SELECT email, nome FROM users WHERE id = :user_id", [":user_id" => $user_id])->results[0];
+  
 
+    $recipient_email = $usuario->email;
+    $subject = 'O seu pedido foi aberto com sucesso!';
+    $body = "<p>Parabéns <strong>{$usuario->nome}</strong></p><br><br><h3>Seu pedido foi aberto com sucesso! continue para os próximos passos.</h3>";
+    $recipient_name = $usuario->nome;
+
+    $email->add($subject, $body, $recipient_name, $recipient_email);
     // verificar se a quantidade pedida é maior que a quantidade no estoque
     $produto = $db->execute_query("SELECT 
                                         carrinho.produto_id, 
@@ -56,10 +76,10 @@ if (isset($_SESSION["user_id"]) && $_SESSION['logged_user'] == True) {
 
 
     if ($produto->affected_rows > 0) {
-        $prod_names = ""; 
-        $produto_dados = $produto->results; 
+        $prod_names = "";
+        $produto_dados = $produto->results;
         foreach ($produto_dados as $prod) {
-            
+
             if ($prod->quantidade_p > $prod->quantidade) {
                 $prod_names .= $prod->nome . ", ";
             }
@@ -109,8 +129,11 @@ if (isset($_SESSION["user_id"]) && $_SESSION['logged_user'] == True) {
     );
 
     if ($results->status == "success") {
+
+        $email->add($subject, $body, $recipient_name, $recipient_email);
+
         $res['status'] = "success";
-        $res['message'] = "Pedido feito com sucesso! Iremos te redirecionar para o próximo passo 😉";
+        $res['message'] = "O seu pedido foi aberto com sucesso! Iremos te redirecionar para o próximo passo 😉";
         $res['retorno'] = "Sucesso!";
         $res['id'] = $helpers->encodeURL($results->last_id);
     } else {

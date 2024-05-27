@@ -6,13 +6,11 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
+$config_data = file_get_contents(__DIR__."/config.json");
+$config_array = json_decode($config_data, true);
+
 //MYSQL configurations 
-define('MYSQL_CONFIG', [
-    'host' => 'localhost',
-    'database' => 'papelaria_db',
-    'username' => 'root',
-    'password' => '',
-]);
+define('MYSQL_CONFIG', $config_array["database_homologation"]);
 date_default_timezone_set('America/Sao_Paulo');
 
 $dataHoraAtual = new DateTime();
@@ -22,12 +20,15 @@ $horaAtual = $dataHoraAtual->format('H:i:s');
 define("currentDate", $dataAtual);
 define("currentTime", $horaAtual);
 
-define('MAILUSER', 'contato@pitagoras.online');
-define('MAILPASS', '@Pitagoras#2024');
-define('MAILPORT', '465');
-define('MAILHOST', 'mail.pitagoras.online');
-define('FROM_NAME', 'Pitágoras Papelaria'); // Quem envia 
-define('FROM_EMAIL', 'contato@pitagoras.online');
+$mail_conf = $config_array['email'];
+
+define('MAILUSER', $mail_conf['MAILUSER']);
+define('MAILPASS', $mail_conf['MAILPASS']);
+define('MAILPORT', $mail_conf['MAILPORT']);
+define('MAILHOST', $mail_conf['MAILHOST']);
+define('FROM_NAME', $mail_conf['FROM_NAME']); // Quem envia 
+define('FROM_EMAIL', $mail_conf['FROM_EMAIL']);
+
 
 function printData($data, $die = true) {
 

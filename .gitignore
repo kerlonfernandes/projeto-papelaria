@@ -9,6 +9,8 @@ ehthumbs_vista.db
 _app/Config.inc.php
 src/js/index.js
 .htaccess
+vendor/
+
 
 #images files
 app/images/*
@@ -480,3 +482,4 @@ composer.lock
 *.css.map
 *.sass.map
 *.scss.map
+/vendor/

@@ -7,7 +7,8 @@
 
     .panel-content {
         padding: 20px;
-        height: 100%; /* Para ocupar a altura total do pai */
+        height: 100%;
+        /* Para ocupar a altura total do pai */
     }
 
     .user-info {
@@ -41,7 +42,7 @@
 <div class="container">
     <div class="row">
         <div class="col-md-12">
-            <div class="panel card">
+            <div class="panel card background-color: #EEEEEE;">
                 <div class="panel-header">Dados do Usuário</div>
                 <div class="panel-content text-start d-flex justify-content-center align-items-center">
                     <div class="row justify-content-center text-center">

@@ -60,7 +60,7 @@ if (isset($_SESSION["user_id"]) && $_SESSION['logged_user'] == true) {
                 ":id_usuario" => $user_id,
                 ":id_pedido" => $id_pedido,
                 ":status_pedido" => "Em Aberto",
-                ":aguardando_reembolso" => 1,
+                ":aguardando_reembolso" => 0,
                 ":hora_pedido" => $horaAtual,
                 ":data_pedido" => $dataAtual
             ]);

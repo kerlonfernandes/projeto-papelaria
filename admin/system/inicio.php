@@ -15,22 +15,22 @@ error_reporting(E_ALL);
                 <div class="panel-header">Pedidos</div>
                 <div class="panel-content">
                     <div class="box alert alert-danger">
-                        <p class="box-text">Pedidos em aberto</p>
+                        <p class="box-text">Pedidos em aberto <i class="fa-solid fa-paper-plane"></i></p>
                         <span class="badge text-bg-danger qtd pedidos-abertos"><?= $pedidos_abertos->p_abertos ?></span>
                         <a href="<?= SITE ?>/admin/?route=painel&sys=pedidos&filter=em-aberto" class="btn btn-da-box btn-block btn-sm mt-3">Visualizar <i class="fa-solid fa-arrow-right"></i></a>
                     </div>
                     <div class="box alert alert-success">
-                        <p class="box-text">Finalizados</p>
+                        <p class="box-text">Finalizados <i class="fa-regular fa-circle-check"></i></p>
                         <span class="badge text-bg-success qtd finalizados"><?= $finalizados->p_finalizados ?></span>
                         <a href="<?= SITE ?>/admin/?route=painel&sys=pedidos&filter=finalizados" class="btn btn-da-box btn-block btn-sm mt-3">Visualizar <i class="fa-solid fa-arrow-right"></i></a>
                     </div>
                     <div class="box alert alert-warning">
-                        <p class="box-text">A Entregar</p>
+                        <p class="box-text">A Entregar <i class="fa-solid fa-truck-fast"></i></p>
                         <span class="badge text-bg-warning qtd entregar"><?= $a_entregar->p_a_entregar ?></span>
                         <a class="btn btn-da-box btn-block btn-sm mt-3">Visualizar <i class="fa-solid fa-arrow-right"></i></a>
                     </div>
                     <div class="box alert alert-danger">
-                        <p class="box-text">Aguardando reembolso</p>
+                        <p class="box-text">Aguardando reembolso <i class="fa-solid fa-triangle-exclamation"></i></p>
                         <span class="badge text-bg-alert qtd entregar"><?=  $aguardando_reembolso->a_reembolso ?></span>
                         <a href="<?= SITE ?>/admin/?route=painel&sys=pedidos&filter=cancelados" class="btn btn-da-box btn-block btn-sm mt-3">Visualizar <i class="fa-solid fa-arrow-right"></i></a>
                     </div>

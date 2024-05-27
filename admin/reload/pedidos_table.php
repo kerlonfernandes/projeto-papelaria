@@ -64,7 +64,7 @@ if (!empty($status)) {
 }
 
 $sql .= " GROUP BY 
-pedidos.id"; 
+pedidos.id";
 
 
 $pedidos = $db->execute_query($sql);
@@ -72,39 +72,38 @@ $pedidos = $db->execute_query($sql);
 ?>
 
 <?php if ($pedidos->affected_rows > 0) : ?>
-<?php foreach ($pedidos->results as $pedido) : ?>
-    
-    <tr>
-        <td>
-            <button class="btn btn-success sys-btn panel-btn">Acessar</button>
-            <button class="btn btn-primary sys-btn panel-btn">Editar</button>
-            <button class="btn btn-danger sys-btn panel-btn apaga-pedido" data-id="<?= $helpers->encodeURL($pedido->numero_pedido_sistema) ?>">Deletar</button>
-        </td>
-        <td><?= $pedido->id_pedido ?></td>
-        <td><?= $pedido-> numero_pedido_sistema?></td>
-        <td><a href="<?= SITE ?>/admin/?route=painel&sys=usuario&id=<?= $helpers->encodeURL($pedido->id_pedido) ?>" style="text-decoration: none;"><?= $pedido->cliente ?></a></td>
-        <td><?= $pedido->total_qtd_itens ?></td>
-        <td><?= number_format($pedido->total_pedido, 2, ',', '.');  ?></td>
-        <td>
-            <div class="input-group mb-3">
-                <select class="form-select muda-status" id="select" data-id="<?= $helpers->encodeURL($pedido->numero_pedido_sistema) ?>">
-                    <option selected><?= $pedido->status_pedido ?></option>
-                    <option value="Em Aberto">Em Aberto</option>
-                    <option value="Pendente">Pendente</option>
-                    <option value="Finalizado">Finalizado</option>
-                    <option value="A entregar">A entregar</option>
-                    <option value="Cancelado">Cancelado</option>
-                </select>
-            </div>
-        </td>
-        <td>
-            <?php
-            echo $pedido->aguardando_reembolso == "1" ? "Sim" : ($pedido->aguardando_reembolso == 0 ? "Não" : "Reembolsado");
-            ?>
-        </td>
-    </tr>
+    <?php foreach ($pedidos->results as $pedido) : ?>
 
-<?php endforeach; ?>
-<?php else: ?>
+        <tr>
+            <td>
+                <a href="<?= SITE ?>/admin/?route=painel&sys=pedido&id=<?= $helpers->encodeURL($pedido->id_pedido) ?>" class="btn btn-success sys-btn panel-btn">Acessar</a>
+                <button class="btn btn-danger sys-btn panel-btn apaga-pedido" data-id="<?= $helpers->encodeURL($pedido->numero_pedido_sistema) ?>">Deletar</button>
+            </td>
+            <td><?= $pedido->id_pedido ?></td>
+            <td><?= $pedido->numero_pedido_sistema ?></td>
+            <td><a href="<?= SITE ?>/admin/?route=painel&sys=usuario&id=<?= $helpers->encodeURL($pedido->id_pedido) ?>" style="text-decoration: none;"><?= $pedido->cliente ?></a></td>
+            <td><?= $pedido->total_qtd_itens ?></td>
+            <td><?= number_format($pedido->total_pedido, 2, ',', '.');  ?></td>
+            <td>
+                <div class="input-group mb-3">
+                    <select class="form-select muda-status" id="select" data-id="<?= $helpers->encodeURL($pedido->numero_pedido_sistema) ?>">
+                        <option selected><?= $pedido->status_pedido ?></option>
+                        <option value="Em Aberto">Em Aberto</option>
+                        <option value="Pendente">Pendente</option>
+                        <option value="Finalizado">Finalizado</option>
+                        <option value="A entregar">A entregar</option>
+                        <option value="Cancelado">Cancelado</option>
+                    </select>
+                </div>
+            </td>
+            <td>
+                <?php
+                echo $pedido->aguardando_reembolso == "1" ? "Sim" : ($pedido->aguardando_reembolso == 0 ? "Não" : "Reembolsado");
+                ?>
+            </td>
+        </tr>
+
+    <?php endforeach; ?>
+<?php else : ?>
     <td colspan="8" class="text-center">Nenhum resultado encontrado</td>
 <?php endif; ?>

@@ -550,8 +550,8 @@ $(document).ready(function () {
       type: "POST",
       data: {
         id: id,
-        status: status
-       },
+        status: status,
+      },
       success: function (response) {
         response = JSON.parse(response);
         showToast(response.status, response.message, (duration = 3000));
@@ -560,5 +560,121 @@ $(document).ready(function () {
         console.error("Erro ao enviar dados:", error);
       },
     });
+  });
+
+  $(document).ready(function () {
+    load_view(".dados-usuario", "", `${RELOAD_ADMIN}/dados_pedido.php`, {
+      id: $(".dados").val(),
+    });
+    load_view(
+      ".produtos-pedidos",
+      ".spinner-2",
+      `${RELOAD_ADMIN}/produtos_pedidos.php`,
+      { id: $(".dados").val() }
+    );
+  });
+
+  $(document).on("click", ".diminui-qtd", function () {
+    decrementarQuantidade(this);
+    let id = $(this).attr("data-id");
+    let id_produto = $(this).attr("data-id-produto");
+    $.ajax({
+      method: "POST",
+      data: { id: id, id_produto: id_produto },
+      url: `${AJAX_ADMIN_URL}/diminui_qtd_pedido.php`,
+      success: function (res) {
+        res = JSON.parse(res);
+        load_view(
+          ".produtos-pedidos",
+          ".spinner-2",
+          `${RELOAD_ADMIN}/produtos_pedidos.php`,
+          { id: $(".dados").val() }
+        );
+      },
+      error: function (error) {
+        swal(
+          "Ocorreu um erro!",
+          "Verifique sua conexão com a internet",
+          "error"
+        );
+      },
+    });
+  });
+  function incrementarQuantidade(btn) {
+    var input = $(btn).closest(".input-group").find(".quantidade-input");
+    var valor = parseInt(input.text()); // Obtemos o texto do span e convertemos para inteiro
+    input.text(valor + 1); // Incrementamos o valor e atualizamos o texto do span
+  }
+
+  function decrementarQuantidade(btn) {
+    var input = $(btn).closest(".input-group").find(".quantidade-input");
+    var valor = parseInt(input.text()); // Obtemos o texto do span e convertemos para inteiro
+    if (valor > 0) {
+      input.text(valor - 1); // Decrementamos o valor e atualizamos o texto do span, se for maior que 0
+    }
+  }
+
+  $(document).on("click", ".aumentar-qtd", function () {
+    incrementarQuantidade(this);
+    let id = $(this).attr("data-id");
+    let id_produto = $(this).attr("data-id-produto");
+
+    $.ajax({
+      method: "POST",
+      data: { id: id, id_produto: id_produto },
+      url: `${AJAX_ADMIN_URL}/aumenta_qtd_pedido.php`,
+      success: function (res) {
+        res = JSON.parse(res);
+        load_view(
+          ".produtos-pedidos",
+          ".spinner-2",
+          `${RELOAD_ADMIN}/produtos_pedidos.php`,
+          { id: $(".dados").val() }
+        );
+
+        // swal(res.retorno, res.message, res.status);
+        // load_view(".carrinho_qtd", "", `${LOAD}/carrinho_itens_qtd.php`);
+        // load_view(".subtotal", "", `${RELOAD_ADMIN}/subtotal.php`);
+      },
+      error: function (error) {
+        swal(
+          "Ocorreu um erro!",
+          "Verifique sua conexão com a internet",
+          "error"
+        );
+      },
+    });
+  });
+  function removerReadonly(className) {
+    $(className).removeAttr("readonly");
+  }
+  function adicionarReadonly(className) {
+    $(className).attr("readonly", "readonly");
+  }
+  let end_btn = 0;
+  $(document).on("click", ".editar-endereco", function () {
+    if (end_btn == 0) {
+      $(this).addClass("active");
+      removerReadonly(".form-control.cep");
+      removerReadonly(".form-control.endereco");
+      removerReadonly(".form-control.numero");
+      removerReadonly(".form-control.complemento");
+      removerReadonly(".form-control.bairro");
+      removerReadonly(".form-control.cidade");
+      removerReadonly(".form-control.estado");
+      $(this).text("Salvar")
+      end_btn = 1;
+    } else if (end_btn == 1) {
+      adicionarReadonly(".form-control.cep");
+      adicionarReadonly(".form-control.endereco");
+      adicionarReadonly(".form-control.numero");
+      adicionarReadonly(".form-control.complemento");
+      adicionarReadonly(".form-control.bairro");
+      adicionarReadonly(".form-control.cidade");
+      adicionarReadonly(".form-control.estado");
+      end_btn = 0;
+      $(this).text("Editar Endereço")
+      $(this).removeClass("active");
+    }
   });
 });

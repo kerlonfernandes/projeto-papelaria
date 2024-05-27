@@ -68,6 +68,9 @@ $prod_cad = $db->execute_query("SELECT COUNT(id) AS produtos_qtd FROM produtos;"
                         case "pedidos";
                             echo "Pedidos";
                             break;
+                        case "pedido";
+                            echo "Pedido ID: {$helpers->decodeURL($_GET['id'])}";
+                            break;
                         case "templates-settings";
                             echo "Configurações Gerais";
                             break;

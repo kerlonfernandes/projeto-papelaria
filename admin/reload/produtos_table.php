@@ -78,8 +78,8 @@ $produtos = $db->execute_query($sql);
                 <button class="btn btn-danger sys-btn panel-btn deletar-produto" data-id-produto="<?= $produto->id ?>" data-produto-nome="<?= $produto->nome ?>">Deletar</button>
             </td>
             <td><?= $produto->id_produto ?></td>
-            <td><?= $produto->nome ?></td>
-            <td><?= $produto->descricao ?></td>
+            <td><?php if(strlen($produto->nome) > 50) {echo substr($produto->nome, 0, 50)."...";} else {echo $produto->nome;}?></td>
+            <td><?php if(strlen($produto->descricao) > 50) {echo substr($produto->descricao, 0, 50)."...";} else {echo $produto->descricao;}?></td>
             <td><?= number_format($produto->preco, 2, ',', '.');  ?></td>
             <td><?= $produto->quantidade ?></td>
             <td><?= $produto->cat_nome ?></td>

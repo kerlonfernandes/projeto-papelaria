@@ -4,9 +4,9 @@
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
+
 require_once '../../vendor/autoload.php';
 require "../../_app/Config.inc.php";
-require "../../classes/Email.inc.php"; // Substitua com o caminho correto para o arquivo Email.inc.php
 
 $email = new Email();
 
